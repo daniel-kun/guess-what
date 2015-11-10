@@ -5,7 +5,8 @@
     "dependencies": {
         "Microsoft.AspNet.Server.IIS": "1.0.0-beta5",
         "Microsoft.AspNet.Server.WebListener": "1.0.0-beta5",
-        "bootstrap": "3.3.5"
+        "Microsoft.AspNet.Mvc": "6.0.0-beta5",
+        "Twitter.Bootstrap.Less": "3.3.5"
     },
 
     "commands": {
