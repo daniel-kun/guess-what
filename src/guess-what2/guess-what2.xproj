@@ -14,6 +14,7 @@
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
     <DevelopmentServerPort>53938</DevelopmentServerPort>
+    <ApplicationInsightsResourceId>/subscriptions/1d623084-4ab1-4f0a-848e-730be533bc51/resourcegroups/Default-Web-SouthCentralUS/providers/microsoft.insights/components/guess-what2</ApplicationInsightsResourceId>
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\DNX\Microsoft.DNX.targets" Condition="'$(VSToolsPath)' != ''" />
 </Project>
