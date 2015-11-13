@@ -60,7 +60,7 @@ $(function () {
 
             $("div.checklistfull").show();
             $('html,body').animate({
-                scrollTop: $("#checklist-preconditions").offset().top
+                scrollTop: $("#page-preconditions").offset().top
             }, 300, 'swing');
         },
         filter: function () {
@@ -214,17 +214,15 @@ function buildResultUrl() {
 }
 
 $(function () {
-    /*
-        $("#slider").hide();
-        $("#checklist-preconditions").hide();
-        $("#checklist-complexity").hide();
-        $("#result").show();
-    */
+    $("#page-estimate").show();
+    $("#page-preconditions").show();
+    $("#checklist-complexity").show();
+    $("#result").show();
 
     var params = getQueryParams(document.location.search);
     if ("e" in params) {
         applyEstimationCode(params.e);
-        $("#checklist-preconditions").show();
+        $("#page-preconditions").show();
         $("#checklist-complexity").show();
         $("#result").show();
         $("#params").text(buildResultUrl());

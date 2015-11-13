@@ -342,7 +342,7 @@ ul.unstyled {
 .bg-gray {
   background: #f6f6f6;
 }
-.multipage #slider {
+.multipage #page-estimate {
   background: url(../images/bg10.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;

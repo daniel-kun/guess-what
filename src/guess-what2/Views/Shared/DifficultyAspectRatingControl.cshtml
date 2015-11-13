@@ -1,0 +1,29 @@
+﻿<!---
+Item1 = button class (gray = "default", blue = "success", etc. - see Bootstrap button styles)
+Item2 = id of the input element
+Item3 = display text
+Item4 = is currently checked?
+-->
+@model Tuple<string, string, string, bool>
+
+@if (ViewData.Model.Item4)
+{
+    <label class="btn btn-@ViewData.Model.Item1">
+        <input type="radio"
+               name="options"
+               id="ViewData.Model.Item2"
+               autocomplete="off"
+               checked>
+        @ViewData.Model.Item3
+    </label>
+}
+else
+{
+    <label class="btn btn-@ViewData.Model.Item1">
+        <input type="radio"
+               name="options"
+               id="@ViewData.Model.Item2"
+               autocomplete="off">
+        @ViewData.Model.Item3
+    </label>
+}
