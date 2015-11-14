@@ -1,0 +1,53 @@
+﻿        <!-- Result -->
+<div id="result" class="fullSection startSection section-result">
+    <div class="container">
+
+        <div class="section-heading">
+            <h2>A more likely estimate is...</h2>
+        </div>
+
+        <table class="centered">
+            <tr>
+                <td class="result-td">
+                    <div class="text-muted text-right result-hint">original estimate</div>
+                    <div class="text-right result-factors" id="result-original-estimate">1</div>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="result-td">
+                    <div class="text-muted text-right result-hint">uncertainty factor</div>
+                    <div class="text-right result-factors">×</div>
+                    <div class="text-right result-factors" id="result-factor">1</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="result-final-td">
+                    <div class="final-result-container">
+                        <div class="text-right result-factors">=</div>
+                        <div class="text-right final-result" id="result-final">1</div>
+                    </div>
+                </td>
+                <td class="result-td">
+                    <div class="text-muted text-left result-hint result-final-hint">final estimate</div>
+                </td>
+            </tr>
+        </table>
+
+        <!-- COPY URL TO CLIPBOARD -->
+        <form class="clipboard-form col-md-4 col-md-offset-4" name="copyClipboardForm">
+
+            <div class="text-muted text-left url-label">Link to these results:</div>
+            <div class="control-group form-group">
+                <div class="controls">
+                    <input type="text" class="form-control" id="clipboardUrl">
+                </div>
+            </div>
+
+            <div class="control-group form-group">
+                <button type="submit" id="btn-clipboard" class="btn btn-primary btn-block">Copy to clipboard</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- /Result -->

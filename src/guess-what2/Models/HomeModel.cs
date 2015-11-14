@@ -51,5 +51,48 @@ namespace guess_what2.Models
             },
         };
 
+        public readonly List<DifficultyAspectItem> ComplexityItems = new List<DifficultyAspectItem>
+        {
+            new DifficultyAspectItem ()
+            {
+                DisplayName = "Internal Product Quality",
+                InternalName = "internal_product_quality",
+            },
+            new DifficultyAspectItem ()
+            {
+                DisplayName = "External Product Quality",
+                InternalName = "external_product_quality",
+            },
+            new DifficultyAspectItem ()
+            {
+                DisplayName = "Documentation Quality",
+                InternalName = "documentation_quality",
+            },
+            new DifficultyAspectItem ()
+            {
+                DisplayName = "Scope of the Changes",
+                InternalName = "scope_of_changes",
+            },
+            new DifficultyAspectItem ()
+            {
+                DisplayName = "Internal Interfaces",
+                InternalName = "internal_interfaces",
+            },
+            new DifficultyAspectItem ()
+            {
+                DisplayName = "External Interfaces",
+                InternalName = "external_interfaces",
+            },
+            new DifficultyAspectItem ()
+            {
+                DisplayName = "Downward Compatibility",
+                InternalName = "downward_compatibility",
+            },
+            new DifficultyAspectItem ()
+            {
+                DisplayName = "Number of People involved",
+                InternalName = "number_of_people_involved",
+            },
+        };
     }
 }

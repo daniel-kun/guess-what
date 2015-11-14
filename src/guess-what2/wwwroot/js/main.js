@@ -216,14 +216,14 @@ function buildResultUrl() {
 $(function () {
     $("#page-estimate").show();
     $("#page-preconditions").show();
-    $("#checklist-complexity").show();
+    $("#page-complexity").show();
     $("#result").show();
 
     var params = getQueryParams(document.location.search);
     if ("e" in params) {
         applyEstimationCode(params.e);
         $("#page-preconditions").show();
-        $("#checklist-complexity").show();
+        $("#page-complexity").show();
         $("#result").show();
         $("#params").text(buildResultUrl());
         smoothScrollTo("#result");
@@ -247,7 +247,7 @@ $(function () {
         });
 
         //appInsights.trackEvent("Next");
-        smoothScrollTo("#checklist-complexity");
+        smoothScrollTo("#page-complexity");
     });
 
     $("#btn-finish").click(function (e) {
