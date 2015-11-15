@@ -1,0 +1,164 @@
+﻿.btn-rating-na {
+    border: 1px solid transparent;
+    color: #444;
+    background-color: #ddd;
+    border-color: #999;
+}
+.btn-rating-na:hover,
+.btn-rating-na:focus,
+.btn-rating-na:active,
+.btn-rating-na.active {
+    border: 1px solid transparent;
+    color: #ddd;
+    background-color: #7f7f7f;
+    border-color: #737373;
+}
+.btn-rating-na.disabled:hover,
+.btn-rating-na.disabled:focus,
+.btn-rating-na.disabled:active,
+.btn-rating-na.disabled.active,
+.btn-rating-na[disabled]:hover,
+.btn-rating-na[disabled]:focus,
+.btn-rating-na[disabled]:active,
+.btn-rating-na[disabled].active,
+fieldset[disabled] .btn-rating-na:hover,
+fieldset[disabled] .btn-rating-na:focus,
+fieldset[disabled] .btn-rating-na:active,
+fieldset[disabled] .btn-rating-na.active {
+    border: 1px solid transparent;
+    color: #ddd;
+    background-color: #bfbfbf;
+    border-color: #bfbfbf;
+}
+
+.btn-very-good {
+    border: 1px solid transparent;
+    color: #444;
+    background-color: #ddd;
+    border-color: #999;
+}
+.btn-very-good:hover,
+.btn-very-good:focus,
+.btn-very-good:active,
+.btn-very-good.active {
+    border: 1px solid transparent;
+    color: #ddd;
+    background-color: #2e6da4;
+    border-color: #2e6da4;
+}
+.btn-very-good.disabled:hover,
+.btn-very-good.disabled:focus,
+.btn-very-good.disabled:active,
+.btn-very-good.disabled.active,
+.btn-very-good[disabled]:hover,
+.btn-very-good[disabled]:focus,
+.btn-very-good[disabled]:active,
+.btn-very-good[disabled].active,
+fieldset[disabled] .btn-very-good:hover,
+fieldset[disabled] .btn-very-good:focus,
+fieldset[disabled] .btn-very-good:active,
+fieldset[disabled] .btn-very-good.active {
+    border: 1px solid transparent;
+    color: #ddd;
+    background-color: #2e6da4;
+    border-color: #2e6da4;
+}
+
+.btn-good {
+    border: 1px solid transparent;
+    color: #444;
+    background-color: #ddd;
+    border-color: #999;
+}
+.btn-good:hover,
+.btn-good:focus,
+.btn-good:active,
+.btn-good.active {
+    border: 1px solid transparent;
+    color: #ddd;
+    background-color: #419641;
+    border-color: #419641;
+}
+.btn-good.disabled:hover,
+.btn-good.disabled:focus,
+.btn-good.disabled:active,
+.btn-good.disabled.active,
+.btn-good[disabled]:hover,
+.btn-good[disabled]:focus,
+.btn-good[disabled]:active,
+.btn-good[disabled].active,
+fieldset[disabled] .btn-good:hover,
+fieldset[disabled] .btn-good:focus,
+fieldset[disabled] .btn-good:active,
+fieldset[disabled] .btn-good.active {
+    border: 1px solid transparent;
+    color: #ddd;
+    background-color: #419641;
+    border-color: #419641;
+}
+
+.btn-not-good {
+    border: 1px solid transparent;
+    color: #444;
+    background-color: #ddd;
+    border-color: #999;
+}
+.btn-not-good:hover,
+.btn-not-good:focus,
+.btn-not-good:active,
+.btn-not-good.active {
+    border: 1px solid transparent;
+    color: #ddd;
+    background-color: #cb7e11;
+    border-color: #b4700f;
+}
+.btn-not-good.disabled:hover,
+.btn-not-good.disabled:focus,
+.btn-not-good.disabled:active,
+.btn-not-good.disabled.active,
+.btn-not-good[disabled]:hover,
+.btn-not-good[disabled]:focus,
+.btn-not-good[disabled]:active,
+.btn-not-good[disabled].active,
+fieldset[disabled] .btn-not-good:hover,
+fieldset[disabled] .btn-not-good:focus,
+fieldset[disabled] .btn-not-good:active,
+fieldset[disabled] .btn-not-good.active {
+    border: 1px solid transparent;
+    color: #ddd;
+    background-color: #e38d13;
+    border-color: #e38d13;
+}
+
+.btn-bad {
+    border: 1px solid transparent;
+    color: #444;
+    background-color: #ddd;
+    border-color: #999;
+}
+.btn-bad:hover,
+.btn-bad:focus,
+.btn-bad:active,
+.btn-bad.active {
+    border: 1px solid transparent;
+    color: #ddd;
+    background-color: #a42723;
+    border-color: #8f221f;
+}
+.btn-bad.disabled:hover,
+.btn-bad.disabled:focus,
+.btn-bad.disabled:active,
+.btn-bad.disabled.active,
+.btn-bad[disabled]:hover,
+.btn-bad[disabled]:focus,
+.btn-bad[disabled]:active,
+.btn-bad[disabled].active,
+fieldset[disabled] .btn-bad:hover,
+fieldset[disabled] .btn-bad:focus,
+fieldset[disabled] .btn-bad:active,
+fieldset[disabled] .btn-bad.active {
+    border: 1px solid transparent;
+    color: #ddd;
+    background-color: #b92c28;
+    border-color: #b92c28;
+}

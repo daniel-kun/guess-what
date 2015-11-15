@@ -46,48 +46,6 @@ div.top-heading {
     font-weight: normal;
 }
 
-.btn-default.active {
-	background-color: #919191;
-}
-
-.btn-default.active:hover {
-	background-color: #7A7A7A;
-}
-
-.btn-default:hover {
-	background-color: #919191;
-}
-
-.btn-success {
-	color: #444;
-	background-color: #e6e6e6;
-	border-color: #8c8c8c;
-	border-top-color: rgb(140, 140, 140);
-    border-right-color: rgb(140, 140, 140);
-    border-bottom-color: rgb(140, 140, 140);
-    border-left-color: rgb(140, 140, 140);
-}
-
-.btn-warning {
-	color: #444;
-	background-color: #e6e6e6;
-	border-color: #8c8c8c;
-	border-top-color: rgb(140, 140, 140);
-    border-right-color: rgb(140, 140, 140);
-    border-bottom-color: rgb(140, 140, 140);
-    border-left-color: rgb(140, 140, 140);
-}
-
-.btn-danger {
-	color: #444;
-	background-color: #e6e6e6;
-	border-color: #8c8c8c;
-	border-top-color: rgb(140, 140, 140);
-    border-right-color: rgb(140, 140, 140);
-    border-bottom-color: rgb(140, 140, 140);
-    border-left-color: rgb(140, 140, 140);
-}
-
 .checklistfull {
 	display:none;
 }
@@ -156,4 +114,3 @@ div.top-heading {
 .text-muted {
     color: #aaa;
 }
-

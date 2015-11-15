@@ -5,10 +5,10 @@
         @ViewData.Model.DisplayName
     </label>
     <div class="btn-group group1" data-toggle="buttons" id="preconditions_@ViewData.Model.InternalName">
-        @Html.Partial("DifficultyAspectRatingControl", Tuple.Create("default",  ViewData.Model.InternalName + "NA",         "N/A",      true))
-        @Html.Partial("DifficultyAspectRatingControl", Tuple.Create("success",  ViewData.Model.InternalName + "superb",     "Superb",   false))
-        @Html.Partial("DifficultyAspectRatingControl", Tuple.Create("primary",  ViewData.Model.InternalName + "good",       "Good",     false))
-        @Html.Partial("DifficultyAspectRatingControl", Tuple.Create("warning",  ViewData.Model.InternalName + "not_good",   "Not Good", false))
-        @Html.Partial("DifficultyAspectRatingControl", Tuple.Create("danger",   ViewData.Model.InternalName + "bad",        "Bad",      false))
+        @Html.Partial("DifficultyAspectRatingControl", Tuple.Create("rating-na",  ViewData.Model.InternalName + "NA",         "N/A",      true))
+        @Html.Partial("DifficultyAspectRatingControl", Tuple.Create("very-good",  ViewData.Model.InternalName + "superb",     "Superb",   false))
+        @Html.Partial("DifficultyAspectRatingControl", Tuple.Create("good",  ViewData.Model.InternalName + "good",       "Good",     false))
+        @Html.Partial("DifficultyAspectRatingControl", Tuple.Create("not-good",  ViewData.Model.InternalName + "not_good",   "Not Good", false))
+        @Html.Partial("DifficultyAspectRatingControl", Tuple.Create("bad",   ViewData.Model.InternalName + "bad",        "Bad",      false))
     </div>
 </div>
