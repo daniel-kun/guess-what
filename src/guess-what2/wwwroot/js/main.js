@@ -92,50 +92,6 @@ function precise_round(num, decimals) {
     return (Math.round((num * t) + (decimals > 0 ? 1 : 0) * (mathSign(num) * (10 / Math.pow(100, decimals)))) / t).toFixed(decimals);
 }
 
-// Get parameters from URI query parameters
-function getQueryParams(qs) {
-    qs = qs.split('+').join(' ');
-
-    var params = {},
-        tokens,
-        re = /[?&]?([^=]+)=([^&]*)/g;
-
-    while (tokens = re.exec(qs)) {
-        params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
-    }
-
-    return params;
-}
-
-function applyEstimationCode(code) {
-    var estimationInHex = code.substring(0, 4);
-    var estimation = parseInt(estimationInHex, 16);
-    $("#estimate").val(estimation);
-    var index = 4;
-    $(".btn-group").each(function (btn) {
-        $(".btn-default", $(this)).removeClass("active");
-        $(".btn-success", $(this)).removeClass("active");
-        $(".btn-primary", $(this)).removeClass("active");
-        $(".btn-warning", $(this)).removeClass("active");
-        $(".btn-danger", $(this)).removeClass("active");
-
-        var factorCode = code[index];
-        if (factorCode == "0") {
-            $(".btn-default", $(this)).addClass("active");
-        } else if (factorCode == "A") {
-            $(".btn-success", $(this)).addClass("active");
-        } else if (factorCode == "B") {
-            $(".btn-primary", $(this)).addClass("active");
-        } else if (factorCode == "C") {
-            $(".btn-warning", $(this)).addClass("active");
-        } else if (factorCode == "D") {
-            $(".btn-danger", $(this)).addClass("active");
-        }
-        ++index;
-    });
-    updateResults(null);
-}
-
 // Smoothly scroll to the element with id elementId
 function smoothScrollTo(elementId) {
     $('html,body').animate({
@@ -218,16 +174,6 @@ $(function () {
     $("#page-preconditions").show();
     $("#page-complexity").show();
     $("#result").show();
-
-    var params = getQueryParams(document.location.search);
-    if ("e" in params) {
-        applyEstimationCode(params.e);
-        $("#page-preconditions").show();
-        $("#page-complexity").show();
-        $("#result").show();
-        $("#params").text(buildResultUrl());
-        smoothScrollTo("#result");
-    }
 
     $("#btn-checklist1").click(function (e) {
         e.preventDefault();

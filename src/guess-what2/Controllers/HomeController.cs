@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using guess_what2.Models;
+using Microsoft.AspNet.Http.Extensions;
+using System.Diagnostics;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -27,8 +29,70 @@ namespace guess_what2.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            ViewData.Model = new HomeModel();
+            var model = new HomeModel();
+            ViewData.Model = model;
+            if (Context.Request.Query.ContainsKey ("e"))
+            {
+                var savedEstimateOldStyle = Context.Request.Query.Get("e");
+                ParseOldStyleUrl(model, savedEstimateOldStyle);
+            }
             return View();
+        }
+
+        /**
+        Parses the URL savedEstimateOldStyle, which is in the old estimation save url
+        and sets the according difficulties in model.PreconditionItems and 
+        model.ComplexityItems.
+        **/
+        private static void ParseOldStyleUrl (HomeModel model, string savedEstimateOldStyle)
+        {
+            // The old estimate url schema is:
+            var urlScheme = "nnnnPPPPPPPPCCCCCCCC";
+            // Where n is the original zero-left-padded estimate value,
+            // P is the selected precondition difficulty (0, A, B, C, D)
+            // C is the selected complexity difficulty (0, A, B, C, D)
+            // Preconditions and complexity have the same order as displayed.
+            if (savedEstimateOldStyle.Length == "nnnnPPPPPPPPCCCCCCCC".Length)
+            {
+                int estimate;
+                if (int.TryParse(savedEstimateOldStyle.Substring(0, urlScheme.Count(c => c == 'n')), out estimate))
+                {
+                    int preconditionCount = urlScheme.Count(c => c == 'P');
+                    Debug.Assert(preconditionCount == model.PreconditionItems.Count);
+                    for (int i = 0; i < preconditionCount; ++i)
+                    {
+                        model.PreconditionItems[i].SelectedDifficulty = CodeToNumericDifficulty(savedEstimateOldStyle[4 + i]);
+                    }
+                    int complexityCount = urlScheme.Count(c => c == 'C');
+                    Debug.Assert(complexityCount == model.ComplexityItems.Count);
+                    for (int i = 0; i < complexityCount; ++i)
+                    {
+                        model.ComplexityItems[i].SelectedDifficulty = CodeToNumericDifficulty(savedEstimateOldStyle[4 + preconditionCount + i]);
+                    }
+                }
+            }
+        }
+
+        /**
+        Converts the code that encodes the difficulty in the old style url to the numeric
+        value as it is stored in model.{PreconditionItems,ComplexityItems}.SelectedDifficulty.
+        **/
+        private static int CodeToNumericDifficulty(char theCode)
+        {
+            switch (theCode)
+            {
+                case '0':
+                    return 0;
+                case 'A':
+                    return 1;
+                case 'B':
+                    return 2;
+                case 'C':
+                    return 3;
+                case 'D':
+                    return 4;
+            }
+            throw new ArgumentOutOfRangeException ("theCode");
         }
     }
 }
