@@ -1,4 +1,14 @@
-﻿<!-- Landing page -->
+﻿@model guess_what2.Models.HomeModel
+
+@{
+    string estimate = string.Empty;
+    if (ViewData.Model.Estimate.HasValue)
+    {
+        estimate = ViewData.Model.Estimate.Value.ToString();
+    }
+}
+
+<!-- Landing page -->
 <div id="page-estimate" class="fullSection startSection">
     <div class="container-fluid">
 
@@ -18,7 +28,15 @@
                         <div class="control-group form-group">
                             <div class="controls">
                                 <div>
-                                    <input type="number" class="form-control" id="estimate" placeholder="Estimate in story points, hours, man days or weeks" required autofocus="true" data-validation-required-message="Please enter an estimate.">
+                                    <input type="number"
+                                           class="form-control"
+                                           id="estimate"
+                                           placeholder="Estimate in story points, hours, man days or weeks"
+                                           required
+                                           autofocus="true"
+                                           data-validation-required-message="Please enter an estimate."
+                                           value="@estimate"
+                                           >
                                 </div>
                             </div>
                         </div>

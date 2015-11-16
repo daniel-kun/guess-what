@@ -103,11 +103,11 @@ function updateResults(trackerMetric) {
     // Iterate over all btn-groups and find each button for none/low/high/very high selections to create a factor.
     var points = 0;
     $(".btn-group").each(function (btn) {
-        if ($(".btn-success", $(this)).hasClass("active")) {
+        if ($(".btn-very-good", $(this)).hasClass("active")) {
             points = points - 1;
-        } else if ($(".btn-warning", $(this)).hasClass("active")) {
+        } else if ($(".btn-not-good", $(this)).hasClass("active")) {
             points = points + 1;
-        } else if ($(".btn-danger", $(this)).hasClass("active")) {
+        } else if ($(".btn-bad", $(this)).hasClass("active")) {
             points = points + 2;
         }
     });
@@ -121,15 +121,15 @@ function updateResults(trackerMetric) {
     $("#result-original-estimate").text(result.originalEstimate);
     $("#result-final").text((result.originalEstimate * result.factor).toFixed(1));
     $("div.section-result").show();
-    $(".group2").each(function (btn) {
+    $(".group1").each(function (btn) {
         var selection = 0.0;
-        if ($(".btn-success", $(this)).hasClass("active")) {
+        if ($(".btn-very-good", $(this)).hasClass("active")) {
             selection = 1.0;
-        } else if ($(".btn-primary", $(this)).hasClass("active")) {
+        } else if ($(".btn-good", $(this)).hasClass("active")) {
             selection = 2.0;
-        } else if ($(".btn-warning", $(this)).hasClass("active")) {
+        } else if ($(".btn-not-good", $(this)).hasClass("active")) {
             selection = 3.0;
-        } else if ($(".btn-danger", $(this)).hasClass("active")) {
+        } else if ($(".btn-bad", $(this)).hasClass("active")) {
             selection = 4.0;
         }
         result.factorId = $(this).attr("id");
@@ -154,15 +154,15 @@ function buildResultUrl() {
     var padding = "0000";
     url += padding.substring(0, padding.length - estimationStr.length) + estimationStr;
     $(".btn-group").each(function (btn) {
-        if ($(".btn-default", $(this)).hasClass("active")) {
+        if ($(".btn-rating-na",         $(this)).hasClass("active")) {
             url = url + "0";
-        } else if ($(".btn-success", $(this)).hasClass("active")) {
+        } else if ($(".btn-very-good",  $(this)).hasClass("active")) {
             url = url + "A";
-        } else if ($(".btn-primary", $(this)).hasClass("active")) {
+        } else if ($(".btn-good",       $(this)).hasClass("active")) {
             url = url + "B";
-        } else if ($(".btn-warning", $(this)).hasClass("active")) {
+        } else if ($(".btn-not-good",   $(this)).hasClass("active")) {
             url = url + "C";
-        } else if ($(".btn-danger", $(this)).hasClass("active")) {
+        } else if ($(".btn-bad",        $(this)).hasClass("active")) {
             url = url + "D";
         }
     });
@@ -174,18 +174,21 @@ $(function () {
     $("#page-preconditions").show();
     $("#page-complexity").show();
     $("#result").show();
+    if ($("#estimate").val() != 0) {
+        updateResults(null);
+    }
 
     $("#btn-checklist1").click(function (e) {
         e.preventDefault();
         $(".group1").each(function (btn) {
             selection = 0.0;
-            if ($(".btn-success", $(this)).hasClass("active")) {
+            if ($(".btn-very-good", $(this)).hasClass("active")) {
                 selection = 1.0;
-            } else if ($(".btn-primary", $(this)).hasClass("active")) {
+            } else if ($(".btn-good", $(this)).hasClass("active")) {
                 selection = 2.0;
-            } else if ($(".btn-warning", $(this)).hasClass("active")) {
+            } else if ($(".btn-not-good", $(this)).hasClass("active")) {
                 selection = 3.0;
-            } else if ($(".btn-danger", $(this)).hasClass("active")) {
+            } else if ($(".btn-bad", $(this)).hasClass("active")) {
                 selection = 4.0;
             }
             factorId = $(this).attr("id");

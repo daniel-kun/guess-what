@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using guess_what2.Models;
-using Microsoft.AspNet.Http.Extensions;
 using System.Diagnostics;
+using System.Globalization;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -42,7 +40,7 @@ namespace guess_what2.Controllers
         /**
         Parses the URL savedEstimateOldStyle, which is in the old estimation save url
         and sets the according difficulties in model.PreconditionItems and 
-        model.ComplexityItems.
+        model.ComplexityItems and the estimate in model.Estimate.
         **/
         private static void ParseOldStyleUrl (HomeModel model, string savedEstimateOldStyle)
         {
@@ -55,8 +53,12 @@ namespace guess_what2.Controllers
             if (savedEstimateOldStyle.Length == "nnnnPPPPPPPPCCCCCCCC".Length)
             {
                 int estimate;
-                if (int.TryParse(savedEstimateOldStyle.Substring(0, urlScheme.Count(c => c == 'n')), out estimate))
+                if (int.TryParse(savedEstimateOldStyle.Substring(0, urlScheme.Count(c => c == 'n')),
+                                 NumberStyles.HexNumber,
+                                 CultureInfo.InvariantCulture.NumberFormat,
+                                 out estimate))
                 {
+                    model.Estimate = estimate;
                     int preconditionCount = urlScheme.Count(c => c == 'P');
                     Debug.Assert(preconditionCount == model.PreconditionItems.Count);
                     for (int i = 0; i < preconditionCount; ++i)

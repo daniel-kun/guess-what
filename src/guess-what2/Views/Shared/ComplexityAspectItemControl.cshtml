@@ -7,7 +7,7 @@
     <label>
         @item.DisplayName
     </label>
-    <div class="btn-group group1" data-toggle="buttons" id="preconditions_@item.InternalName">
+    <div class="btn-group group1" data-toggle="buttons" id="complexity_@item.InternalName">
         @Html.Partial("DifficultyAspectRatingControl", Tuple.Create("rating-na",    item.InternalName + "NA",         "N/A",          item.SelectedDifficulty == 0))
         @Html.Partial("DifficultyAspectRatingControl", Tuple.Create("very-good",    item.InternalName + "low",        "Low",          item.SelectedDifficulty == 1))
         @Html.Partial("DifficultyAspectRatingControl", Tuple.Create("good",         item.InternalName + "normal",     "Normal",       item.SelectedDifficulty == 2))

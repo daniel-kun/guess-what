@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace guess_what2.Models
 {
@@ -110,5 +107,10 @@ namespace guess_what2.Models
                 SelectedDifficulty = 0,
             },
         };
+
+        public int? Estimate {
+            get;
+            set;
+        }
     }
 }
