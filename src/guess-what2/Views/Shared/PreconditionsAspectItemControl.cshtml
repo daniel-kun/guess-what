@@ -1,0 +1,17 @@
+﻿@model guess_what2.Models.DifficultyAspectItem
+@{
+    var item = ViewData.Model;
+}
+
+<div class="row checklist">
+    <label>
+        @item.DisplayName
+    </label>
+    <div class="btn-group group1" data-toggle="buttons" id="preconditions_@item.InternalName">
+        @Html.Partial("DifficultyAspectRatingControl", Tuple.Create("rating-na",    item.InternalName + "NA",         "N/A",      item.SelectedDifficulty == 0))
+        @Html.Partial("DifficultyAspectRatingControl", Tuple.Create("very-good",    item.InternalName + "superb",     "Superb",   item.SelectedDifficulty == 1))
+        @Html.Partial("DifficultyAspectRatingControl", Tuple.Create("good",         item.InternalName + "good",       "Good",     item.SelectedDifficulty == 2))
+        @Html.Partial("DifficultyAspectRatingControl", Tuple.Create("not-good",     item.InternalName + "not_good",   "Not Good", item.SelectedDifficulty == 3))
+        @Html.Partial("DifficultyAspectRatingControl", Tuple.Create("bad",          item.InternalName + "bad",        "Bad",      item.SelectedDifficulty == 4))
+    </div>
+</div>

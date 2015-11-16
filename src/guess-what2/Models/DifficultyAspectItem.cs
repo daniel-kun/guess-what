@@ -27,5 +27,23 @@
             get;
             set;
         }
+
+        /**
+        Specifies which difficulty is currently selected.
+        When making a new estimation, always "N/A" (not available) is selected.
+        When loading results, it is either read from the url (old scheme) or
+        loaded from a stored session from a database (not yet implemented).
+        Possible values:
+        0 = Not Available
+        1 = Superb / Low
+        2 = Good / Normal
+        3 = Not good / High
+        4 = Bad / Very High
+        **/
+        public int SelectedDifficulty
+        {
+            get;
+            set;
+        }
     }
 }

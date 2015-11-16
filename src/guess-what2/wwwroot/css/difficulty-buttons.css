@@ -43,8 +43,8 @@ fieldset[disabled] .btn-rating-na.active {
 .btn-very-good.active {
     border: 1px solid transparent;
     color: #ddd;
-    background-color: #2e6da4;
-    border-color: #2e6da4;
+    background-color: #419641;
+    border-color: #419641;
 }
 .btn-very-good.disabled:hover,
 .btn-very-good.disabled:focus,
@@ -60,8 +60,8 @@ fieldset[disabled] .btn-very-good:active,
 fieldset[disabled] .btn-very-good.active {
     border: 1px solid transparent;
     color: #ddd;
-    background-color: #2e6da4;
-    border-color: #2e6da4;
+    background-color: #419641;
+    border-color: #419641;
 }
 
 .btn-good {
@@ -76,8 +76,8 @@ fieldset[disabled] .btn-very-good.active {
 .btn-good.active {
     border: 1px solid transparent;
     color: #ddd;
-    background-color: #419641;
-    border-color: #419641;
+    background-color: #2e6da4;
+    border-color: #2e6da4;
 }
 .btn-good.disabled:hover,
 .btn-good.disabled:focus,
@@ -93,8 +93,8 @@ fieldset[disabled] .btn-good:active,
 fieldset[disabled] .btn-good.active {
     border: 1px solid transparent;
     color: #ddd;
-    background-color: #419641;
-    border-color: #419641;
+    background-color: #2e6da4;
+    border-color: #2e6da4;
 }
 
 .btn-not-good {
