@@ -176,10 +176,15 @@ $(function () {
     $("#page-preconditions").show();
     $("#page-complexity").show();
     $("#result").show();
-    if ($("#estimate").val() != 0) {
-        updateResults(null);
-    }
     */
+    if ($("#estimate").val() != 0) {
+        $("#page-estimate").show();
+        $("#page-preconditions").show();
+        $("#page-complexity").show();
+        $("#result").show();
+        updateResults(null);
+        smoothScrollTo("#result");
+    }
 
     $("#btn-checklist1").click(function (e) {
         e.preventDefault();
