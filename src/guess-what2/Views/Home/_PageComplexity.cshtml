@@ -11,12 +11,10 @@
         <div class="row">
             <div class="col-md-10 col-sm-10 col-md-offset-1 col-sm-offset-1">
                 <div class="icon-box text-center">
-                    <div class="icon-box text-center">
-                        @foreach (var item in ViewData.Model.ComplexityItems )
-                        {
-                            @Html.Partial("ComplexityAspectItemControl", item)
-                        }
-                    </div>
+                    @foreach (var item in ViewData.Model.ComplexityItems )
+                    {
+                        @Html.Partial("ComplexityAspectItemControl", item)
+                    }
                 </div>
             </div>
         </div>
