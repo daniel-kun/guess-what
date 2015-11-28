@@ -29,9 +29,9 @@ namespace guess_what2.Controllers
         {
             var model = new HomeModel();
             ViewData.Model = model;
-            if (Context.Request.Query.ContainsKey ("e"))
+            if (HttpContext.Request.Query.ContainsKey ("e"))
             {
-                var savedEstimateOldStyle = Context.Request.Query.Get("e");
+                var savedEstimateOldStyle = HttpContext.Request.Query ["e"];
                 ParseOldStyleUrl(model, savedEstimateOldStyle);
             }
             return View();
