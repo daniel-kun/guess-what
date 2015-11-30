@@ -1,0 +1,21 @@
+﻿<html>
+<head>
+</head>
+<body>
+    <script src="/lib/jquery/jquery.js"></script>
+    <form id="form" action="e" method="post">
+        <input type="number" id="estimate"name="estimate" value="99"/>
+        <input type="submit" name="submit"value="Test Submit"/>
+    </form>
+    <button id="test1">Test1</button>
+    <script>
+        $(test1).click(function () {
+            $.post("/e",
+                { "estimate": 10, "preconditions": [{ "DisplayName": "Foo", "InternalName": "foo", "SelectedDifficulty": 4 }, { "DisplayName": "Bar", "InternalName": "bar", "SelectedDifficulty": 2 }] },
+                function (data, status) {
+                    alert(data + ": " + status);
+                })
+        });
+    </script>
+</body>
+</html>

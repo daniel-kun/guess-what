@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 
 namespace guess_what2
@@ -17,13 +18,16 @@ namespace guess_what2
             services.AddApplicationInsightsTelemetry(Configuration);
         }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            app.UseApplicationInsightsRequestTelemetry();
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
 
+            app.UseIISPlatformHandler();
+            // Add Application Insights to the request pipeline to track HTTP request telemetry data.
+            app.UseApplicationInsightsRequestTelemetry();
             app.UseStaticFiles();
 
-            // Add Application Insights to the request pipeline to track HTTP request telemetry data.
             app.UseMvcWithDefaultRoute();
             // Track data about exceptions from the application. Should be configured after all error handling middleware in the request pipeline.
             app.UseApplicationInsightsExceptionTelemetry();
@@ -31,18 +35,18 @@ namespace guess_what2
 
         public Startup(IHostingEnvironment env, IApplicationEnvironment appEnv)
         {
-            // Setup configuration sources.
             var builder = new ConfigurationBuilder()
-                .AddJsonFile("config.json")
-                .AddJsonFile($"config.{env.EnvironmentName}.json", optional: true);
+                .AddJsonFile("appsettings.json")
+                .AddJsonFile("appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables();
             builder.AddEnvironmentVariables();
 
             if (env.IsEnvironment("Development"))
             {
                 builder.AddApplicationInsightsSettings(developerMode: true);
             }
-
             Configuration = builder.Build();
         }
+
     }
 }
