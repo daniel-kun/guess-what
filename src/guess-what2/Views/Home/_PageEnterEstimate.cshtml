@@ -25,20 +25,17 @@
 
                     <form name="estimationForm">
 
-                        <div class="control-group form-group">
-                            <div class="controls">
-                                <div>
-                                    <input type="number"
-                                           class="form-control"
-                                           id="estimate"
-                                           placeholder="Estimate in story points, hours, man days or weeks"
-                                           required
-                                           autofocus="true"
-                                           data-validation-required-message="Please enter an estimate."
-                                           value="@estimate"
-                                           >
-                                </div>
-                            </div>
+                        <div class="input-group">
+                            <input type="number"
+                                    class="form-control"
+                                    id="estimate"
+                                    placeholder="Enter your estimation here"
+                                    required
+                                    autofocus="true"
+                                    data-validation-required-message="Please enter an estimate."
+                                    value="@estimate"
+                                    >
+                            <span class="input-group-addon" id="basic-addon2">Story Points, Days, Hours, etc.</span>
                         </div>
 
                         <div class="control-group form-group">
