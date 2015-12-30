@@ -1,16 +1,16 @@
 ﻿@model guess_what2.Models.ChecklistItem
 
 <tr>
-    <td class="checkcell">
-        <input type="checkbox" id="check_ok_@Model.Id"/>
+    <td class="checkcell text-center">
+        <input type="checkbox" id="check_ok_@Model.Id" />
         <label for="check_ok_@Model.Id" class="checkbox-ok"></label>
     </td>
-    <td class="checkcell">
+    <td class="checkcell text-center">
         <input type="checkbox" id="check_not_ok_@Model.Id" />
         <label for="check_not_ok_@Model.Id" class="checkbox-not-ok"></label>
     </td>
-    <td class="checkcell">
-        <input type="checkbox" id="check_doesnt_apply_@Model.Id"/>
+    <td class="checkcell text-center">
+        <input type="checkbox" id="check_doesnt_apply_@Model.Id" />
         <label for="check_doesnt_apply_@Model.Id" class="checkbox-doesnt-apply"></label>
     </td>
     <td>
