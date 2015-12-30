@@ -1,3 +1,10 @@
-label.checkbox-ok:before, label.checkbox-ok:after {color: #4E8F56;}
-label.checkbox-not-ok:before, label.checkbox-not-ok:after {color: #DE4D49;}
-label.checkbox-doesnt-apply:before, label.checkbox-doesnt-apply:after {color: #555555;}
+/* OK / Green: */
+label.checkbox-ok:before {color: #9C9C9C;}
+label.checkbox-ok:after {color: #4E8F56;}
+
+/* Not checked / Red: */
+label.checkbox-not-ok:before {color: #9C9C9C;}
+label.checkbox-not-ok:after {color: #DE4D49;}
+
+/* Does not apply / Gray: */
+label.checkbox-doesnt-apply:before, label.checkbox-doesnt-apply:after {color: #9C9C9C;}

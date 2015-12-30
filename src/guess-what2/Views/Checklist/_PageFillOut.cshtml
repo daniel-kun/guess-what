@@ -2,46 +2,35 @@
 
 <!-- Fill out checklist -->
 <div class="container-fluid" id="fillout-page">
-    <!--
-    <div class="row">
-        <h3 class="col-md-offset-1 col-md-8">&lt;enter checklist title here&gt;</h3>
-        <button class="btn btn-default col-md-2"><b>Create a new checklist</b><br />based on this one</button>
-    </div>
-    <div class="row">
-        <span class="col-md-offset-1 col-md-10">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet</span>
-    </div>
-    <div class="row">
-        <span class="col-md-offset-1 col-md-1 col-xs-offset-1 col-xs-2">Checked<br />and OK</span>
-        <span class="col-md-1 col-xs-2">Not<br />checked</span>
-        <span class="col-md-1 col-xs-2">Not<br />applicable</span>
-        <span class="col-md-8 col-xs-4"></span>
-    </div>
-        -->
     <div class="row">
         <div class="panel panel-default" style="margin-left: 5%; margin-right: 5%;">
             <div class="panel-heading" style="position:relative">
-                <div class="panel-heading">
+                <div class="panel-heading" style="font-weight: bold;text-shadow: 0 1px 0 #fff;font-size: x-large;">
                     @Model.Title
                 </div>
-                <button class="btn btn-default" style="position:absolute;top:3px;right:4px;"><b>Create a new checklist</b><br />based on this one</button>
-
+                <button class="btn btn-default" style="position:absolute;top:10px;right:11px;"><b>Create a new checklist</b><br />based on this one</button>
+            </div>
+            <div class="panel-body" style="border-bottom: 1px solid gray;">
+                <span style="color:darkgray;padding-left: 15px;">
+                    @Model.Description
+                </span>
             </div>
             <div class="panel-body">
                 <table class="table" style="color: darkgray">
                     <thead>
                         <tr>
                             <td class="col-md-1">
-                                <div style="margin-left:6px;margin-right:3px">
+                                <div style="margin-left:6px;margin-right:3px;text-align:center;">
                                     Checked<br />and OK
                                 </div>
                             </td>
                             <td class="col-md-1">
-                                <div style="margin-left:3px;margin-right:3px">
+                                <div style="margin-left:3px;margin-right:3px;text-align:center;">
                                     Not<br />checked
                                 </div>
                             </td>
                             <td class="col-md-1">
-                                <div style="margin-left:3px;margin-right:3px">
+                                <div style="margin-left:3px;margin-right:3px;text-align:center;">
                                     Not<br />applicable
                                 </div>
                             </td>
@@ -53,7 +42,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach(var item in Model.Items)
+                        @foreach (var item in Model.Items)
                         {
                             await Html.RenderPartialAsync("_PageFillOutChecklistRow", item);
                         }
