@@ -1,0 +1,3 @@
+label.checkbox-ok:before, label.checkbox-ok:after {color: #4E8F56;}
+label.checkbox-not-ok:before, label.checkbox-not-ok:after {color: #DE4D49;}
+label.checkbox-doesnt-apply:before, label.checkbox-doesnt-apply:after {color: #555555;}

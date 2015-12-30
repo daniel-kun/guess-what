@@ -1,0 +1,51 @@
+/* Taken from http://thecodeplayer.com/walkthrough/custom-animated-checkbox-inputs-using-css-iconfonts - thank you very much for this */
+
+/*We will import 2 fonts*/
+/*fontawesome iconfont*/
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css);
+/*Montserrat for the text*/
+@import url(http://fonts.googleapis.com/css?family=Montserrat); 
+
+/*basic reset*/
+* {margin: 0; padding: 0;}
+
+td.checkcell {
+
+}
+
+/*Adding custom checkbox icons*/
+td.checkcell > label {
+	position: relative;
+	padding-left: 30px;
+	font-size: 14px;
+	cursor: pointer;
+}
+td.checkcell > label:before, td.checkcell > label:after {
+	font-family: FontAwesome;
+	font-size: 21px;
+	/*absolutely positioned*/
+	position: absolute; top: 0; left: 0;
+}
+td.checkcell > label:before {
+	content: '\f096'; /*unchecked*/
+}
+td.checkcell > label:after {
+	content: '\f046'; /*checked*/
+	/*checked icon will be hidden by default by using 0 max-width and overflow hidden*/
+	max-width: 0;
+	overflow: hidden;
+	opacity: 0.5;
+	/*CSS3 transitions for animated effect*/
+	transition: all 0.35s;
+}
+
+/*hiding the original checkboxes*/
+input[type="checkbox"] {
+	display: none;
+}
+
+/*when the user checks the checkbox the checked icon will animate in*/
+input[type="checkbox"]:checked + label:after {
+	max-width: 25px; /*an arbitratry number more than the icon's width*/
+	opacity: 1; /*for fade in effect*/
+}
