@@ -21,17 +21,17 @@
                         <tr>
                             <td class="col-md-1">
                                 <div style="margin-left:6px;margin-right:3px;text-align:center;">
-                                    Checked<br />and OK
+                                    Checked,<br />OK
                                 </div>
                             </td>
                             <td class="col-md-1">
                                 <div style="margin-left:3px;margin-right:3px;text-align:center;">
-                                    Not<br />checked
+                                    Checked,<br />not OK
                                 </div>
                             </td>
                             <td class="col-md-1">
                                 <div style="margin-left:3px;margin-right:3px;text-align:center;">
-                                    Not<br />applicable
+                                    Not checked
                                 </div>
                             </td>
                             <td>
@@ -49,7 +49,9 @@
                     </tbody>
                 </table>
                 <div style="margin-top:15px"></div>
-                <button class="btn btn-primary">Save results</button>
+                <form action="/c/result" method="post">
+                    <input type="submit" class="btn btn-primary" value="Save results"/>
+                </form>
             </div>
         </div>
     </div>

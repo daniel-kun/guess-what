@@ -1,5 +1,6 @@
 ﻿using guess_what2.Models;
 using System.Collections.Generic;
+using System;
 
 namespace guess_what2.DataSources
 {
@@ -56,6 +57,21 @@ namespace guess_what2.DataSources
                     },
                 }
             };
+        }
+
+        public string SaveChecklistResultModel(ChecklistResultModel item)
+        {
+            return "FAKERESULT";
+        }
+
+        public ChecklistResultModel LoadChecklistResultModel(string id)
+        {
+            return new ChecklistResultModel()
+            {
+                Id = id,
+                Template = LoadChecklistModel("FAKE"),
+                Results = null
+            }; 
         }
     }
 }

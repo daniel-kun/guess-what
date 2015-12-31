@@ -19,5 +19,24 @@ namespace guess_what2.Controllers
             var checklistModel = dataSource.LoadChecklistModel("FAKE");
             return View(checklistModel);
         }
+
+        [Route("result/{id}")]
+        public IActionResult Result(string id)
+        {
+            var dataSource = new ChecklistDataSource();
+            var checklistResult = dataSource.LoadChecklistResultModel(id);
+            return View(checklistResult);
+        }
+
+        [HttpPost("result")]
+        public IActionResult Result(Models.ChecklistResultModel item)
+        {
+            var dataSource = new ChecklistDataSource();
+            string id = dataSource.SaveChecklistResultModel(item);
+            return Redirect($"/c/result/{id}");
+            // FIXME: This does not use a RESTful url such as /c/result/1234, but instead
+            // redirects to /c/result?id=1234
+            //return RedirectToAction("Result", new { id = id });
+        }
     }
 }
