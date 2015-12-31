@@ -59,6 +59,28 @@ namespace guess_what2.DataSources
             };
         }
 
+        public List <ChecklistBrowseItem> LoadChecklistCollection()
+        {
+            return new List<ChecklistBrowseItem>()
+            {
+                new ChecklistBrowseItem ()
+                {
+                    Id = "FAKE",
+                    Title = "Some awesome checklist",
+                },
+                new ChecklistBrowseItem ()
+                {
+                    Id = "FAKE2",
+                    Title = "Super awesome checklist",
+                },
+                new ChecklistBrowseItem ()
+                {
+                    Id = "FAKE3",
+                    Title = "Very bad checklist",
+                },
+            };
+        }
+
         public string SaveChecklistResultModel(ChecklistResultModel item)
         {
             return "FAKERESULT";
@@ -66,12 +88,54 @@ namespace guess_what2.DataSources
 
         public ChecklistResultModel LoadChecklistResultModel(string id)
         {
+            var checklistModel = LoadChecklistModel("FAKE");
             return new ChecklistResultModel()
             {
                 Id = id,
-                Template = LoadChecklistModel("FAKE"),
-                Results = null
+                Template = checklistModel,
+                Results = TestResultsFromTemplateItems(checklistModel.Items)
             }; 
+        }
+
+        /**
+        Only for temporary demo purposes.
+        Generates a list of CheclistResultItems with a cycling result of OK, not OK and not checked.
+        **/
+        private List<ChecklistResultItem> TestResultsFromTemplateItems(List<ChecklistItem> items)
+        {
+            var result = new List<ChecklistResultItem>();
+            int counter = 0;
+            foreach (var item in items)
+            {
+                switch (counter)
+                {
+                    case 0:
+                        result.Add(new ChecklistResultItem()
+                        {
+                            Result = ChecklistResult.CheckedAndOk,
+                            TemplateItem = item
+                        });
+                        ++counter;
+                        break;
+                    case 1:
+                        result.Add(new ChecklistResultItem()
+                        {
+                            Result = ChecklistResult.CheckedAndNotOk,
+                            TemplateItem = item
+                        });
+                        ++counter;
+                        break;
+                    case 2:
+                        result.Add(new ChecklistResultItem()
+                        {
+                            Result = ChecklistResult.NotChecked,
+                            TemplateItem = item
+                        });
+                        counter = 0;
+                        break;
+                }
+            }
+            return result;
         }
     }
 }

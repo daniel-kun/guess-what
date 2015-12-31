@@ -16,7 +16,15 @@ namespace guess_what2.Controllers
         public IActionResult Index()
         {
             var dataSource = new ChecklistDataSource();
-            var checklistModel = dataSource.LoadChecklistModel("FAKE");
+            var checklistCollection = dataSource.LoadChecklistCollection();
+            return View(checklistCollection);
+        }
+
+        [Route("{id}")]
+        public IActionResult FillOut(string id)
+        {
+            var dataSource = new ChecklistDataSource();
+            var checklistModel = dataSource.LoadChecklistModel(id);
             return View(checklistModel);
         }
 

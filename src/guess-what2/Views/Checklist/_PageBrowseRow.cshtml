@@ -1,0 +1,10 @@
+﻿@model guess_what2.Models.ChecklistBrowseItem
+
+<tr>
+    <td>
+        @Model.Title
+    </td>
+    <td class="text-right">
+        <a class="btn btn-warning" id="btn-fillout-@Model.Id" href="/c/@Model.Id">Fill out</a>
+    </td>
+</tr>

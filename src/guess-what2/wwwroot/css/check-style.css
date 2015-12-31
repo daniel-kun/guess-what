@@ -8,3 +8,9 @@ label.checkbox-not-ok:after {color: #DE4D49;}
 
 /* Does not apply / Gray: */
 label.checkbox-doesnt-apply:before, label.checkbox-doesnt-apply:after {color: #9C9C9C;}
+
+.panel-heading {
+    font-weight: bold;
+    text-shadow: 0 1px 0 #fff;
+    font-size: large;
+}

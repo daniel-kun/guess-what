@@ -1,1 +1,23 @@
-﻿
+﻿@model guess_what2.Models.ChecklistResultModel
+
+<!-- Result details -->
+<div class="container-fluid" id="fillout-page">
+    <div class="row">
+        <div class="panel panel-default" style="margin-left: 5%; margin-right: 5%;">
+            @{ await Html.RenderPartialAsync("_PageChecklistHeader", Model.Template); }
+            <div class="panel-body">
+                <table class="table" style="color: darkgray">
+                    <tbody>
+                        @foreach (var item in Model.Results)
+                        {
+                            await Html.RenderPartialAsync("_PageResultChecklistRow", item);
+                        }
+                    </tbody>
+                </table>
+                <div style="margin-top:15px"></div>
+                <a class="btn btn-warning" href="/c/@Model.Template.Id">Fill out this checklist again</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Result details -->
