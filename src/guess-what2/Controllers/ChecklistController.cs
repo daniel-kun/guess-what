@@ -25,7 +25,12 @@ namespace guess_what2.Controllers
         {
             var dataSource = new ChecklistDataSource();
             var checklistModel = dataSource.LoadChecklistModel(id);
-            return View(checklistModel);
+            if (checklistModel == null)
+            {
+                return HttpNotFound(id);
+            } else { 
+                return View(checklistModel);
+            }
         }
 
         [Route("result/{id}")]
@@ -33,7 +38,13 @@ namespace guess_what2.Controllers
         {
             var dataSource = new ChecklistDataSource();
             var checklistResult = dataSource.LoadChecklistResultModel(id);
-            return View(checklistResult);
+            if (checklistResult == null)
+            {
+                return HttpNotFound(id);
+            } else
+            {
+                return View(checklistResult);
+            }
         }
 
         [HttpPost("result")]

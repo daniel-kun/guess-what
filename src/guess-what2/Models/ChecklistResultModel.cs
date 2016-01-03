@@ -37,7 +37,19 @@ namespace guess_what2.Models
         }
 
         /**
+        The Id of the template ChecklistModel used to fill out this checklist results.
+        This may never be null, while Template may be null if it was not found or has not
+        yet been loaded.
+        **/
+        public string TemplateId
+        {
+            get;
+            set;
+        }
+
+        /**
         The template that has been filled out and which results have been submitted.
+        May be null if the template is not loaded. In this case, see TemplateId.
         **/
         public ChecklistModel Template
         {
