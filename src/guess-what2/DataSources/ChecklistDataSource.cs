@@ -92,8 +92,10 @@ namespace guess_what2.DataSources
             return new ChecklistResultModel()
             {
                 Id = id,
+                CreationTime = DateTime.Now,
+                UserId = "d.albuschat",
                 Template = checklistModel,
-                Results = TestResultsFromTemplateItems(checklistModel.Items)
+                Results = TestResultsFromTemplateItems(checklistModel.Items),
             }; 
         }
 

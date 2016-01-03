@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace guess_what2.Models
 {
@@ -10,6 +11,26 @@ namespace guess_what2.Models
     public class ChecklistResultModel
     {
         public string Id
+        {
+            get;
+            set;
+        }
+
+        /**
+        The timestamp of the exact time that the user saved this checklist result.
+        **/
+        public DateTime CreationTime
+        {
+            get;
+            set;
+        }
+
+        /**
+        The unique, non-modifable user id (user name) of the user that saved this checklist result.
+        (Currently, the user can freely enter a UserId himself/herself when saving the results
+         and it is only used for reference).
+        **/
+        public string UserId
         {
             get;
             set;
