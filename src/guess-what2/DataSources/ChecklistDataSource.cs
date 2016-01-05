@@ -36,9 +36,15 @@ namespace guess_what2.DataSources
             return result;
         }
 
-        public string SaveChecklistResultModel(ChecklistResultModel item)
+        public ChecklistResultModel SaveChecklistResultModel(ChecklistResultModel item)
         {
-            return mFakeChecklistResultId;
+            var result = mFakeChecklistResultModels[mFakeChecklistResultId];
+            return new ChecklistResultModel()
+            {
+                Id = result.Id,
+                UserId = result.UserId,
+                TemplateId = result.TemplateId,
+            };
         }
 
         public ChecklistResultModel LoadChecklistResultModel(string id)
@@ -49,7 +55,8 @@ namespace guess_what2.DataSources
                 result.Template = LoadChecklistModel(result.TemplateId);
                 result.Results = TestResultsFromTemplateItems(result.Template.Items);
                 return result;
-            } else
+            }
+            else
             {
                 return null;
             }

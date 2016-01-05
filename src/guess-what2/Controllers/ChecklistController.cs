@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using guess_what2.DataSources;
+using guess_what2.Models;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -51,8 +52,8 @@ namespace guess_what2.Controllers
         public IActionResult Result(Models.ChecklistResultModel item)
         {
             var dataSource = new ChecklistDataSource();
-            string id = dataSource.SaveChecklistResultModel(item);
-            return Redirect($"/c/result/{id}");
+            ChecklistResultModel result = dataSource.SaveChecklistResultModel(item);
+            return Json(result);
             // FIXME: This does not use a RESTful url such as /c/result/1234, but instead
             // redirects to /c/result?id=1234
             //return RedirectToAction("Result", new { id = id });

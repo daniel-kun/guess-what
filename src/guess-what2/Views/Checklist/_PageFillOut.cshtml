@@ -40,7 +40,8 @@
                 </table>
                 <div style="margin-top:15px"></div>
                 <form action="/c/result" method="post">
-                    <input type="submit" class="btn btn-primary" value="Save results"/>
+                    <input type="hidden" id="template-id" value="@Model.Id"/>
+                    <input type="submit" id="submit-results"class="btn btn-primary" value="Save results"/>
                 </form>
             </div>
         </div>
