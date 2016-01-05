@@ -7,7 +7,7 @@ label.checkbox-not-ok:before {color: #9C9C9C;}
 label.checkbox-not-ok:after {color: #DE4D49;}
 
 /* Does not apply / Gray: */
-label.checkbox-doesnt-apply:before, label.checkbox-doesnt-apply:after {color: #9C9C9C;}
+label.checkbox-not-checked:before, label.checkbox-not-checked:after {color: #9C9C9C;}
 
 .panel-heading {
     font-weight: bold;
