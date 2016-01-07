@@ -47,7 +47,7 @@ function saveResults()
     // get values from FORM
     var request = {
         "UserId": "d.albuschat[FIXME]",
-        "TemplateId": $("input#template-id").value,
+        "TemplateId": $("input#template-id").prop("value"),
         "Results": []
     };
     var resultItems = request["Results"];

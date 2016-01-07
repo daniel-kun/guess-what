@@ -25,6 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 		PublishScripts\Templates\guess-what2.param.dev.json = PublishScripts\Templates\guess-what2.param.dev.json
 	EndProjectSection
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "guess-what2-tests", "src\guess-what2-tests\guess-what2-tests.xproj", "{7E7003F2-8995-4143-8CC2-B72EC32A2335}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{86E90AC5-0CA0-4187-ADFE-D63B81158B80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86E90AC5-0CA0-4187-ADFE-D63B81158B80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86E90AC5-0CA0-4187-ADFE-D63B81158B80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E7003F2-8995-4143-8CC2-B72EC32A2335}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E7003F2-8995-4143-8CC2-B72EC32A2335}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E7003F2-8995-4143-8CC2-B72EC32A2335}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E7003F2-8995-4143-8CC2-B72EC32A2335}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,5 +49,6 @@ Global
 		{86E90AC5-0CA0-4187-ADFE-D63B81158B80} = {064490ED-0965-4A30-B054-F426EAB30831}
 		{1639ABF1-9964-4F54-A863-AD17EC1A138E} = {D9955385-E580-40A7-9520-D33ED661D3EE}
 		{E45FC8DA-D1B1-48AF-B6CC-402B027E8293} = {D9955385-E580-40A7-9520-D33ED661D3EE}
+		{7E7003F2-8995-4143-8CC2-B72EC32A2335} = {064490ED-0965-4A30-B054-F426EAB30831}
 	EndGlobalSection
 EndGlobal
