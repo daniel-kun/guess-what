@@ -36,36 +36,9 @@ namespace Io.GuessWhat.MainApp.DataSources
             return result;
         }
 
-        /**
-        Creates a GUID of 22 character length via base64 decoding.
-        **/
-        public static string CreateGuid()
-        {
-            byte[] bytes = Guid.NewGuid().ToByteArray();
-            string guidWithPadding = Convert.ToBase64String(bytes);
-            string urlSafeGuid = ReplaceUrlUnsafeChars(guidWithPadding);
-            if (urlSafeGuid.EndsWith ("==") && urlSafeGuid.Length == 24)
-            {
-                return urlSafeGuid.Substring(0, 22);
-            } else
-            {
-                return string.Empty;
-            }
-        }
-
-        /**
-        Replaces all url-unsafe characters from a base64 encoding into url-safe characters.
-        This means "+" becomes "-" and "/" becomes "_".
-
-        **/
-        public static string ReplaceUrlUnsafeChars(string guidWithPadding)
-        {
-            return guidWithPadding.Replace('+', '-').Replace('/', '_');
-        }
-
         public ChecklistResultModel SaveChecklistResultModel(ChecklistResultModel item)
         {
-            var newId = CreateGuid();
+            var newId = Tools.Web.ShortGuid.CreateGuid();
             item.Id = newId;
             mFakeChecklistResultModels.Add(newId, item);
             return item;
