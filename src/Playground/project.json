@@ -1,0 +1,26 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "Playground Class Library",
+  "authors": [ "dalbu" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+
+  "frameworks": {
+    "dnx451": { }
+  },
+
+  "compilationOptions": {
+    "emitEntryPoint": true
+  },
+
+  "commands": {
+    "guess-what2-playground": "guess-what2-playground"
+  },
+
+  "dependencies": {
+    "MainApp": "1.0.0-*",
+    "MongoDB.Bson": "2.2.0",
+    "MongoDB.Driver": "2.2.0"
+  }
+}

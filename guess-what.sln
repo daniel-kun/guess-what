@@ -1,0 +1,68 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{064490ED-0965-4A30-B054-F426EAB30831}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{596E36BE-234C-40E0-AF81-B967BECAFDB1}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{D9955385-E580-40A7-9520-D33ED661D3EE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{1639ABF1-9964-4F54-A863-AD17EC1A138E}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Scripts\Deploy-AzureResourceGroup.ps1 = PublishScripts\Scripts\Deploy-AzureResourceGroup.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{E45FC8DA-D1B1-48AF-B6CC-402B027E8293}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Templates\guess-what2.json = PublishScripts\Templates\guess-what2.json
+		PublishScripts\Templates\guess-what2.param.dev.json = PublishScripts\Templates\guess-what2.param.dev.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tools", "src\Tools\Tools.xproj", "{6DBA90E4-89ED-405D-A4C7-66ED449243A9}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "UnitTests", "src\UnitTests\UnitTests.xproj", "{6F3CB7A6-CFB7-4579-B4B4-DACC7D19FB0C}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Playground", "src\Playground\Playground.xproj", "{1FD27852-0B4B-4C7A-833F-D9099A211D26}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MainApp", "src\MainApp\MainApp.xproj", "{FAF9D09B-EF11-4425-85D7-6FAEA792AC5E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6DBA90E4-89ED-405D-A4C7-66ED449243A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DBA90E4-89ED-405D-A4C7-66ED449243A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DBA90E4-89ED-405D-A4C7-66ED449243A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DBA90E4-89ED-405D-A4C7-66ED449243A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F3CB7A6-CFB7-4579-B4B4-DACC7D19FB0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F3CB7A6-CFB7-4579-B4B4-DACC7D19FB0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F3CB7A6-CFB7-4579-B4B4-DACC7D19FB0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F3CB7A6-CFB7-4579-B4B4-DACC7D19FB0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FD27852-0B4B-4C7A-833F-D9099A211D26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FD27852-0B4B-4C7A-833F-D9099A211D26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FD27852-0B4B-4C7A-833F-D9099A211D26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FD27852-0B4B-4C7A-833F-D9099A211D26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAF9D09B-EF11-4425-85D7-6FAEA792AC5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAF9D09B-EF11-4425-85D7-6FAEA792AC5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAF9D09B-EF11-4425-85D7-6FAEA792AC5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAF9D09B-EF11-4425-85D7-6FAEA792AC5E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1639ABF1-9964-4F54-A863-AD17EC1A138E} = {D9955385-E580-40A7-9520-D33ED661D3EE}
+		{E45FC8DA-D1B1-48AF-B6CC-402B027E8293} = {D9955385-E580-40A7-9520-D33ED661D3EE}
+		{6DBA90E4-89ED-405D-A4C7-66ED449243A9} = {064490ED-0965-4A30-B054-F426EAB30831}
+		{6F3CB7A6-CFB7-4579-B4B4-DACC7D19FB0C} = {064490ED-0965-4A30-B054-F426EAB30831}
+		{1FD27852-0B4B-4C7A-833F-D9099A211D26} = {064490ED-0965-4A30-B054-F426EAB30831}
+		{FAF9D09B-EF11-4425-85D7-6FAEA792AC5E} = {064490ED-0965-4A30-B054-F426EAB30831}
+	EndGlobalSection
+EndGlobal
