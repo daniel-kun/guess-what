@@ -1,0 +1,28 @@
+﻿@model List<guess_what2.Models.ChecklistBrowseItem>
+
+<!-- Fill out checklist -->
+<div class="container-fluid" id="browse-page">
+    <div class="row">
+        <div class="panel panel-default" style="margin-left: 5%; margin-right: 5%;">
+            <div class="panel-heading" style="position:relative">
+                <div class="panel-heading">
+                    Browse some favorite checklists
+                </div>
+                <!--
+                <button class="btn btn-default" style="position:absolute;top:10px;right:11px;"><b>Create your own checklist</b></button>
+                --> 
+            </div>
+            <div class="panel-body">
+                <table class="table" style="color: darkgray">
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            await Html.RenderPartialAsync("_PageBrowseRow", item);
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fill out checklist -->

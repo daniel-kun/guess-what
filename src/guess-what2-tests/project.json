@@ -1,0 +1,22 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "guess-what2-tests Class Library",
+  "authors": [ "dalbu" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+
+  "frameworks": {
+    "dnx451": { }
+  },
+
+  "commands": {
+    "test": "xunit.runner.dnx"
+  },
+
+  "dependencies": {
+    "guess-what2": "1.0.0-*",
+    "xunit": "2.1.0",
+    "xunit.runner.dnx": "2.1.0-rc1-build204"
+  }
+}
