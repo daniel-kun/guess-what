@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0-*",
+  "description": "guess-what2-playground Class Library",
+  "authors": [ "dalbu" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+
+  "frameworks": {
+    "dnx451": {
+      "dependencies": {
+        "MongoDB.Bson": "2.2.0",
+        "MongoDB.Driver": "2.2.0"
+      }
+    },
+  },
+
+  "compilationOptions": {
+    "emitEntryPoint": true
+  },
+
+  "commands": {
+    "guess-what2-playground": "guess-what2-playground"
+  },
+
+  "dependencies": {
+    "guess-what2": "1.0.0-*"
+  }
+}
