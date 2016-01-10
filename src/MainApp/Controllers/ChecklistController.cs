@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNet.Mvc;
-using Io.GuessWhat.MainApp.DataSources;
+using Io.GuessWhat.MainApp.Repositories;
 using Io.GuessWhat.MainApp.Models;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -9,19 +9,22 @@ namespace Io.GuessWhat.MainApp.Controllers
     [Route("c")]
     public class ChecklistController : Controller
     {
+        public ChecklistController (IChecklistRepository checklistRepository)
+        {
+            mChecklistRepository = checklistRepository;
+        }
+
         // GET: /<controller>/
         public IActionResult Index()
         {
-            var dataSource = new ChecklistDataSource(null);
-            var checklistCollection = dataSource.LoadChecklistCollection();
+            var checklistCollection = mChecklistRepository.LoadChecklistCollection();
             return View(checklistCollection);
         }
 
         [Route("{id}")]
         public IActionResult FillOut(string id)
         {
-            var dataSource = new ChecklistDataSource(null);
-            var checklistModel = dataSource.LoadChecklistModel(id);
+            var checklistModel = mChecklistRepository.LoadChecklistModel(id);
             if (checklistModel == null)
             {
                 return HttpNotFound(id);
@@ -33,8 +36,7 @@ namespace Io.GuessWhat.MainApp.Controllers
         [Route("result/{id}")]
         public IActionResult Result(string id)
         {
-            var dataSource = new ChecklistDataSource(null);
-            var checklistResult = dataSource.LoadChecklistResultModel(id);
+            var checklistResult = mChecklistRepository.LoadChecklistResultModel(id);
             if (checklistResult == null)
             {
                 return HttpNotFound(id);
@@ -47,12 +49,14 @@ namespace Io.GuessWhat.MainApp.Controllers
         [HttpPost("result")]
         public IActionResult Result(Models.ChecklistResultModel item)
         {
-            var dataSource = new ChecklistDataSource(null);
-            ChecklistResultModel result = dataSource.SaveChecklistResultModel(item);
+            ChecklistResultModel result = mChecklistRepository.SaveChecklistResultModel(item);
             return Json(result);
             // FIXME: This does not use a RESTful url such as /c/result/1234, but instead
             // redirects to /c/result?id=1234
             //return RedirectToAction("Result", new { id = id });
         }
+
+        private IChecklistRepository mChecklistRepository;
+
     }
 }

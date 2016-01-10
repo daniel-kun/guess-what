@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using Io.GuessWhat.MainApp.Models;
 using Xunit;
 
-namespace Io.GuessWhat.SystemTests.MainApp.DataSources
+namespace Io.GuessWhat.SystemTests.MainApp.Repositories
 {
-    public class ChecklistDataSourceTests : IClassFixture <DbClassFixture>
+    public class ChecklistRepositoryTests : IClassFixture <RepositoryClassFixture>
     {
-        public ChecklistDataSourceTests (DbClassFixture fixture)
+        public ChecklistRepositoryTests (RepositoryClassFixture fixture)
         {
             mFixture = fixture;
         }
@@ -16,14 +16,16 @@ namespace Io.GuessWhat.SystemTests.MainApp.DataSources
         public void SavedChecklistResultModelShouldNotChangeWhenLoaded()
         {
             // sut = System Under Test
-            var sut = new GuessWhat.MainApp.DataSources.ChecklistDataSource(mFixture.ChecklistDb);
+            var sut = new GuessWhat.MainApp.Repositories.ChecklistRepository(
+                new Mocking.Options<GuessWhat.MainApp.Repositories.Settings> (mFixture.RepositorySettings));
             ChecklistResultModel demoData;
             demoData = CreateDemoChecklistResultModel();
             Assert.Null(demoData.Id);
             sut.SaveChecklistResultModel(demoData);
             Assert.NotNull(demoData.Id);
             // Create a second ChecklistDataSource to make sure that the data is stored persistently:
-            var sut2 = new GuessWhat.MainApp.DataSources.ChecklistDataSource(mFixture.ChecklistDb);
+            var sut2 = new GuessWhat.MainApp.Repositories.ChecklistRepository(
+                new Mocking.Options<GuessWhat.MainApp.Repositories.Settings> (mFixture.RepositorySettings));
             var result = sut2.LoadChecklistResultModel(demoData.Id);
             AssertElementsAreEqual(demoData, result);
         }
@@ -91,8 +93,8 @@ namespace Io.GuessWhat.SystemTests.MainApp.DataSources
         **/
         private static ChecklistResultModel CreateDemoChecklistResultModel()
         {
-            var fakeChecklistId = GuessWhat.MainApp.DataSources.ChecklistDataSource.mFakeChecklistId;
-            var fakeCheckList = GuessWhat.MainApp.DataSources.ChecklistDataSource.mFakeChecklists[fakeChecklistId];
+            var fakeChecklistId = GuessWhat.MainApp.Repositories.ChecklistRepository.mFakeChecklistId;
+            var fakeCheckList = GuessWhat.MainApp.Repositories.ChecklistRepository.mFakeChecklists[fakeChecklistId];
             return new ChecklistResultModel()
             {
                 CreationTime = DateTime.Now,
@@ -126,7 +128,7 @@ namespace Io.GuessWhat.SystemTests.MainApp.DataSources
             return new DateTime(utc.Year, utc.Month, utc.Day, utc.Hour, utc.Minute, utc.Second, DateTimeKind.Utc);
         }
 
-        private DbClassFixture mFixture;
+        private RepositoryClassFixture mFixture;
 
     }
 }

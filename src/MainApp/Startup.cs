@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Builder;
+﻿using Io.GuessWhat.MainApp.Repositories;
+using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +15,11 @@ namespace Io.GuessWhat.MainApp
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            // Configure Db connection services:
+            var repositoryConfigSection = Configuration.GetSection("RepositorySettings");
+            services.Configure<Settings>(repositoryConfigSection);
+            services.AddSingleton<IChecklistRepository, ChecklistRepository>();
+
             services.AddMvc();
             services.AddApplicationInsightsTelemetry(Configuration);
         }
@@ -37,7 +43,7 @@ namespace Io.GuessWhat.MainApp
         {
             var builder = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
-                .AddJsonFile("appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             builder.AddEnvironmentVariables();
 

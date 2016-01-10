@@ -1,23 +1,20 @@
 ﻿using Io.GuessWhat.MainApp.Models;
+using Microsoft.Extensions.OptionsModel;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Io.GuessWhat.MainApp.DataSources
+namespace Io.GuessWhat.MainApp.Repositories
 {
-    /**
-    ChecklistDataSource contains methods to retrieve ChecklistModel with it's
-    ChecklistModelItems from the production data source.
-    **/
-    public class ChecklistDataSource
+    public class ChecklistRepository : IChecklistRepository
     {
-        public ChecklistDataSource(IMongoDatabase checklistDb)
+        public ChecklistRepository (IOptions<Settings> settings)
         {
-            mChecklistDb = checklistDb;
+            mChecklistDb = Settings.ConnectToDatabase(settings.Value).Item2;
         }
 
-        public virtual ChecklistModel LoadChecklistModel(string theId)
+        public ChecklistModel LoadChecklistModel(string theId)
         {
             // Fake implementation:
             if (mFakeChecklists.ContainsKey(theId))

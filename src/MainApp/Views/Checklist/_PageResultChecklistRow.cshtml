@@ -1,16 +1,16 @@
-﻿@model guess_what2.Models.ChecklistResultItem
+﻿@model Io.GuessWhat.MainApp.Models.ChecklistResultItem
 
 <tr>
     <td class="text-right">
         @switch(Model.Result)
             {
-                case guess_what2.Models.ChecklistResult.CheckedAndOk:
+                case Io.GuessWhat.MainApp.Models.ChecklistResult.CheckedAndOk:
                     <span style="color:green;">OK</span>
                 break;
-            case guess_what2.Models.ChecklistResult.CheckedAndNotOk:
+            case Io.GuessWhat.MainApp.Models.ChecklistResult.CheckedAndNotOk:
                 <span style="color:red;">Not OK</span>
                 break;
-            case guess_what2.Models.ChecklistResult.NotChecked:
+            case Io.GuessWhat.MainApp.Models.ChecklistResult.NotChecked:
                 <span style="color:darkgray;">(not checked)</span>
                 break;
         }
