@@ -12,7 +12,7 @@ namespace Io.GuessWhat.MainApp.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            var dataSource = new ChecklistDataSource();
+            var dataSource = new ChecklistDataSource(null);
             var checklistCollection = dataSource.LoadChecklistCollection();
             return View(checklistCollection);
         }
@@ -20,7 +20,7 @@ namespace Io.GuessWhat.MainApp.Controllers
         [Route("{id}")]
         public IActionResult FillOut(string id)
         {
-            var dataSource = new ChecklistDataSource();
+            var dataSource = new ChecklistDataSource(null);
             var checklistModel = dataSource.LoadChecklistModel(id);
             if (checklistModel == null)
             {
@@ -33,7 +33,7 @@ namespace Io.GuessWhat.MainApp.Controllers
         [Route("result/{id}")]
         public IActionResult Result(string id)
         {
-            var dataSource = new ChecklistDataSource();
+            var dataSource = new ChecklistDataSource(null);
             var checklistResult = dataSource.LoadChecklistResultModel(id);
             if (checklistResult == null)
             {
@@ -47,7 +47,7 @@ namespace Io.GuessWhat.MainApp.Controllers
         [HttpPost("result")]
         public IActionResult Result(Models.ChecklistResultModel item)
         {
-            var dataSource = new ChecklistDataSource();
+            var dataSource = new ChecklistDataSource(null);
             ChecklistResultModel result = dataSource.SaveChecklistResultModel(item);
             return Json(result);
             // FIXME: This does not use a RESTful url such as /c/result/1234, but instead

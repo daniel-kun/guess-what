@@ -1,6 +1,8 @@
 ﻿using Io.GuessWhat.MainApp.Models;
-using System.Collections.Generic;
+using MongoDB.Driver;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Io.GuessWhat.MainApp.DataSources
 {
@@ -10,6 +12,11 @@ namespace Io.GuessWhat.MainApp.DataSources
     **/
     public class ChecklistDataSource
     {
+        public ChecklistDataSource(IMongoDatabase checklistDb)
+        {
+            mChecklistDb = checklistDb;
+        }
+
         public virtual ChecklistModel LoadChecklistModel(string theId)
         {
             // Fake implementation:
@@ -40,23 +47,33 @@ namespace Io.GuessWhat.MainApp.DataSources
         {
             var newId = Tools.Web.ShortGuid.CreateGuid();
             item.Id = newId;
-            mFakeChecklistResultModels.Add(newId, item);
+            var resultCollection = mChecklistDb.GetCollection<ChecklistResultModel>("results");
+            resultCollection.InsertOne(item);
             return item;
         }
 
         public ChecklistResultModel LoadChecklistResultModel(string id)
         {
-            if (mFakeChecklistResultModels.ContainsKey (id))
-            {
-                var result = mFakeChecklistResultModels[id];
-                result.Template = LoadChecklistModel(result.TemplateId);
-                result.Results = TestResultsFromTemplateItems(result.Template.Items);
-                return result;
-            }
-            else
-            {
-                return null;
-            }
+            var resultCollection = mChecklistDb.GetCollection<ChecklistResultModel>("results");
+            var result = resultCollection.Find<ChecklistResultModel>(Builders<ChecklistResultModel>.Filter.Eq("Id", id)).First<ChecklistResultModel>();
+            result.Template = LoadChecklistModel(result.TemplateId);
+            result.Results = ConnectChecklistResultItems(result.Results, result.Template);
+            return result;
+        }
+
+        /**
+        Returns a new list that is equal to results, except that the "TemplateItem" property is
+        set to the TemplateItem with the TemplateItemId from template.Items.
+        **/
+        private List<ChecklistResultItem> ConnectChecklistResultItems(List<ChecklistResultItem> results, ChecklistModel template)
+        {
+            return new List<ChecklistResultItem> (
+                results.Select(item => new ChecklistResultItem()
+                {
+                    Result = item.Result,
+                    TemplateItemId = item.TemplateItemId,
+                    TemplateItem = template.Items.Find (templateItem => templateItem.Id == item.TemplateItemId)
+                }));
         }
 
         /**
@@ -100,10 +117,10 @@ namespace Io.GuessWhat.MainApp.DataSources
             return result;
         }
 
-        private static readonly string mFakeChecklistId       = "3B0E78BEE31A401BB69D2F";
-        private static readonly string mFakeChecklistResultId = "659BF2D779C54EFE94CE5D";
+        public static readonly string mFakeChecklistId       = "3B0E78BEE31A401BB69D2F";
+        public static readonly string mFakeChecklistResultId = "659BF2D779C54EFE94CE5D";
 
-        private static readonly Dictionary<string, ChecklistModel> mFakeChecklists = new Dictionary<string, ChecklistModel>
+        public static readonly Dictionary<string, ChecklistModel> mFakeChecklists = new Dictionary<string, ChecklistModel>
         {
             {
                 mFakeChecklistId,
@@ -167,5 +184,6 @@ namespace Io.GuessWhat.MainApp.DataSources
             }
         };
 
+        private IMongoDatabase mChecklistDb;
     }
 }

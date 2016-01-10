@@ -1,5 +1,7 @@
 ﻿namespace Io.GuessWhat.MainApp.Models
 {
+    using MongoDB.Bson;
+    using MongoDB.Bson.Serialization.Attributes;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
 
@@ -26,6 +28,7 @@
         This can be null when the template's item has not been loaded, yet.
         Use TemplateItemId in this case.
         **/
+        [BsonIgnore]
         public ChecklistItem TemplateItem
         {
             get;
@@ -36,6 +39,7 @@
         The result that the user entered for this checklist item (ok, not ok, not checked).
         **/
         [JsonConverter(typeof(StringEnumConverter))]
+        [BsonRepresentation(BsonType.String)]
         public ChecklistResult Result
         {
             get;

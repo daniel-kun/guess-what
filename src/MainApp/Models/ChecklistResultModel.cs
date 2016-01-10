@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 
 namespace Io.GuessWhat.MainApp.Models
@@ -51,6 +52,7 @@ namespace Io.GuessWhat.MainApp.Models
         The template that has been filled out and which results have been submitted.
         May be null if the template is not loaded. In this case, see TemplateId.
         **/
+        [BsonIgnore]
         public ChecklistModel Template
         {
             get;
