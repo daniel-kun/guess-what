@@ -8,7 +8,7 @@ namespace Io.GuessWhat.MainApp.Repositories
     **/
     public interface IChecklistRepository
     {
-        List<ChecklistBrowseItem> LoadChecklistCollection();
+        IEnumerable<ChecklistBrowseItem> LoadChecklistModelCollection();
         ChecklistModel LoadChecklistModel(string theId);
         ChecklistResultModel SaveChecklistResultModel(ChecklistResultModel item);
         ChecklistResultModel LoadChecklistResultModel(string id);

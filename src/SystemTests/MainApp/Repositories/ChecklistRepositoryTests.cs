@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using Io.GuessWhat.MainApp.Models;
 using Xunit;
@@ -13,15 +14,101 @@ namespace Io.GuessWhat.SystemTests.MainApp.Repositories
         }
 
         [Fact]
+        public void SavedChecklistModelShouldNotChangeWhenLoaded()
+        {
+            var sut = new GuessWhat.MainApp.Repositories.ChecklistRepository(
+                new Mocking.Options<GuessWhat.MainApp.Repositories.Settings>(mFixture.RepositorySettings));
+            ChecklistModel demoModel = CreateDemoChecklistModel();
+            Assert.Null(demoModel.Id);
+            Assert.DoesNotContain(demoModel.Items, item => item.Id != null);
+            demoModel = sut.SaveChecklistModel(demoModel);
+            Assert.NotNull(demoModel.Id);
+            Assert.DoesNotContain(demoModel.Items, item => item.Id == null);
+            // Create a second ChecklistDataSource to make sure that the data is stored persistently:
+            var sut2 = new GuessWhat.MainApp.Repositories.ChecklistRepository(
+                new Mocking.Options<GuessWhat.MainApp.Repositories.Settings>(mFixture.RepositorySettings));
+            var result = sut2.LoadChecklistModel(demoModel.Id);
+            AssertElementsAreEqual(demoModel, result);
+        }
+
+        [Fact]
+        public void SavedChecklistModelShouldExistInBrowse()
+        {
+            var sut = new GuessWhat.MainApp.Repositories.ChecklistRepository(
+                new Mocking.Options<GuessWhat.MainApp.Repositories.Settings>(mFixture.RepositorySettings));
+            ChecklistModel demoModel = CreateDemoChecklistModel();
+            Assert.Null(demoModel.Id);
+            Assert.DoesNotContain(demoModel.Items, item => item.Id != null);
+            demoModel = sut.SaveChecklistModel(demoModel);
+            Assert.NotNull(demoModel.Id);
+            Assert.DoesNotContain(demoModel.Items, item => item.Id == null);
+            var sut2 = new GuessWhat.MainApp.Repositories.ChecklistRepository(
+                new Mocking.Options<GuessWhat.MainApp.Repositories.Settings>(mFixture.RepositorySettings));
+            var loadedModels = sut2.LoadChecklistModelCollection();
+            var singleItemList = loadedModels.Select(item => item).Where(item => item.Id == demoModel.Id).ToList();
+            Assert.Equal(singleItemList.Count, 1);
+            Assert.Equal(singleItemList[0].Id, demoModel.Id);
+            Assert.Equal(singleItemList[0].Title, demoModel.Title);
+        }
+
+        private void AssertElementsAreEqual(ChecklistModel demoModel, ChecklistModel result)
+        {
+            Assert.Equal(demoModel.Id, result.Id);
+            Assert.Equal(demoModel.Title, result.Title);
+            Assert.Equal(demoModel.Description, result.Description);
+            Assert.NotNull(demoModel.Items);
+            Assert.NotNull(result.Items);
+            if (demoModel.Items != null && result.Items != null)
+            {
+                Assert.Equal(demoModel.Items.Count, result.Items.Count);
+                if (demoModel.Items.Count == result.Items.Count)
+                {
+                    for (int i = 0; i < demoModel.Items.Count; ++i)
+                    {
+                        var demoItem = demoModel.Items[i];
+                        var resultItem = result.Items[i];
+                        Assert.Equal(demoItem.Id, resultItem.Id);
+                        Assert.Equal(demoItem.Title, resultItem.Title);
+                    }
+                }
+            }
+        }
+
+        /// Creates a new dummy ChecklistModel with at least 3 items.
+        private ChecklistModel CreateDemoChecklistModel()
+        {
+            return new ChecklistModel()
+            {
+                Title = "Awesome checklist",
+                Description = "Lorem ipsum",
+                Items = new List<ChecklistItem>
+                {
+                    new ChecklistItem ()
+                    {
+                        Title = "Checklist point 1",
+                    },
+                    new ChecklistItem ()
+                    {
+                        Title = "Checklist point 2",
+                    },
+                    new ChecklistItem ()
+                    {
+                       Title = "Checklist point 3",
+                    },
+                },
+            };
+        }
+
+        [Fact]
         public void SavedChecklistResultModelShouldNotChangeWhenLoaded()
         {
             // sut = System Under Test
             var sut = new GuessWhat.MainApp.Repositories.ChecklistRepository(
                 new Mocking.Options<GuessWhat.MainApp.Repositories.Settings> (mFixture.RepositorySettings));
             ChecklistResultModel demoData;
-            demoData = CreateDemoChecklistResultModel();
+            demoData = CreateDemoChecklistResultModel(sut.SaveChecklistModel(CreateDemoChecklistModel()));
             Assert.Null(demoData.Id);
-            sut.SaveChecklistResultModel(demoData);
+            demoData = sut.SaveChecklistResultModel(demoData);
             Assert.NotNull(demoData.Id);
             // Create a second ChecklistDataSource to make sure that the data is stored persistently:
             var sut2 = new GuessWhat.MainApp.Repositories.ChecklistRepository(
@@ -64,7 +151,7 @@ namespace Io.GuessWhat.SystemTests.MainApp.Repositories
         {
             return new ChecklistModel()
             {
-                Id = GuessWhat.Tools.Web.ShortGuid.CreateGuid(),
+                Id = Tools.Web.ShortGuid.CreateGuid(),
                 Description = "Lorem ipsum",
                 Title = "Lorem ipsum",
                 Items = new List<ChecklistItem>
@@ -91,31 +178,30 @@ namespace Io.GuessWhat.SystemTests.MainApp.Repositories
         /**
         Creates a demo result model with some random and some fixed infos.
         **/
-        private static ChecklistResultModel CreateDemoChecklistResultModel()
+        private static ChecklistResultModel CreateDemoChecklistResultModel(ChecklistModel template)
         {
-            var fakeChecklistId = GuessWhat.MainApp.Repositories.ChecklistRepository.mFakeChecklistId;
-            var fakeCheckList = GuessWhat.MainApp.Repositories.ChecklistRepository.mFakeChecklists[fakeChecklistId];
+            Assert.True(template.Items.Count >= 3);
             return new ChecklistResultModel()
             {
                 CreationTime = DateTime.Now,
-                TemplateId = fakeChecklistId,
+                TemplateId = template.Id,
                 UserId = "d.albuschat",
                 Results = new List<ChecklistResultItem>
                 {
                     new ChecklistResultItem ()
                     {
                         Result = ChecklistResult.CheckedAndOk,
-                        TemplateItemId = fakeCheckList.Items[0].Id,
+                        TemplateItemId = template.Items[0].Id,
                     },
                     new ChecklistResultItem ()
                     {
                         Result = ChecklistResult.CheckedAndNotOk,
-                        TemplateItemId = fakeCheckList.Items[1].Id,
+                        TemplateItemId = template.Items[1].Id,
                     },
                     new ChecklistResultItem ()
                     {
                         Result = ChecklistResult.NotChecked,
-                        TemplateItemId = fakeCheckList.Items[2].Id,
+                        TemplateItemId = template.Items[2].Id,
                     },
                 }
             };

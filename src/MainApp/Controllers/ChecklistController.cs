@@ -17,8 +17,8 @@ namespace Io.GuessWhat.MainApp.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            var checklistCollection = mChecklistRepository.LoadChecklistCollection();
-            return View(checklistCollection);
+            var templates = mChecklistRepository.LoadChecklistModelCollection();
+            return View(templates);
         }
 
         [Route("{id}")]
