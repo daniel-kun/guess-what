@@ -1,3 +1,13 @@
+
+#body {
+    background-color: #fff;
+/*
+      -webkit-box-shadow: inset 0 0 100px rgba(0,0,0,.5);
+              box-shadow: inset 0 0 100px rgba(0,0,0,.5);
+*/
+
+}
+
 /* OK / Green: */
 label.checkbox-ok:before {color: #9C9C9C;}
 label.checkbox-ok:after {color: #4E8F56;}
@@ -13,4 +23,48 @@ label.checkbox-not-checked:before, label.checkbox-not-checked:after {color: #9C9
     font-weight: bold;
     text-shadow: 0 1px 0 #fff;
     font-size: large;
+}
+
+.navbar-custom .navbar-nav li a {
+  color: #000;
+}
+.navbar-custom .navbar-nav li a:hover,
+.navbar-custom .navbar-nav li a:focus,
+.navbar-custom .navbar-nav li a:after {
+  background: transparent;
+  color: #000;
+}
+.navbar-custom .navbar-nav li.active a {
+  color: #000;
+  background: transparent;
+}
+
+div.main-section {
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+a.navbar-brand {
+    color: #484848;
+}
+
+span.logo {
+    text-shadow: 0 3px 5px rgba(88,88,88,.9);
+}
+
+span.logo-tiny {
+    text-shadow: 0 3px 5px rgba(88,88,88,.9);
+}
+
+/* ==================================================
+	Footer
+====================================================*/
+#footer {
+  padding: 20px 0;
+  background-color: #eee;
+  color: #444;
+}
+
+.footer a {
+    color: #444;
 }

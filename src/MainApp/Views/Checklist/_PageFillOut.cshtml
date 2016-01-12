@@ -1,7 +1,7 @@
 ﻿@model Io.GuessWhat.MainApp.Models.ChecklistModel
 
 <!-- Fill out checklist -->
-<div class="container-fluid" id="fillout-page">
+<div class="container-fluid main-section" id="fillout-page">
     <div class="row">
         <div class="panel panel-default" style="margin-left: 5%; margin-right: 5%;">
             @{ await Html.RenderPartialAsync("_PageChecklistHeader"); }
@@ -39,10 +39,18 @@
                     </tbody>
                 </table>
                 <div style="margin-top:15px"></div>
-                <form action="/c/result" method="post">
-                    <input type="hidden" id="template-id" value="@Model.Id"/>
-                    <input type="submit" id="submit-results"class="btn btn-primary" value="Save results"/>
-                </form>
+            </div>
+            <div class="panel-footer panel-warning">
+                <div class="input-group">
+                    <form action="/c/result" method="post">
+                        <input type="hidden" id="template-id" value="@Model.Id" />
+                        <input type="text"
+                               class="form-control"
+                               id="userid"
+                               placeholder="User name" />
+                        <input type="submit" id="submit-results" class="btn btn-primary" value="Save results" />
+                    </form>
+                </div>
             </div>
         </div>
     </div>

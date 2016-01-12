@@ -14,10 +14,8 @@
     
     <!-- Google Font -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,800" rel="stylesheet" type="text/css">
-    <link href="~/css/style.css" rel="stylesheet">
-    <link href="~/css/animated-checkbox.css" rel="stylesheet">
-    <link href="~/css/check-style.css" rel="stylesheet">
-    <link href="~/css/guess-what.css" rel="stylesheet">
+    <link href="~/css/common.css" rel="stylesheet">
+    @RenderSection("css", required: false)
     <link href="~/css/difficulty-buttons.css" rel="stylesheet">
     @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
 </head>
@@ -26,7 +24,7 @@
 
     <!-- footer -->
     <footer id="footer">
-        <div class="container">
+        <div class="footer container">
             <div class="text-center">
                 &copy; @DateTime.Now.Year Daniel Albuschat | <a href="https://twitter.com/dalbuschat">@@dalbuschat</a> | <a href="~/">guess-what.io</a>
             </div>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Mvc;
 using Io.GuessWhat.MainApp.Repositories;
 using Io.GuessWhat.MainApp.Models;
+using System;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -49,6 +50,7 @@ namespace Io.GuessWhat.MainApp.Controllers
         [HttpPost("result")]
         public IActionResult Result(Models.ChecklistResultModel item)
         {
+            item.CreationTime = DateTime.Now;
             ChecklistResultModel result = mChecklistRepository.SaveChecklistResultModel(item);
             return Json(result);
             // FIXME: This does not use a RESTful url such as /c/result/1234, but instead

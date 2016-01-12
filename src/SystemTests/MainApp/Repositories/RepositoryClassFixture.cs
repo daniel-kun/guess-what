@@ -25,18 +25,23 @@ namespace Io.GuessWhat.SystemTests.MainApp.Repositories
             Client = ConnectToMongo(RepositorySettings);
             ChecklistDb = GetChecklistDb(Client, RepositorySettings);
             ResultsCollection = GetResultsCollection(ChecklistDb);
+            TemplatesCollection = GetTemplatesCollection(ChecklistDb);
             
-            // Delete ALL results initially, and assert that it worked:
+            // Delete ALL documents from all collections initially, and assert that it worked:
             ResultsCollection.DeleteMany(new BsonDocument ());
             Assert.Empty(ResultsCollection.Find(new BsonDocument()).ToEnumerable ());
+            TemplatesCollection.DeleteMany(new BsonDocument());
+            Assert.Empty(TemplatesCollection.Find(new BsonDocument()).ToEnumerable());
         }
 
         /// Deletes all data from ResultsCollection.
         public void Dispose()
         {
-            // Delete ALL results after the tests, and assert that it worked:
+            // Delete ALL documents from all collections after the tests, and assert that it worked:
             ResultsCollection.DeleteMany(new BsonDocument());
             Assert.Empty(ResultsCollection.Find(new BsonDocument()).ToEnumerable());
+            TemplatesCollection.DeleteMany(new BsonDocument());
+            Assert.Empty(TemplatesCollection.Find(new BsonDocument()).ToEnumerable());
         }
 
         public GuessWhat.MainApp.Repositories.Settings RepositorySettings
@@ -66,6 +71,13 @@ namespace Io.GuessWhat.SystemTests.MainApp.Repositories
             private set;
         }
 
+        // The "templates" collection from the ChecklistDb
+        public IMongoCollection<ChecklistModel> TemplatesCollection
+        {
+            get;
+            private set;
+        }
+
         private static MongoClient ConnectToMongo(GuessWhat.MainApp.Repositories.Settings settings)
         {
             var client = new MongoClient(settings.ConnectionString);
@@ -77,9 +89,14 @@ namespace Io.GuessWhat.SystemTests.MainApp.Repositories
             return client.GetDatabase(settings.DatabaseName);
         }
 
-        private static IMongoCollection<ChecklistResultModel> GetResultsCollection(IMongoDatabase db)
+        private static IMongoCollection<ChecklistResultModel> GetResultsCollection(IMongoDatabase checklistDb)
         {
-            return db.GetCollection<ChecklistResultModel>("results");
+            return checklistDb.GetCollection<ChecklistResultModel>("results");
+        }
+
+        private IMongoCollection<ChecklistModel> GetTemplatesCollection(IMongoDatabase checklistDb)
+        {
+            return checklistDb.GetCollection<ChecklistModel>("templates");
         }
 
     }
