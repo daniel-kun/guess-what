@@ -1,22 +1,22 @@
 ﻿using Xunit;
 
-namespace Io.GuessWhat.UnitTests.MainApp.Controllers.ChecklistController
+namespace Io.GuessWhat.UnitTests.MainApp.Models.ChecklistItem
 {
-    public class CreateChecklistItemsFromTextTests
+    public class FromTextTests
     {
         [Fact]
         public void ShouldReturnAnEmptyListWhenTextIsEmpty()
         {
-            var items = GuessWhat.MainApp.Controllers.ChecklistController.CreateChecklistItemsFromText(string.Empty);
+            var items = GuessWhat.MainApp.Models.ChecklistItem.FromText(string.Empty);
             Assert.NotNull(items);
             Assert.Equal(items.Count, 0);
         }
 
         [Fact]
-        public void ShouldReturnOneItemWhenTextIsOneLine ()
+        public void ShouldReturnOneItemWhenTextIsOneLine()
         {
             const string demoText = "asdf";
-            var items = GuessWhat.MainApp.Controllers.ChecklistController.CreateChecklistItemsFromText(demoText);
+            var items = GuessWhat.MainApp.Models.ChecklistItem.FromText(demoText);
             Assert.NotNull(items);
             Assert.Equal(items.Count, 1);
             Assert.Contains(items, item => item.Title == demoText);
@@ -28,7 +28,7 @@ namespace Io.GuessWhat.UnitTests.MainApp.Controllers.ChecklistController
             const string demoText = @"Lorem Ipsum
 Foo Bar Baz
 ASDF-HJKL";
-            var items = GuessWhat.MainApp.Controllers.ChecklistController.CreateChecklistItemsFromText(demoText);
+            var items = GuessWhat.MainApp.Models.ChecklistItem.FromText(demoText);
             Assert.NotNull(items);
             Assert.Equal(items.Count, 3);
             Assert.Contains(items, item => item.Title == "Lorem Ipsum");
@@ -46,7 +46,7 @@ ASDF-HJKL";
 " \t\r\n" +
 "ASDF-HJKL\r\n" +
 "\t\t   \r\n";
-            var items = GuessWhat.MainApp.Controllers.ChecklistController.CreateChecklistItemsFromText(demoText);
+            var items = GuessWhat.MainApp.Models.ChecklistItem.FromText(demoText);
             Assert.NotNull(items);
             Assert.Equal(3, items.Count);
             Assert.Contains(items, item => item.Title == "Lorem Ipsum");
@@ -62,7 +62,7 @@ ASDF-HJKL";
 "\tWhitespace before and after\t  \r\n" +
 "Whitespace after\t\t\r\n" +
 "\t\t   ";
-            var items = GuessWhat.MainApp.Controllers.ChecklistController.CreateChecklistItemsFromText(demoText);
+            var items = GuessWhat.MainApp.Models.ChecklistItem.FromText(demoText);
             Assert.NotNull(items);
             Assert.Equal(items.Count, 3);
             Assert.Contains(items, item => item.Title == "\t  Whitespace before");

@@ -1,8 +1,8 @@
 ﻿using Xunit;
 
-namespace Io.GuessWhat.UnitTests.MainApp.Controllers.ChecklistController
+namespace Io.GuessWhat.UnitTests.MainApp.Models.ChecklistModel
 {
-    public class ChecklistModelFromViewModelTests
+    public class FromViewModelTests
     {
         [Fact]
         public void ShouldPreserveTitleAndDescriptionWhenTitleIsShorterThanDescription()
@@ -15,7 +15,7 @@ namespace Io.GuessWhat.UnitTests.MainApp.Controllers.ChecklistController
                 Description = testDescription,
                 Items = string.Empty,
             };
-            var result = GuessWhat.MainApp.Controllers.ChecklistController.ChecklistModelFromViewModel(testData);
+            var result = GuessWhat.MainApp.Models.ChecklistModel.FromViewModel(testData);
             Assert.Equal(result.Title, testData.Title);
             Assert.Equal(result.Description, testData.Description);
         }
@@ -31,7 +31,7 @@ namespace Io.GuessWhat.UnitTests.MainApp.Controllers.ChecklistController
                 Description = testDescription,
                 Items = string.Empty,
             };
-            var result = GuessWhat.MainApp.Controllers.ChecklistController.ChecklistModelFromViewModel(testData);
+            var result = GuessWhat.MainApp.Models.ChecklistModel.FromViewModel(testData);
             Assert.Equal(result.Title, testData.Title);
             Assert.Equal(result.Description, testData.Description);
         }
@@ -48,7 +48,7 @@ namespace Io.GuessWhat.UnitTests.MainApp.Controllers.ChecklistController
                 Description = testDescription,
                 Items = testItems,
             };
-            var result = GuessWhat.MainApp.Controllers.ChecklistController.ChecklistModelFromViewModel(testData);
+            var result = GuessWhat.MainApp.Models.ChecklistModel.FromViewModel(testData);
             Assert.Equal(result.Title, testData.Title);
             Assert.Equal(result.Description, testData.Description);
             Assert.Equal(result.Items.Count, 2);
@@ -67,7 +67,7 @@ namespace Io.GuessWhat.UnitTests.MainApp.Controllers.ChecklistController
                 Description = testDescription,
                 Items = string.Empty,
             };
-            var result = GuessWhat.MainApp.Controllers.ChecklistController.ChecklistModelFromViewModel(testData);
+            var result = GuessWhat.MainApp.Models.ChecklistModel.FromViewModel(testData);
             Assert.True(result.Title.Length < testData.Title.Length);
             Assert.True(result.Description.Length < testData.Description.Length);
             Assert.Equal(result.Title.Length, GuessWhat.MainApp.Models.ChecklistModel.TitleMaxLength);

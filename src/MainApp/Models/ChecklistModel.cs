@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Io.GuessWhat.MainApp.Models
 {
@@ -51,5 +53,21 @@ namespace Io.GuessWhat.MainApp.Models
             get;
             set;
         }
+
+        /**
+        Creates a ChecklistModel object from a ChecklistViewModel. The multi-line text in
+        viewModel.Items will be converted to a list of ChecklistItems in the resulting 
+        ChecklistModel's Items.
+        **/
+        public static ChecklistModel FromViewModel(ChecklistViewModel viewModel)
+        {
+            return new ChecklistModel()
+            {
+                Title = Tools.Web.FormInput.PrepareText(viewModel.Title, ChecklistModel.TitleMaxLength),
+                Description = Tools.Web.FormInput.PrepareText(viewModel.Description, ChecklistModel.DescriptionMaxLength),
+                Items = ChecklistItem.FromText(viewModel.Items)
+            };
+        }
+
     }
 }
