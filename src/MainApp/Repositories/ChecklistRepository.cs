@@ -34,10 +34,10 @@ namespace Io.GuessWhat.MainApp.Repositories
             return templateCollection.Find(Builders<ChecklistModel>.Filter.Eq("Id", id)).FirstOrDefault();
         }
 
-        public IEnumerable<ChecklistBrowseItem> LoadChecklistModelCollection()
+        public IEnumerable<ChecklistBrowseItem> LoadChecklistBrowseItems()
         {
             var templateCollection = GetTemplateCollection();
-            foreach (var item in templateCollection.Find (new BsonDocument()).ToEnumerable())
+            foreach (var item in templateCollection.Find(new BsonDocument()).ToEnumerable())
             {
                 yield return new ChecklistBrowseItem()
                 {

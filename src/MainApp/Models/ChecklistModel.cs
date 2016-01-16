@@ -11,6 +11,10 @@ namespace Io.GuessWhat.MainApp.Models
     **/
     public class ChecklistModel
     {
+
+        public static readonly int TitleMaxLength = 4000;
+        public static readonly int DescriptionMaxLength = 4000;
+
         public string Id
         {
             get;

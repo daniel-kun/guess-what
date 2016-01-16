@@ -15,7 +15,7 @@
   },
 
   "commands": {
-    "guess-what2-playground": "guess-what2-playground"
+    "Playground": "Playground"
   },
 
   "dependencies": {

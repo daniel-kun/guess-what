@@ -1,5 +1,4 @@
-﻿using MongoDB.Bson;
-using System;
+﻿using System;
 
 namespace Io.GuessWhat.Playground
 {
@@ -9,14 +8,15 @@ namespace Io.GuessWhat.Playground
     {
         public static int Main(string[] args)
         {
+            /*
             var client = new MongoDB.Driver.MongoClient("mongodb://localhost:27017");
             var db = client.GetDatabase("checklist");
-            var doc = new MongoDB.Bson.BsonDocument{
+            var doc = new BsonDocument{
                 { "Id", "asdf-asdf" },
             };
             var templates = db.GetCollection<BsonDocument>("templates");
             templates.InsertOne(doc);
-
+            */
             Console.WriteLine("Hello, World!");
             Console.ReadLine();
             return 0;

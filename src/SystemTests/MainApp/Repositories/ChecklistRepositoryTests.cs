@@ -44,7 +44,7 @@ namespace Io.GuessWhat.SystemTests.MainApp.Repositories
             Assert.DoesNotContain(demoModel.Items, item => item.Id == null);
             var sut2 = new GuessWhat.MainApp.Repositories.ChecklistRepository(
                 new Mocking.Options<GuessWhat.MainApp.Repositories.Settings>(mFixture.RepositorySettings));
-            var loadedModels = sut2.LoadChecklistModelCollection();
+            var loadedModels = sut2.LoadChecklistBrowseItems();
             var singleItemList = loadedModels.Select(item => item).Where(item => item.Id == demoModel.Id).ToList();
             Assert.Equal(singleItemList.Count, 1);
             Assert.Equal(singleItemList[0].Id, demoModel.Id);
