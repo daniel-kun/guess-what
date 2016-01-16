@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Io.GuessWhat.MainApp.Models
 {
@@ -15,9 +14,18 @@ namespace Io.GuessWhat.MainApp.Models
     {
 
         public static readonly int TitleMaxLength = 4000;
-        public static readonly int DescriptionMaxLength = 4000;
+        public static readonly int DescriptionMaxLength = 4000;           
 
         public string Id
+        {
+            get;
+            set;
+        }
+
+        /**
+        The timestamp of the exact time that the user published this checklist template.
+        **/
+        public DateTime CreationTime
         {
             get;
             set;

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.OptionsModel;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,6 +24,7 @@ namespace Io.GuessWhat.MainApp.Repositories
                 Id = Tools.Web.ShortGuid.CreateGuid(),
                 Title = item.Title,
             }).ToList();
+            template.CreationTime = DateTime.Now.ToUniversalTime();
             var templateCollection = GetTemplateCollection();
             templateCollection.InsertOne(template);
             return template;
@@ -37,12 +39,19 @@ namespace Io.GuessWhat.MainApp.Repositories
         public IEnumerable<ChecklistBrowseItem> LoadChecklistBrowseItems()
         {
             var templateCollection = GetTemplateCollection();
-            foreach (var item in templateCollection.Find(new BsonDocument()).ToEnumerable())
+            var sort = Builders<ChecklistModel>.Sort.Descending(nameof(ChecklistModel.CreationTime));
+            int counter = 0;
+            foreach (var item in templateCollection.Find(new BsonDocument()).Sort(sort).ToEnumerable())
             {
+                if (++counter > MaxBrowseItems)
+                {
+                    break;
+                }
                 yield return new ChecklistBrowseItem()
                 {
                     Id = item.Id,
                     Title = item.Title,
+                    CreationTime = item.CreationTime,
                 };
             }
         }
@@ -86,5 +95,8 @@ namespace Io.GuessWhat.MainApp.Repositories
         }
 
         private IMongoDatabase mChecklistDb;
+
+        /// Maximum number of entries in the browse page
+        public static readonly int MaxBrowseItems = 20;
     }
 }
