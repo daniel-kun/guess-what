@@ -1,4 +1,6 @@
-﻿<!-- Create a new checklist -->
+﻿@model Io.GuessWhat.MainApp.Models.ChecklistViewModel
+
+<!-- Create a new checklist -->
 <div class="container-fluid main-section" id="new-page">
     <div class="row">
         <div class="panel panel-default" style="margin-left: 5%; margin-right: 5%;">
@@ -8,13 +10,9 @@
             <form method="POST" action="/c/new">
                 <div class="panel-body">
                     <div class="form-group form-horizontal" style="margin-bottom:0;">
-                        <input type="text" class="form-control" placeholder="Checklist title" name="title" autofocus required maxlength="@Io.GuessWhat.MainApp.Models.ChecklistModel.TitleMaxLength" />
-                        <textarea class="form-control" rows="3" placeholder="A more detailed description..." style="margin-top:10px;" name="description" maxlength="@Io.GuessWhat.MainApp.Models.ChecklistModel.DescriptionMaxLength"></textarea>
-                        <textarea class="form-control" rows="15" style="margin-top:10px;" name="items" maxlength="@Io.GuessWhat.MainApp.Models.ChecklistViewModel.ItemsMaxLength">
-Check item #1
-Check item #2
-Check item #3
-</textarea>
+                        <input type="text" class="form-control" placeholder="Checklist title" name="title" autofocus required maxlength="@Io.GuessWhat.MainApp.Models.ChecklistModel.TitleMaxLength" value="@Model.Title"/>
+                        <textarea class="form-control" rows="3" placeholder="A more detailed description..." style="margin-top:10px;" name="description" maxlength="@Io.GuessWhat.MainApp.Models.ChecklistModel.DescriptionMaxLength">@Model.Description</textarea>
+                        <textarea class="form-control" rows="15" style="margin-top:10px;" name="items" maxlength="@Io.GuessWhat.MainApp.Models.ChecklistViewModel.ItemsMaxLength">@Model.Items</textarea>
                     </div>
                 </div>
                 <div class="panel-footer">

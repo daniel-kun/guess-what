@@ -59,7 +59,23 @@ namespace Io.GuessWhat.MainApp.Controllers
         [HttpGet("new")]
         public IActionResult New()
         {
-            return View();
+            return View(new ChecklistViewModel()
+            {
+                Title = string.Empty,
+                Description = string.Empty,
+                Items = @"Checklist Item #1
+Checklist Item #2
+Checklist Item #3
+",
+           });
+        }
+
+        [HttpGet("new/{id}")]
+        public IActionResult New(string id)
+        {
+            var template = mChecklistRepository.LoadChecklistModel(id);
+            var viewModel = ChecklistViewModel.FromModel(template);
+            return View(viewModel);
         }
 
         [HttpPost("new")]

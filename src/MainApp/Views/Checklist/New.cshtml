@@ -1,6 +1,8 @@
-﻿@{
+﻿@model Io.GuessWhat.MainApp.Models.ChecklistViewModel
+
+@{
     await Html.RenderPartialAsync("_Navigation");
-    await Html.RenderPartialAsync("_PageNewEdit");
+    await Html.RenderPartialAsync("_PageNewEdit", @Model);
     await Html.RenderPartialAsync("_PageHowItWorks");
 }
 
