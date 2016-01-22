@@ -16,8 +16,7 @@ namespace Io.GuessWhat.MainApp
         public void ConfigureServices(IServiceCollection services)
         {
             // Configure Db connection services:
-            var repositoryConfigSection = Configuration.GetSection("RepositorySettings");
-            services.Configure<Settings>(repositoryConfigSection);
+            services.Configure<Settings>(Configuration);
             services.AddSingleton<IChecklistRepository, ChecklistRepository>();
 
             services.AddMvc();
@@ -45,7 +44,7 @@ namespace Io.GuessWhat.MainApp
                 .AddJsonFile("appsettings.json")
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
-            builder.AddEnvironmentVariables();
+            builder.AddUserSecrets();
 
             if (env.IsEnvironment("Development"))
             {

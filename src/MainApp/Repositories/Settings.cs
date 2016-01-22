@@ -11,18 +11,18 @@ namespace Io.GuessWhat.MainApp.Repositories
         **/
         public static Tuple <MongoClient, IMongoDatabase> ConnectToDatabase (Settings settings)
         {
-            var client = new MongoClient(settings.ConnectionString);
-            var db = client.GetDatabase(settings.DatabaseName);
+            var client = new MongoClient(settings.DbConnectionString);
+            var db = client.GetDatabase(settings.DbDatabaseName);
             return Tuple.Create(client, db);
         }
 
-        public string ConnectionString
+        public string DbConnectionString
         {
             get;
             set;
         }
 
-        public string DatabaseName
+        public string DbDatabaseName
         {
             get;
             set;

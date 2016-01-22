@@ -20,8 +20,8 @@ namespace Io.GuessWhat.SystemTests.MainApp.Repositories
         {
             RepositorySettings = new GuessWhat.MainApp.Repositories.Settings()
             {
-                ConnectionString = "mongodb://localhost:27017",
-                DatabaseName = "checklist-tests",
+                DbConnectionString = "mongodb://localhost:27017",
+                DbDatabaseName = "checklist-tests",
             };
             Client = ConnectToMongo(RepositorySettings);
             ChecklistDb = GetChecklistDb(Client, RepositorySettings);
@@ -81,13 +81,13 @@ namespace Io.GuessWhat.SystemTests.MainApp.Repositories
 
         private static MongoClient ConnectToMongo(GuessWhat.MainApp.Repositories.Settings settings)
         {
-            var client = new MongoClient(settings.ConnectionString);
+            var client = new MongoClient(settings.DbConnectionString);
             return client;
         }
 
         private static IMongoDatabase GetChecklistDb(MongoClient client, GuessWhat.MainApp.Repositories.Settings settings)
         {
-            return client.GetDatabase(settings.DatabaseName);
+            return client.GetDatabase(settings.DbDatabaseName);
         }
 
         private static IMongoCollection<ChecklistResultModel> GetResultsCollection(IMongoDatabase checklistDb)
