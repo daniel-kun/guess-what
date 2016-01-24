@@ -1,19 +1,22 @@
 ﻿@model Io.GuessWhat.MainApp.Models.ChecklistItem
 
 <tr class="marker-checkcell" id="check_@Model.Id">
-    <td class="checkcell text-center">
-        <input type="checkbox" id="check_ok_@Model.Id" class="marker-ok"/>
-        <label for="check_ok_@Model.Id" class="checkbox-ok"></label>
+    <td style="vertical-align:middle;">
+        <span style="vertical-align:middle;color:#333;">@Model.Title</span>
     </td>
-    <td class="checkcell text-center">
-        <input type="checkbox" id="check_not_ok_@Model.Id" class="marker-not-ok"/>
-        <label for="check_not_ok_@Model.Id" class="checkbox-not-ok"></label>
+    <td class="checkcell" style="width:60px;">
+        @{
+            await Html.RenderPartialAsync("_CheckboxControl", new Io.GuessWhat.MainApp.Models.CheckboxControlViewModel($"check_ok_{Model.Id}", "OK") { Class = "checkbox-unvisited" });
+        }
     </td>
-    <td class="checkcell text-center">
-        <input type="checkbox" id="check_not_checked_@Model.Id" class="marker-not-checked"/>
-        <label for="check_not_checked_@Model.Id" class="checkbox-not-checked"></label>
+    <td class="checkcell" style="width:90px;">
+        @{
+            await Html.RenderPartialAsync("_CheckboxControl", new Io.GuessWhat.MainApp.Models.CheckboxControlViewModel($"check_not_ok_{Model.Id}", "Not OK") { Class = "checkbox-unvisited" });
+        }
     </td>
-    <td>
-        <span>@Model.Title</span>
+    <td class="checkcell" style="width:120px;">
+        @{
+            await Html.RenderPartialAsync("_CheckboxControl", new Io.GuessWhat.MainApp.Models.CheckboxControlViewModel($"not_checked_{Model.Id}", "Not checked") { Class = "checkbox-unvisited" });
+        }
     </td>
 </tr>

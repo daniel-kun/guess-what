@@ -1,5 +1,101 @@
 ﻿/**
-Fills in the requests array with ChecklistResultItem with filled Result and TemplateItemId properties
+Extracts and returns the id of a ChecklistTemplate, ChecklistItem or similar from
+an element's id.
+Example:
+getEntityIdFromElementId("checked_", "checked_SOMERANDOMGUID") -> "SOMERANDOMGUID"
+**/
+function getEntityIdFromElementId(prefix, elementId) {
+    if (elementId.slice(0, prefix.length) == prefix) {
+        return elementId.slice(prefix.length);
+    } else {
+        return "";
+    }
+}
+
+
+/**
+Checks a checkmark that was built with an <a class="checkmark"> containing at least one <span>.
+@param checkmark An jQuery object pointing to the 'a' element that should be checked.
+@param colorClass A CSS class that should be added to the 'a', used for coloring when checked.
+**/
+function checkCheckmark(checkmark, colorClass)
+{
+    checkmark.children()[0].innerHTML = "&#9745;";
+    checkmark.addClass(colorClass);
+    checkmark.removeClass("checkbox-unchecked");
+    checkmark.addClass("checkbox-checked");
+}
+
+/**
+Unchecks a checkmark that was built with an <a class="checkmark"> containing at least one <span>.
+@param checkmark An jQuery object pointing to the 'a' element that should be unchecked.
+@param colorClass A CSS class that should be removed to the 'a', used for coloring when checked.
+**/
+function uncheckCheckmark(checkmark, colorClass)
+{
+    checkmark.children()[0].innerHTML = "&#9744;";
+    checkmark.removeClass(colorClass);
+    checkmark.removeClass("checkbox-checked");
+    checkmark.addClass("checkbox-unchecked");
+}
+
+/**
+Returns a CSS class for the 'a' element of a checkbox that defines it's color.
+checkboxType 0 = OK, 1 = Not OK, 2 = Not Checked
+**/
+function colorClassFromCheckboxType(checkboxType)
+{
+    switch (checkboxType) {
+        case 0: return "checkbox-color-ok";
+        case 1: return "checkbox-color-not-ok";
+        default: return "checkbox-color-not-checked";
+    }
+}
+
+/**
+Toggle "checked" state for a's that have the checkbox class
+**/
+$(function () {
+    $("a.checkbox").each(function (e) {
+        $(this).click(function () {
+            var checklistItemId = getEntityIdFromElementId("check_ok_", $(this).prop("id"));
+            var checkboxType; // 0 = OK, 1 = Not OK, 2 = Not Checked
+            if (checklistItemId != "") {
+                // It was the "check_ok" checkbox that was clicked - remove the other checkmarks
+                checkboxType = 0;
+                uncheckCheckmark($("#check_not_ok_" + checklistItemId), colorClassFromCheckboxType(1));
+                uncheckCheckmark($("#not_checked_" + checklistItemId), colorClassFromCheckboxType(2));
+            } else {
+                checklistItemId = getEntityIdFromElementId("check_not_ok_", $(this).prop("id"));
+                if (checklistItemId != "") {
+                    // It was the "check_not_ok" checkbox that was clicked - remove the other checkmarks
+                    checkboxType = 1;
+                    uncheckCheckmark($("#check_ok_" + checklistItemId), colorClassFromCheckboxType(0));
+                    uncheckCheckmark($("#not_checked_" + checklistItemId), colorClassFromCheckboxType(2));
+                } else {
+                    // It must have been the "not_checked" checkbox that was clicked - remove the other checkmarks
+                    checklistItemId = getEntityIdFromElementId("not_checked_", $(this).prop("id"));
+                    checkboxType = 2;
+                    uncheckCheckmark($("#check_ok_" + checklistItemId), colorClassFromCheckboxType(0));
+                    uncheckCheckmark($("#check_not_ok_" + checklistItemId), colorClassFromCheckboxType(1));
+                }
+            }
+            if (checklistItemId != "") {
+                $("#check_ok_"      + checklistItemId).removeClass("checkbox-unvisited");
+                $("#check_not_ok_"  + checklistItemId).removeClass("checkbox-unvisited");
+                $("#not_checked_"   + checklistItemId).removeClass("checkbox-unvisited");
+            }
+            if ($(this).hasClass("checkbox-checked")) {
+                uncheckCheckmark($(this), colorClassFromCheckboxType(checkboxType));
+            } else {
+                checkCheckmark($(this), colorClassFromCheckboxType(checkboxType));
+            }
+        });
+    });
+});
+
+/**
+Fills in the requests array with ChecklistResultItem with proper Result and TemplateItemId properties
 for all filled out checklist items.
 
 @param requests Will be filled with new objects with properties Result (either one of "CheckedAndOk", 
@@ -14,14 +110,14 @@ function fillRequests(resultItems)
     $("tr.marker-checkcell").each(function (tableRow) {
         var tableRowId = $(this)[0].id;
         var prefix = "check_";
-        if (tableRowId.slice(0, prefix.length) == prefix) {
-            var checklistTemplateItemId = tableRowId.slice(prefix.length);
+        var checklistTemplateItemId = getEntityIdFromElementId("check_", tableRowId);
+        if (checklistTemplateItemId != "") {
             var result = "";
-            if ($("input.marker-ok", $(this))[0].checked) {
+            if ($("#check_ok_" + checklistTemplateItemId).hasClass("checkbox-checked")) {
                 result = "CheckedAndOk";
-            } else if ($("input.marker-not-ok", $(this))[0].checked) {
+            } else if ($("#check_not_ok_" + checklistTemplateItemId).hasClass("checkbox-checked")) {
                 result = "CheckedAndNotOk";
-            } else if ($("input.marker-not-checked", $(this))[0].checked) {
+            } else if ($("#not_checked_" + checklistTemplateItemId).hasClass("checkbox-checked")) {
                 result = "NotChecked";
             } else {
                 entryComplete = false;

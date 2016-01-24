@@ -7,30 +7,6 @@
             @{ await Html.RenderPartialAsync("_PageChecklistHeader"); }
             <div class="panel-body">
                 <table class="table" style="color: darkgray">
-                    <thead>
-                        <tr>
-                            <td class="col-md-1">
-                                <div style="margin-left:6px;margin-right:3px;text-align:center;">
-                                    Checked,<br />OK
-                                </div>
-                            </td>
-                            <td class="col-md-1">
-                                <div style="margin-left:3px;margin-right:3px;text-align:center;">
-                                    Checked,<br />not OK
-                                </div>
-                            </td>
-                            <td class="col-md-1">
-                                <div style="margin-left:3px;margin-right:3px;text-align:center;">
-                                    Not checked
-                                </div>
-                            </td>
-                            <td>
-                                <div style="margin-left:3px;margin-right:3px">
-
-                                </div>
-                            </td>
-                        </tr>
-                    </thead>
                     <tbody>
                         @foreach (var item in Model.Items)
                         {
