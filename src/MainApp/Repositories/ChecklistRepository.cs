@@ -90,8 +90,29 @@ namespace Io.GuessWhat.MainApp.Repositories
                 {
                     Result = item.Result,
                     TemplateItemId = item.TemplateItemId,
-                    TemplateItem = template.Items.Find (templateItem => templateItem.Id == item.TemplateItemId)
+                    TemplateItem = FindOrDefault(template.Items, item.TemplateItemId)
                 }));
+        }
+
+        /**
+        Finds the item with Id `id` in `items` and returns that item when found,
+        or a newly created ChecklistItem with an empty Id, null Items and an
+        arbitrary Title that should contain some sort of error information.
+        **/
+        public static ChecklistItem FindOrDefault(List<ChecklistItem> items, string id)
+        {
+            var result = items.Find(templateItem => templateItem.Id == id);
+            if (result != null)
+            {
+                return result;
+            } else {
+                return new ChecklistItem()
+                {
+                    Id = string.Empty,
+                    Items = null,
+                    Title = "(error)",
+                };
+            }
         }
 
         private IMongoDatabase mChecklistDb;

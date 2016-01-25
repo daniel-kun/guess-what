@@ -1,22 +1,49 @@
-﻿@model Io.GuessWhat.MainApp.Models.ChecklistItem
-
-<tr class="marker-checkcell" id="check_@Model.Id">
-    <td style="vertical-align:middle;">
-        <span style="vertical-align:middle;color:#333;">@Model.Title</span>
-    </td>
-    <td class="checkcell" style="width:60px;">
-        @{
-            await Html.RenderPartialAsync("_CheckboxControl", new Io.GuessWhat.MainApp.Models.CheckboxControlViewModel($"check_ok_{Model.Id}", "OK") { Class = "checkbox-unvisited" });
-        }
-    </td>
-    <td class="checkcell" style="width:90px;">
-        @{
-            await Html.RenderPartialAsync("_CheckboxControl", new Io.GuessWhat.MainApp.Models.CheckboxControlViewModel($"check_not_ok_{Model.Id}", "Not OK") { Class = "checkbox-unvisited" });
-        }
-    </td>
-    <td class="checkcell" style="width:120px;">
-        @{
-            await Html.RenderPartialAsync("_CheckboxControl", new Io.GuessWhat.MainApp.Models.CheckboxControlViewModel($"not_checked_{Model.Id}", "Not checked") { Class = "checkbox-unvisited" });
-        }
-    </td>
-</tr>
+﻿@model Io.GuessWhat.MainApp.Models.ChecklistViewItem
+@{
+    int currentIndentation = Model.IndentationLevel * 15;
+    string checklistRowClass = currentIndentation == 0 ? "checklistrow-expanded" : "checklistrow-collapsed";
+}
+@if (Model.Item.Items != null && Model.Item.Items.Count > 0)
+{
+    <tr class="marker-checkcell" id="check_@Model.Item.Id">
+        <td style="vertical-align:middle;" colspan="2">
+            <span style="vertical-align:middle;color:#333;margin-left:@(currentIndentation)px;">@Model.Item.Title</span>
+        </td>
+        <td class="checkcell" style="width:90px;">
+            @{
+                await Html.RenderPartialAsync("_CheckboxControl", new Io.GuessWhat.MainApp.Models.CheckboxControlViewModel($"check_ok_{Model.Item.Id}", "Yes") { Class = "checkbox-unvisited checklistrow-parent" });
+            }
+        </td>
+        <td class="checkcell" style="width:120px;">
+            @{
+                await Html.RenderPartialAsync("_CheckboxControl", new Io.GuessWhat.MainApp.Models.CheckboxControlViewModel($"not_checked_{Model.Item.Id}", "No") { Class = "checkbox-unvisited checklistrow-parent" });
+            }
+        </td>
+    </tr>
+    foreach(var childItem in Model.Item.Items) {
+        await Html.RenderPartialAsync("_PageFillOutChecklistRow", new Io.GuessWhat.MainApp.Models.ChecklistViewItem() { Item = childItem, IndentationLevel = currentIndentation + 1, ParentId = Model.Item.Id });
+    }
+}
+else
+{
+    <tr class="marker-checkcell @checklistRowClass checklistrow-parent-@Model.ParentId" id="check_@Model.Item.Id">
+        <td style="vertical-align:middle;">
+            <span style="vertical-align:middle;color:#333;margin-left:@(currentIndentation)px;">@Model.Item.Title</span>
+        </td>
+        <td class="checkcell" style="width:60px;">
+            @{
+                await Html.RenderPartialAsync("_CheckboxControl", new Io.GuessWhat.MainApp.Models.CheckboxControlViewModel($"check_ok_{Model.Item.Id}", "OK") { Class = "checkbox-unvisited" });
+            }
+        </td>
+        <td class="checkcell" style="width:90px;">
+            @{
+                await Html.RenderPartialAsync("_CheckboxControl", new Io.GuessWhat.MainApp.Models.CheckboxControlViewModel($"check_not_ok_{Model.Item.Id}", "Not OK") { Class = "checkbox-unvisited" });
+            }
+        </td>
+        <td class="checkcell" style="width:120px;">
+            @{
+                await Html.RenderPartialAsync("_CheckboxControl", new Io.GuessWhat.MainApp.Models.CheckboxControlViewModel($"not_checked_{Model.Item.Id}", "Not checked") { Class = "checkbox-unvisited" });
+            }
+        </td>
+    </tr>
+}

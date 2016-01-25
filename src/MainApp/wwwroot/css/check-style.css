@@ -68,3 +68,10 @@ span.logo-tiny {
 .footer a {
     color: #444;
 }
+
+tr.checklistrow-collapsed {
+    display: none;
+}
+
+tr.checklistrow-expanded {
+}

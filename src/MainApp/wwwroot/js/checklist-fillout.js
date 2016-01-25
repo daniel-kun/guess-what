@@ -15,28 +15,34 @@ function getEntityIdFromElementId(prefix, elementId) {
 
 /**
 Checks a checkmark that was built with an <a class="checkmark"> containing at least one <span>.
-@param checkmark An jQuery object pointing to the 'a' element that should be checked.
+@param  checkmark An jQuery object pointing to the 'a' element that should be checked.
+        Might be an empty list - in this case, this function does nothing.
 @param colorClass A CSS class that should be added to the 'a', used for coloring when checked.
 **/
 function checkCheckmark(checkmark, colorClass)
 {
-    checkmark.children()[0].innerHTML = "&#9745;";
-    checkmark.addClass(colorClass);
-    checkmark.removeClass("checkbox-unchecked");
-    checkmark.addClass("checkbox-checked");
+    if (checkmark.length > 0) {
+        checkmark.children()[0].innerHTML = "&#9745;";
+        checkmark.addClass(colorClass);
+        checkmark.removeClass("checkbox-unchecked");
+        checkmark.addClass("checkbox-checked");
+    }
 }
 
 /**
 Unchecks a checkmark that was built with an <a class="checkmark"> containing at least one <span>.
-@param checkmark An jQuery object pointing to the 'a' element that should be unchecked.
+@param  checkmark An jQuery object pointing to the 'a' element that should be unchecked.
+        Might be an empty list - in this case, this function does nothing.
 @param colorClass A CSS class that should be removed to the 'a', used for coloring when checked.
 **/
 function uncheckCheckmark(checkmark, colorClass)
 {
-    checkmark.children()[0].innerHTML = "&#9744;";
-    checkmark.removeClass(colorClass);
-    checkmark.removeClass("checkbox-checked");
-    checkmark.addClass("checkbox-unchecked");
+    if (checkmark.length > 0) {
+        checkmark.children()[0].innerHTML = "&#9744;";
+        checkmark.removeClass(colorClass);
+        checkmark.removeClass("checkbox-checked");
+        checkmark.addClass("checkbox-unchecked");
+    }
 }
 
 /**
@@ -85,10 +91,23 @@ $(function () {
                 $("#check_not_ok_"  + checklistItemId).removeClass("checkbox-unvisited");
                 $("#not_checked_"   + checklistItemId).removeClass("checkbox-unvisited");
             }
-            if ($(this).hasClass("checkbox-checked")) {
+            var wasChecked = $(this).hasClass("checkbox-checked");
+            if (wasChecked) {
                 uncheckCheckmark($(this), colorClassFromCheckboxType(checkboxType));
             } else {
                 checkCheckmark($(this), colorClassFromCheckboxType(checkboxType));
+            }
+            // If this is a parent row, collapse / expand the child rows:
+            if ($(this).hasClass("checklistrow-parent")) {
+                if (checkboxType == 0 && ! wasChecked) {
+                    $("tr.checklistrow-parent-" + checklistItemId).each(function () {
+                        $(this).removeClass("checklistrow-collapsed");
+                    });
+                } else {
+                    $("tr.checklistrow-parent-" + checklistItemId).each(function () {
+                        $(this).addClass("checklistrow-collapsed");
+                    });
+                }
             }
         });
     });
@@ -108,27 +127,31 @@ function fillRequests(resultItems)
 {
     var entryComplete = true;
     $("tr.marker-checkcell").each(function (tableRow) {
-        var tableRowId = $(this)[0].id;
-        var prefix = "check_";
-        var checklistTemplateItemId = getEntityIdFromElementId("check_", tableRowId);
-        if (checklistTemplateItemId != "") {
-            var result = "";
-            if ($("#check_ok_" + checklistTemplateItemId).hasClass("checkbox-checked")) {
-                result = "CheckedAndOk";
-            } else if ($("#check_not_ok_" + checklistTemplateItemId).hasClass("checkbox-checked")) {
-                result = "CheckedAndNotOk";
-            } else if ($("#not_checked_" + checklistTemplateItemId).hasClass("checkbox-checked")) {
-                result = "NotChecked";
+        if (!$(this).hasClass("checklistrow-collapsed")) {
+            var tableRowId = $(this)[0].id;
+            var prefix = "check_";
+            var checklistTemplateItemId = getEntityIdFromElementId("check_", tableRowId);
+            if (checklistTemplateItemId != "") {
+                var result = "";
+                if ($("#check_ok_" + checklistTemplateItemId).hasClass("checkbox-checked")) {
+                    result = "CheckedAndOk";
+                } else if ($("#check_not_ok_" + checklistTemplateItemId).hasClass("checkbox-checked")) {
+                    result = "CheckedAndNotOk";
+                } else if ($("#not_checked_" + checklistTemplateItemId).hasClass("checkbox-checked")) {
+                    result = "NotChecked";
+                } else {
+                    entryComplete = false;
+                    return false;
+                }
+                resultItems.push({
+                    "TemplateItemId": checklistTemplateItemId,
+                    "Result": result,
+                })
             } else {
-                entryComplete = false;
                 return false;
             }
-            resultItems.push({
-                "TemplateItemId": checklistTemplateItemId,
-                "Result": result,
-            })
         } else {
-            return false;
+            return true;
         }
     });
     return entryComplete;

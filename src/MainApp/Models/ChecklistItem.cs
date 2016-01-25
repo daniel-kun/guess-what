@@ -29,6 +29,19 @@ namespace Io.GuessWhat.MainApp.Models
         }
 
         /**
+        If Items is non-null and not empty, this ChecklistItem is a "parent" item that
+        can only be "applicable" (ChecklistResult.CheckedAndOk) or "not applicable" (ChecklistResult.NotChecked).
+        If this item is applicable, then it's sub-`Items` are expanded and can be checked
+        to any of the three states (that means, they can be ChecklistResult.CheckedAndNotOk, too,
+        like 'normal' ChecklistItems).
+        **/
+        public List<ChecklistItem> Items
+        {
+            get;
+            set;
+        }
+
+        /**
         @brief Converts a string with 0-n lines of text into a list of ChecklistItems.
         The text in each line will be used as the ChecklistItem's titles.
 
