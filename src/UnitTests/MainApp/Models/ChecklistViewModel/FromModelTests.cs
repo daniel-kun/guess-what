@@ -72,5 +72,59 @@ can change its size and handles memory allocation.",
             var result = GuessWhat.MainApp.Models.ChecklistViewModel.FromModel(test);
             Assert.Equal(result.Items, test.Items[0].Title + "\r\n");
         }
+
+        [Fact]
+        public void ShouldPreserveChildItemsWithOneSpaceIndent()
+        {
+            var test = new GuessWhat.MainApp.Models.ChecklistModel()
+            {
+                Items = new List<GuessWhat.MainApp.Models.ChecklistItem>
+                {
+                    new GuessWhat.MainApp.Models.ChecklistItem()
+                    {
+                        Title = "Last checklist item",
+                        Items = new List<GuessWhat.MainApp.Models.ChecklistItem>
+                        {
+                            new GuessWhat.MainApp.Models.ChecklistItem ()
+                            {
+                                Title = "Child Item #1",
+                            },
+                            new GuessWhat.MainApp.Models.ChecklistItem ()
+                            {
+                                Title = "Child Item #2",
+                                Items = new List<GuessWhat.MainApp.Models.ChecklistItem>
+                                {
+                                    new GuessWhat.MainApp.Models.ChecklistItem ()
+                                    {
+                                        Title = "Child Item #2.1"
+                                    }
+                                }
+                            },
+                        }
+                    },
+                },
+            };
+
+            var result = GuessWhat.MainApp.Models.ChecklistViewModel.FromModel(test);
+
+            Assert.Equal(@"Last checklist item
+ Child Item #1
+ Child Item #2
+  Child Item #2.1
+", result.Items);
+        }
+
+        [Fact]
+        public void ItemsShouldBeCompletelyEmptyStringWhenThereAreNoItems()
+        {
+            var test = new GuessWhat.MainApp.Models.ChecklistModel()
+            {
+                Items = new List<GuessWhat.MainApp.Models.ChecklistItem>()
+            };
+
+            var result = GuessWhat.MainApp.Models.ChecklistViewModel.FromModel(test);
+
+            Assert.Equal(string.Empty, result.Items);
+        }
     }
 }

@@ -62,18 +62,20 @@ namespace Io.GuessWhat.MainApp.Models
         **/
         private static string CreateItemsTextFromChecklistItems(List<ChecklistItem> items)
         {
+            var result = new StringBuilder();
+            CreateItemsTextFromChecklistItemsImpl(items, 0, result);
+            return result.ToString();
+        }
+
+        private static void CreateItemsTextFromChecklistItemsImpl(List<ChecklistItem> items, int indent, StringBuilder output)
+        {
             if (items != null)
             {
-                var result = new StringBuilder();
                 foreach (var item in items)
                 {
-                    result.AppendLine(item.Title);
+                    output.AppendLine(new string (' ', indent) + item.Title);
+                    CreateItemsTextFromChecklistItemsImpl(item.Items, indent + 1, output);
                 }
-                return result.ToString();
-            }
-            else
-            {
-                return string.Empty;
             }
         }
     }

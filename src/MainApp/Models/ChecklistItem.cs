@@ -10,6 +10,19 @@ namespace Io.GuessWhat.MainApp.Models
     **/
     public class ChecklistItem
     {
+        public ChecklistItem CloneWithMutator (Func<ChecklistItem, ChecklistItem> mutator)
+        {
+            var result = new ChecklistItem();
+            result.Id = Id;
+            result.Title = Title;
+            if (Items != null)
+            {
+                result.Items = Items.Select(item => item.CloneWithMutator(mutator)).ToList();
+            }
+            mutator(result);
+            return result;
+        }
+
         public string Id
         {
             get;
@@ -41,6 +54,12 @@ namespace Io.GuessWhat.MainApp.Models
             set;
         }
 
+        private struct ItemHierarchy
+        {
+            public int indent;
+            public ChecklistItem item;
+        }
+
         /**
         @brief Converts a string with 0-n lines of text into a list of ChecklistItems.
         The text in each line will be used as the ChecklistItem's titles.
@@ -54,21 +73,87 @@ namespace Io.GuessWhat.MainApp.Models
         public static List<ChecklistItem> FromText(string items)
         {
             string[] lines = items.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-            var result = lines.Select(
-                line =>
+            var indents = new Stack<ItemHierarchy>();
+            var rootItem = new ItemHierarchy
+            {
+                indent = 0,
+                item = new ChecklistItem()
                 {
-                    if (line.Count(c => !Char.IsWhiteSpace(c)) == 0)
-                    {
-                        return null;
-                    }
-                    else
-                    {
-                        return new ChecklistItem() { Title = line };
-                    }
-                });
-            var list = result.Where(line => line != null).ToList();
-            return list;
+                    Items = new List<ChecklistItem>()
+                }
+            };
+            indents.Push(rootItem);
+            FromTextImpl(lines, 0, indents);
+            return rootItem.item.Items;
         }
 
+        private static void FromTextImpl(string[] lines, int startIndex, Stack<ItemHierarchy> indents)
+        {
+            for (int i = startIndex; i < lines.Length; ++i)
+            {
+                string line = lines[i];
+                ItemHierarchy currentItem = indents.Peek();
+                int currentIndent = currentItem.indent;
+                int lineIndent = FindFirstNonWhitespace(line);
+                if (lineIndent == currentIndent || 
+                    (indents.Count == 1 && 
+                    (currentItem.item.Items == null || currentItem.item.Items.Count == 0)))
+                {
+                    // Same indentation depths, or there are no lines before this one:
+                    string trimmed = line.Trim();
+                    if (trimmed.Length > 0)
+                    {
+                        if (currentItem.item.Items == null)
+                        {
+                            currentItem.item.Items = new List<ChecklistItem>();
+                        }
+                        currentItem.item.Items.Add(new ChecklistItem() { Title = trimmed });
+                    }
+                }
+                else if (lineIndent > currentIndent)
+                {
+                    // Create child nodes:
+                    var newIndentItem = new ItemHierarchy()
+                    {
+                        indent = lineIndent,
+                        item = currentItem.item.Items[currentItem.item.Items.Count - 1]
+                    };
+                    indents.Push(newIndentItem);
+                    FromTextImpl(lines, i, indents);
+                    break;
+                }
+                else {
+                    // Indentation is less deep than previous line -
+                    // find the corresponding parent item this line should be
+                    // a child node of.
+                    ItemHierarchy newIndentItem;
+                    do
+                    {
+                        if (indents.Count == 1)
+                        {
+                            newIndentItem = indents.Peek();
+                        }
+                        else
+                        {
+                            newIndentItem = indents.Pop();
+                        }
+                    } while (indents.Count > 1);
+                    FromTextImpl(lines, i, indents);
+                    break;
+                }
+            }
+        }
+
+        private static int FindFirstNonWhitespace(string line)
+        {
+            for (int i = 0; i < line.Length; ++i)
+            {
+                if (line [i] != ' ')
+                {
+                    return i;
+                }
+            }
+            return line.Length;
+        }
     }
 }

@@ -19,11 +19,11 @@ namespace Io.GuessWhat.MainApp.Repositories
         {
             var newId = Tools.Web.ShortGuid.CreateGuid();
             template.Id = newId;
-            template.Items = template.Items.Select(item => new ChecklistItem()
+            template.Items = template.Items.Select(item => item.CloneWithMutator(clonedItem =>
             {
-                Id = Tools.Web.ShortGuid.CreateGuid(),
-                Title = item.Title,
-            }).ToList();
+                clonedItem.Id = Tools.Web.ShortGuid.CreateGuid();
+                return clonedItem;
+            })).ToList();
             template.CreationTime = DateTime.Now.ToUniversalTime();
             var templateCollection = GetTemplateCollection();
             templateCollection.InsertOne(template);

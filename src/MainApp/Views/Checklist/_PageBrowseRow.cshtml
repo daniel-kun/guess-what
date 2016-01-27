@@ -1,8 +1,9 @@
-﻿@model Io.GuessWhat.MainApp.Models.ChecklistBrowseItem
+﻿
+@model Io.GuessWhat.MainApp.Models.ChecklistBrowseItem
 
 <tr>
-    <td>
-        <span style="font-size:18pt;">@Model.Title</span><div class="label label-default" style="margin-left:10px;">created @Model.CreationTime</div>
+    <td class="title">
+        <a href="/c/@Model.Id"><span style="font-size:18pt;">@Model.Title</span></a><div class="label label-default" style="margin-left:10px;">created @Model.CreationTime</div>
     </td>
     <td class="text-right">
         <a class="btn btn-warning" id="btn-fillout-@Model.Id" href="/c/@Model.Id">Fill out</a>

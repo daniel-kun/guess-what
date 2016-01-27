@@ -71,8 +71,8 @@ namespace Io.GuessWhat.MainApp.Models
         {
             return new ChecklistModel()
             {
-                Title = Tools.Web.FormInput.PrepareText(viewModel.Title, ChecklistModel.TitleMaxLength),
-                Description = Tools.Web.FormInput.PrepareText(viewModel.Description, ChecklistModel.DescriptionMaxLength),
+                Title = Tools.Web.FormInput.PrepareText(viewModel.Title, TitleMaxLength),
+                Description = Tools.Web.FormInput.PrepareText(viewModel.Description, DescriptionMaxLength),
                 Items = ChecklistItem.FromText(viewModel.Items)
             };
         }
