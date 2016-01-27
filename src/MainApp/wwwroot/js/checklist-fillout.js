@@ -62,8 +62,9 @@ function colorClassFromCheckboxType(checkboxType)
 Toggle "checked" state for a's that have the checkbox class
 **/
 $(function () {
-    $("a.checkbox").each(function (e) {
-        $(this).click(function () {
+    $("a.checkbox").each(function () {
+        $(this).click(function (e) {
+            e.preventDefault();
             var checklistItemId = getEntityIdFromElementId("check_ok_", $(this).prop("id"));
             var checkboxType; // 0 = OK, 1 = Not OK, 2 = Not Checked
             if (checklistItemId != "") {
