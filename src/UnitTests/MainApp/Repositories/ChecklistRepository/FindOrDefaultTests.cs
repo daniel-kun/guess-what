@@ -18,7 +18,7 @@ namespace Io.GuessWhat.UnitTests.MainApp.Repositories.ChecklistRepository
         [Fact]
         public void ShouldReturnTemplateItemIfItemIsFound()
         {
-            var emptyTemplateItems = new List<GuessWhat.MainApp.Models.ChecklistItem>()
+            var testData = new List<GuessWhat.MainApp.Models.ChecklistItem>()
             {
                 new GuessWhat.MainApp.Models.ChecklistItem()
                 {
@@ -26,8 +26,55 @@ namespace Io.GuessWhat.UnitTests.MainApp.Repositories.ChecklistRepository
                     Title = "Bar",
                 }
             };
-            var result = GuessWhat.MainApp.Repositories.ChecklistRepository.FindOrDefault(emptyTemplateItems, emptyTemplateItems[0].Id);
-            Assert.Same(result, emptyTemplateItems[0]);
+            var result = GuessWhat.MainApp.Repositories.ChecklistRepository.FindOrDefault(testData, testData[0].Id);
+            Assert.Same(result, testData[0]);
+        }
+
+        [Fact]
+        public void ShouldReturnTemplateItemIfItemIsGrandChild()
+        {
+            var testData = new List<GuessWhat.MainApp.Models.ChecklistItem>()
+            {
+                new GuessWhat.MainApp.Models.ChecklistItem()
+                {
+                    Id = "foo",
+                    Title = "Bar",
+                    Items = new List<GuessWhat.MainApp.Models.ChecklistItem>()
+                    {
+                        new GuessWhat.MainApp.Models.ChecklistItem()
+                        {
+                            Id = "child1",
+                            Title = "Bar",
+                        }
+                    }
+                },
+                new GuessWhat.MainApp.Models.ChecklistItem()
+                {
+                    Id = "parent",
+                    Title = "Bar",
+                    Items = new List<GuessWhat.MainApp.Models.ChecklistItem>()
+                    {
+                        new GuessWhat.MainApp.Models.ChecklistItem()
+                        {
+                            Id = "child2",
+                            Title = "Bar",
+                            Items = new List<GuessWhat.MainApp.Models.ChecklistItem>()
+                            {
+                                new GuessWhat.MainApp.Models.ChecklistItem()
+                                {
+                                    Id = "grandchild",
+                                    Title = "Bar",
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            var result = GuessWhat.MainApp.Repositories.ChecklistRepository.FindOrDefault(testData, "grandchild");
+
+            Assert.Same(result, testData[1].Items[0].Items[0]);
+            Assert.Equal("grandchild", result.Id);
         }
 
     }

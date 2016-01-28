@@ -101,11 +101,12 @@ namespace Io.GuessWhat.MainApp.Repositories
         **/
         public static ChecklistItem FindOrDefault(List<ChecklistItem> items, string id)
         {
-            var result = items.Find(templateItem => templateItem.Id == id);
+            var result = FindOrDefaultImpl(items, id);
             if (result != null)
             {
                 return result;
-            } else {
+            }
+            else {
                 return new ChecklistItem()
                 {
                     Id = string.Empty,
@@ -113,6 +114,27 @@ namespace Io.GuessWhat.MainApp.Repositories
                     Title = "(error)",
                 };
             }
+        }
+
+        private static ChecklistItem FindOrDefaultImpl(List<ChecklistItem> items, string id)
+        {
+            ChecklistItem result = null;
+            foreach (var item in items)
+            {
+                if (item.Id == id)
+                {
+                    result = item;
+                    break;
+                } else if (item.Items != null)
+                {
+                    result = FindOrDefaultImpl(item.Items, id);
+                    if (result != null)
+                    {
+                        break;
+                    }
+                }
+            }
+            return result;
         }
 
         private IMongoDatabase mChecklistDb;
