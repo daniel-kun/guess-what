@@ -1,4 +1,6 @@
-﻿namespace Io.GuessWhat.MainApp.Models
+﻿using Io.GuessWhat.MainApp.Models;
+
+namespace Io.GuessWhat.MainApp.ViewModels
 {
     /**
     The ChecklistViewItem adds some view-data to the ChecklistItem.

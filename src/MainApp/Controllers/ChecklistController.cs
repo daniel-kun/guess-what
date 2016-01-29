@@ -2,6 +2,7 @@
 using Io.GuessWhat.MainApp.Repositories;
 using Io.GuessWhat.MainApp.Models;
 using System;
+using Io.GuessWhat.MainApp.ViewModels;
 
 namespace Io.GuessWhat.MainApp.Controllers
 {

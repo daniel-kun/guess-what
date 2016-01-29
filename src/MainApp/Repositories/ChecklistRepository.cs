@@ -83,7 +83,7 @@ namespace Io.GuessWhat.MainApp.Repositories
         Returns a new list that is equal to results, except that the "TemplateItem" property is
         set to the TemplateItem with the TemplateItemId from template.Items.
         **/
-        private List<ChecklistResultItem> ConnectChecklistResultItems(List<ChecklistResultItem> results, ChecklistModel template)
+        public static List<ChecklistResultItem> ConnectChecklistResultItems(List<ChecklistResultItem> results, ChecklistModel template)
         {
             return new List<ChecklistResultItem> (
                 results.Select(item => new ChecklistResultItem()

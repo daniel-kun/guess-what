@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Io.GuessWhat.MainApp.Models;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Io.GuessWhat.MainApp.Models
+namespace Io.GuessWhat.MainApp.ViewModels
 {
     /**
     Represents a trimmed down version of the ChecklistModel that is used in the New view.

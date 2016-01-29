@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Io.GuessWhat.MainApp.Models
+﻿namespace Io.GuessWhat.MainApp.Models
 {
     /**
     A view-model for the _CheckboxControl page.

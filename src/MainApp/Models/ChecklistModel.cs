@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Io.GuessWhat.MainApp.ViewModels;
+using System;
 using System.Collections.Generic;
 
 namespace Io.GuessWhat.MainApp.Models

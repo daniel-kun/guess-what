@@ -17,7 +17,7 @@ std::array, which does not degenerate to a pointer when passed to a function and
 does know its size. For a variable-length array, use std::vector, which additionally 
 can change its size and handles memory allocation.",
             };
-            var result = GuessWhat.MainApp.Models.ChecklistViewModel.FromModel(test);
+            var result = GuessWhat.MainApp.ViewModels.ChecklistViewModel.FromModel(test);
             Assert.Equal(test.Title, result.Title);
             Assert.Equal(test.Description, result.Description);
         }
@@ -47,7 +47,7 @@ can change its size and handles memory allocation.",
                     },
                 },
             };
-            var result = GuessWhat.MainApp.Models.ChecklistViewModel.FromModel(test);
+            var result = GuessWhat.MainApp.ViewModels.ChecklistViewModel.FromModel(test);
             var expected = new StringBuilder();
             expected.AppendLine(test.Items[0].Title);
             expected.AppendLine(test.Items[1].Title);
@@ -69,7 +69,7 @@ can change its size and handles memory allocation.",
                     },
                 },
             };
-            var result = GuessWhat.MainApp.Models.ChecklistViewModel.FromModel(test);
+            var result = GuessWhat.MainApp.ViewModels.ChecklistViewModel.FromModel(test);
             Assert.Equal(result.Items, test.Items[0].Title + "\r\n");
         }
 
@@ -105,7 +105,7 @@ can change its size and handles memory allocation.",
                 },
             };
 
-            var result = GuessWhat.MainApp.Models.ChecklistViewModel.FromModel(test);
+            var result = GuessWhat.MainApp.ViewModels.ChecklistViewModel.FromModel(test);
 
             Assert.Equal(@"Last checklist item
  Child Item #1
@@ -122,7 +122,7 @@ can change its size and handles memory allocation.",
                 Items = new List<GuessWhat.MainApp.Models.ChecklistItem>()
             };
 
-            var result = GuessWhat.MainApp.Models.ChecklistViewModel.FromModel(test);
+            var result = GuessWhat.MainApp.ViewModels.ChecklistViewModel.FromModel(test);
 
             Assert.Equal(string.Empty, result.Items);
         }
