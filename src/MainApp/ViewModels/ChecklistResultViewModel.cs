@@ -30,16 +30,22 @@ namespace Io.GuessWhat.MainApp.ViewModels
 
         private static IEnumerable<ChecklistResultViewItem> ConnectResultItems(List<ChecklistItem> items, List<ChecklistResultItem> results)
         {
+            return ConnectResultItemsImpl(items, results, 0);
+        }
+
+        private static IEnumerable<ChecklistResultViewItem> ConnectResultItemsImpl(List<ChecklistItem> items, List<ChecklistResultItem> results, int indentation)
+        {
             if (items != null) {
                 foreach (var item in items)
                 {
                     var resultItem = results.Find(result => result.TemplateItemId == item.Id);
-                    var resultViewItems = ConnectResultItems(item.Items, results).ToList();
+                    var resultViewItems = ConnectResultItemsImpl(item.Items, results, indentation + 1).ToList();
                     yield return new ChecklistResultViewItem()
                     {
                         TemplateItem = item,
                         ResultItem = resultItem,
-                        Items = resultViewItems
+                        Items = resultViewItems,
+                        IndentationLevel = indentation
                     };
                 }
             }

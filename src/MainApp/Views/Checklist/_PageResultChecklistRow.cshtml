@@ -1,4 +1,7 @@
 ﻿@model Io.GuessWhat.MainApp.ViewModels.ChecklistResultViewItem
+@{
+    int currentIndentation = Model.IndentationLevel * 15;
+}
 
 @if (Model.Items != null && Model.Items.Count > 0)
 {
@@ -19,7 +22,7 @@
     }
     </td>
     <td>
-        <span style="font-weight:bold;">@Model.TemplateItem.Title</span>
+        <span style="font-weight:bold;margin-left:@(currentIndentation)px;">@Model.TemplateItem.Title</span>
     </td>
     </tr>
     @foreach(var item in Model.Items)
@@ -49,7 +52,7 @@ else {
     }
     </td>
     <td>
-        <span>@Model.TemplateItem.Title</span>
+        <span style="margin-left:@(currentIndentation)px;">@Model.TemplateItem.Title</span>
     </td>
     </tr>
 }

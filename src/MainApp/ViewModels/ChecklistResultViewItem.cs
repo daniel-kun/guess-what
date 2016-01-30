@@ -8,6 +8,7 @@ namespace Io.GuessWhat.MainApp.ViewModels
     **/
     public class ChecklistResultViewItem
     {
+
         /**
         The original ChecklistResultItem as it is stored in the repository.
         **/
@@ -39,5 +40,14 @@ namespace Io.GuessWhat.MainApp.ViewModels
             set;
         }
 
+        /**
+        The level of indentation. This is 0 for top-level ChecklistResultItems, 1 for
+        the children of top-level ChecklistResultItems, 2 for the children of children, and so on.
+        **/
+        public int IndentationLevel
+        {
+            get;
+            set;
+        } = 0;
     }
 }
