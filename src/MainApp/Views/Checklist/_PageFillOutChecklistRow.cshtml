@@ -1,4 +1,4 @@
-﻿@model Io.GuessWhat.MainApp.Models.ChecklistViewItem
+﻿@model Io.GuessWhat.MainApp.ViewModels.ChecklistViewItem
 @{
     int currentIndentation = Model.IndentationLevel * 15;
     string checklistRowClass = currentIndentation == 0 ? "checklistrow-expanded" : "checklistrow-collapsed";
@@ -22,7 +22,7 @@
         </td>
     </tr>
     foreach(var childItem in Model.Item.Items) {
-        await Html.RenderPartialAsync("_PageFillOutChecklistRow", new Io.GuessWhat.MainApp.Models.ChecklistViewItem() { Item = childItem, IndentationLevel = currentIndentation + 1, ParentId = Model.Item.Id });
+        await Html.RenderPartialAsync("_PageFillOutChecklistRow", new Io.GuessWhat.MainApp.ViewModels.ChecklistViewItem() { Item = childItem, IndentationLevel = currentIndentation + 1, ParentId = Model.Item.Id });
     }
 }
 else

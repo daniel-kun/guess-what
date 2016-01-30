@@ -2,7 +2,7 @@
 using System.Text;
 using Xunit;
 
-namespace Io.GuessWhat.UnitTests.MainApp.Models.ChecklistViewModel
+namespace Io.GuessWhat.UnitTests.MainApp.ViewModels.ChecklistViewModel
 {
     public class FromModelTests
     {

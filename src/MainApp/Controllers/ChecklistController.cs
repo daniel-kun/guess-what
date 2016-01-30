@@ -42,7 +42,8 @@ namespace Io.GuessWhat.MainApp.Controllers
                 return HttpNotFound(id);
             } else
             {
-                return View(checklistResult);
+                var viewModel = ChecklistResultViewModel.FromResult(checklistResult);
+                return View(viewModel);
             }
         }
 

@@ -1,11 +1,41 @@
-﻿@model Io.GuessWhat.MainApp.Models.ChecklistResultItem
+﻿@model Io.GuessWhat.MainApp.ViewModels.ChecklistResultViewItem
 
-<tr>
+@if (Model.Items != null && Model.Items.Count > 0)
+{
+    <tr>
     <td class="text-right" style="width:120px;">
-        @switch(Model.Result)
-            {
-                case Io.GuessWhat.MainApp.Models.ChecklistResult.CheckedAndOk:
-                    <span style="color:green;">OK</span>
+    <!-- Render a parent node:--> 
+    @switch (Model.ResultItem.Result)
+    {
+        case Io.GuessWhat.MainApp.Models.ChecklistResult.CheckedAndOk:
+            <span style="color:green;font-weight:bold;">Yes</span>
+            break;
+        case Io.GuessWhat.MainApp.Models.ChecklistResult.CheckedAndNotOk:
+            <span style="color:red;font-weight:bold">No</span>
+            break;
+        case Io.GuessWhat.MainApp.Models.ChecklistResult.NotChecked:
+            <span style="color:red;">(error)</span>
+            break;
+    }
+    </td>
+    <td>
+        <span style="font-weight:bold;">@Model.TemplateItem.Title</span>
+    </td>
+    </tr>
+    @foreach(var item in Model.Items)
+    {
+        await Html.RenderPartialAsync("_PageResultChecklistRow", item);
+    }
+}
+else {
+    <tr>
+    <td class="text-right" style="width:120px;">
+    @if (Model.ResultItem != null)
+    {
+        switch (Model.ResultItem.Result)
+        {
+            case Io.GuessWhat.MainApp.Models.ChecklistResult.CheckedAndOk:
+                <span style="color:green;">OK</span>
                 break;
             case Io.GuessWhat.MainApp.Models.ChecklistResult.CheckedAndNotOk:
                 <span style="color:red;">Not OK</span>
@@ -14,8 +44,12 @@
                 <span style="color:darkgray;">(not checked)</span>
                 break;
         }
+    } else {
+        <span style="color:red">(error)</span>
+    }
     </td>
     <td>
         <span>@Model.TemplateItem.Title</span>
     </td>
-</tr>
+    </tr>
+}

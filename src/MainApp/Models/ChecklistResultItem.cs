@@ -23,19 +23,6 @@
         }
 
         /**
-        The original ChecklistItem that was used to enter the results
-        for this checklist item.
-        This can be null when the template's item has not been loaded, yet.
-        Use TemplateItemId in this case.
-        **/
-        [BsonIgnore]
-        public ChecklistItem TemplateItem
-        {
-            get;
-            set;
-        }
-
-        /**
         The result that the user entered for this checklist item (ok, not ok, not checked).
         **/
         [JsonConverter(typeof(StringEnumConverter))]

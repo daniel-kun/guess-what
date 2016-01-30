@@ -75,23 +75,7 @@ namespace Io.GuessWhat.MainApp.Repositories
             var resultCollection = mChecklistDb.GetCollection<ChecklistResultModel>("results");
             var result = resultCollection.Find(Builders<ChecklistResultModel>.Filter.Eq("Id", id)).FirstOrDefault();
             result.Template = LoadChecklistModel(result.TemplateId);
-            result.Results = ConnectChecklistResultItems(result.Results, result.Template);
             return result;
-        }
-
-        /**
-        Returns a new list that is equal to results, except that the "TemplateItem" property is
-        set to the TemplateItem with the TemplateItemId from template.Items.
-        **/
-        public static List<ChecklistResultItem> ConnectChecklistResultItems(List<ChecklistResultItem> results, ChecklistModel template)
-        {
-            return new List<ChecklistResultItem> (
-                results.Select(item => new ChecklistResultItem()
-                {
-                    Result = item.Result,
-                    TemplateItemId = item.TemplateItemId,
-                    TemplateItem = FindOrDefault(template.Items, item.TemplateItemId)
-                }));
         }
 
         /**

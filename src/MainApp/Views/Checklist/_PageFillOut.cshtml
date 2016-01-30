@@ -10,7 +10,7 @@
                     <tbody>
                         @foreach (var item in Model.Items)
                         {
-                            await Html.RenderPartialAsync("_PageFillOutChecklistRow", new Io.GuessWhat.MainApp.Models.ChecklistViewItem() { Item = item });
+                            await Html.RenderPartialAsync("_PageFillOutChecklistRow", new Io.GuessWhat.MainApp.ViewModels.ChecklistViewItem() { Item = item });
                         }
                     </tbody>
                 </table>

@@ -1,4 +1,4 @@
-﻿@model Io.GuessWhat.MainApp.Models.ChecklistResultModel
+﻿@model Io.GuessWhat.MainApp.ViewModels.ChecklistResultViewModel
 
 <!-- Result details -->
 <div class="container-fluid main-section" id="fillout-page">
@@ -8,14 +8,14 @@
             <div class="panel-body">
                 <table class="table" style="color: darkgray">
                     <tbody>
-                        @foreach (var item in Model.Results)
+                        @foreach (var item in Model.Items)
                         {
                             await Html.RenderPartialAsync("_PageResultChecklistRow", item);
                         }
                     </tbody>
                 </table>
                 <div style="margin-top:15px"></div>
-                <a class="btn btn-warning" href="/c/@Model.Template.Id">Fill out this checklist again</a>
+                <a class="btn btn-warning" href="/c/@Model.Model.Template.Id">Fill out this checklist again</a>
             </div>
         </div>
     </div>
