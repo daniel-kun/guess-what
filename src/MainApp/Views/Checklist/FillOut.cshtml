@@ -1,6 +1,9 @@
-﻿@{
+﻿@model Io.GuessWhat.MainApp.Models.ChecklistModel
+
+@{
     await Html.RenderPartialAsync("_Navigation");
     await Html.RenderPartialAsync("_PageFillOut");
+    await Html.RenderPartialAsync("_Disqus", new Io.GuessWhat.MainApp.ViewModels.DisqusViewModel("c/" + @Model.Id, "c/" + @Model.Id));
     await Html.RenderPartialAsync("_PageHowItWorks");
 }
 

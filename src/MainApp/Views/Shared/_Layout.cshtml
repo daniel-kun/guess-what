@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@addTagHelper "*, Microsoft.AspNet.Mvc.TagHelpers"
+
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -8,7 +10,12 @@
     <meta name="description" content="A website that helps you estimate software development tasks more accurately">
     <meta name="author" content="Daniel Albuschat">
     <title>Guess What - Clever estimates in Software Development</title>
-    <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico">
+    <environment names="Development">
+        <link rel="shortcut icon" type="image/x-icon" href="~/favicon-dev.ico">
+    </environment>
+    <environment names="Production">
+        <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico">
+    </environment>
 
     <!-- Bootstrap -->
     <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
