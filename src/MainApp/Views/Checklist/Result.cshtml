@@ -1,7 +1,10 @@
-﻿@{
+﻿@model Io.GuessWhat.MainApp.ViewModels.ChecklistResultViewModel
+
+@{
     await Html.RenderPartialAsync("_Navigation");
     await Html.RenderPartialAsync("_PageResultSummary");
     await Html.RenderPartialAsync("_PageResultDetails");
+    await Html.RenderPartialAsync("_Disqus", new Io.GuessWhat.MainApp.ViewModels.DisqusViewModel($"c/result/{Model.Model.Id}", $"c/result/{Model.Model.Id}"));
 }
 
 @section css {
