@@ -8,7 +8,8 @@
 </div>
 <div class="panel-body" style="border-bottom: 1px solid #cccccc;background-color:#f9f9f9">
     <div style="margin-bottom:8px;margin-left:16px;">
-    @{ await Html.RenderPartialAsync("_PageResultBadge.svg"); }
+    <object data="/badge/@(Model.Model.Id).png" type="image/svg+xml" width="250" height="108">
+    </object>
     </div>
     <div style="margin-bottom:16px;margin-left:16px;">
         <span class="label label-default" style="text-shadow:none;">Results</span>

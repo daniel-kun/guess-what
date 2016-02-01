@@ -1,12 +1,15 @@
-﻿{
+{
   "version": "1.0.0-*",
   "description": "Tools Class Library",
   "authors": [ "dalbu" ],
   "tags": [ "" ],
   "projectUrl": "",
   "licenseUrl": "",
-
   "frameworks": {
     "dnx451": { },
+  },
+  "dependencies": {
+    "Microsoft.AspNet.Mvc.Abstractions": "6.0.0-rc1-final",
+    "Svg": "2.1.0"
   }
 }
