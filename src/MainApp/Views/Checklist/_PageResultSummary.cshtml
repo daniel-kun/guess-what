@@ -1,2 +1,14 @@
 ﻿@model Io.GuessWhat.MainApp.ViewModels.ChecklistResultViewModel
 
+<!-- Result details -->
+<div class="container-fluid main-section" id="fillout-page">
+    <div class="row">
+        <div class="panel panel-default" style="margin-left: 5%; margin-right: 5%;">
+            @{
+                await Html.RenderPartialAsync("_PageChecklistResultHeader", Model);
+                await Html.RenderPartialAsync("_PageResultDetails");
+            }
+        </div>
+    </div>
+</div>
+<!-- Result details -->

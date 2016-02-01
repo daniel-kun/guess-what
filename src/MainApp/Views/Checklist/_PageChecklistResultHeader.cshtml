@@ -7,6 +7,9 @@
     <a class="btn btn-default" style="position:absolute;top:10px;right:11px;color:#000;" href="/c/new/@Model.Model.TemplateId"><b>Create a new checklist</b><br />based on this one</a>
 </div>
 <div class="panel-body" style="border-bottom: 1px solid #cccccc;background-color:#f9f9f9">
+    <div style="margin-bottom:8px;margin-left:16px;">
+    @{ await Html.RenderPartialAsync("_PageResultBadge.svg"); }
+    </div>
     <div style="margin-bottom:16px;margin-left:16px;">
         <span class="label label-default" style="text-shadow:none;">Results</span>
         <span class="label label-success" style="text-shadow:none;">by @Model.Model.UserId</span>

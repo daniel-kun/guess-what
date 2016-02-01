@@ -69,5 +69,101 @@ namespace Io.GuessWhat.MainApp.ViewModels
             get;
             set;
         }
+
+        /**
+        The total numbers of checklist items that are marked as "Checked and OK".
+        Parent-items do not count, since they are a "yes/no" type of question, without
+        saying anything about the actual quality of the checked item.
+        **/
+        public int CheckedAndOkTotalCount
+        {
+            get
+            {
+                if (!mCheckedAndOkTotalCount.HasValue)
+                {
+                    int totalCount = 0;
+                    ForEachRecursiveItem(Items, (item) =>
+                    {
+                        if (item.ResultItem != null && item.ResultItem.Result == ChecklistResult.CheckedAndOk)
+                        {
+                                ++totalCount;
+                        }
+                    });
+                    mCheckedAndOkTotalCount = totalCount;
+                }
+                return mCheckedAndOkTotalCount.Value;
+            }
+        }
+
+        /**
+        The total numbers of checklist items that are marked as "Checked and not OK".
+        Parent-items do not count, since they are a "yes/no" type of question, without
+        saying anything about the actual quality of the checked item.
+        **/
+        public int CheckedAndNotOkTotalCount
+        {
+            get
+            {
+                if (!mCheckedAndNotOkTotalCount.HasValue)
+                {
+                    int totalCount = 0;
+                    ForEachRecursiveItem(Items, (item) =>
+                    {
+                        if (item.ResultItem != null && item.ResultItem.Result == ChecklistResult.CheckedAndNotOk)
+                        {
+                            ++totalCount;
+                        }
+                    });
+                    mCheckedAndNotOkTotalCount = totalCount;
+                }
+                return mCheckedAndNotOkTotalCount.Value;
+            }
+        }
+
+        /**
+        The total numbers of checklist items that are marked as "Not checked".
+        **/
+        public int NotCheckedTotalCount
+        {
+            get
+            {
+                if (!mNotCheckedTotalCount.HasValue)
+                {
+                    int totalCount = 0;
+                    ForEachRecursiveItem(Items, (item) =>
+                    {
+                        if (item.ResultItem != null && item.ResultItem.Result == ChecklistResult.NotChecked)
+                        {
+                            ++totalCount;
+                        }
+                    });
+                    mNotCheckedTotalCount = totalCount;
+                }
+                return mNotCheckedTotalCount.Value;
+            }
+        }
+
+        private void ForEachRecursiveItem (List<ChecklistResultViewItem> items, Action<ChecklistResultViewItem> callback)
+        {
+            foreach (var item in items)
+            {
+                if (item.Items != null && 
+                    item.Items.Count > 0)
+                {
+                    if (item.ResultItem != null &&
+                        item.ResultItem.Result == ChecklistResult.CheckedAndOk)
+                    {
+                        ForEachRecursiveItem(item.Items, callback);
+                    }
+                } else
+                {
+                    callback(item);
+                }
+            }
+        }
+
+        int? mCheckedAndOkTotalCount = null;
+        int? mCheckedAndNotOkTotalCount = null;
+        int? mNotCheckedTotalCount = null;
     }
 }
