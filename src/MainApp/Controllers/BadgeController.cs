@@ -42,7 +42,7 @@ namespace Io.GuessWhat.MainApp.Controllers
             else
             {
                 var viewModel = ChecklistResultViewModel.FromResult(resultModel);
-                return View(viewModel);
+                return PartialView(viewModel);
             }
         }
 
