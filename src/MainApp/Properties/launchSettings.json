@@ -11,7 +11,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "c/result/K1HsV7Jda0mTRYR-Y6BTOQ",
+      "launchUrl": "badges/K1HsV7Jda0mTRYR-Y6BTOQ.png",
       "environmentVariables": {
         "ASPNET_ENV": "Development"
       }

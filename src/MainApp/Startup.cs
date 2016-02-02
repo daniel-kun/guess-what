@@ -22,6 +22,9 @@ namespace Io.GuessWhat.MainApp
             services.Configure<Services.Settings>(Configuration);
             services.AddSingleton<Services.ICloudConverterService, Services.CloudConverterService>();
 
+            // Configure Azure Blob Storage service:
+            services.AddSingleton<Services.IAzureBlobStorageService, Services.AzureBlobStorageService>();
+
             services.AddMvc();
             services.AddApplicationInsightsTelemetry(Configuration);
         }
