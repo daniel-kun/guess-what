@@ -1,5 +1,4 @@
-﻿using Io.GuessWhat.MainApp.Repositories;
-using Microsoft.AspNet.Builder;
+﻿using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,8 +15,12 @@ namespace Io.GuessWhat.MainApp
         public void ConfigureServices(IServiceCollection services)
         {
             // Configure Db connection services:
-            services.Configure<Settings>(Configuration);
-            services.AddSingleton<IChecklistRepository, ChecklistRepository>();
+            services.Configure<Repositories.Settings>(Configuration);
+            services.AddSingleton<Repositories.IChecklistRepository, Repositories.ChecklistRepository>();
+
+            // Configure CloudConvert service:
+            services.Configure<Services.Settings>(Configuration);
+            services.AddSingleton<Services.ICloudConverterService, Services.CloudConverterService>();
 
             services.AddMvc();
             services.AddApplicationInsightsTelemetry(Configuration);

@@ -8,7 +8,9 @@
 </div>
 <div class="panel-body" style="border-bottom: 1px solid #cccccc;background-color:#f9f9f9">
     <div style="margin-bottom:8px;margin-left:16px;">
-        <img src="/badge/@(Model.Model.Id).png" alt="QA Badge (@Model.CheckedAndOkTotalCount Passed, @Model.CheckedAndNotOkTotalCount Not Passed, @Model.NotCheckedTotalCount Not checked)"/>
+        <a href="/c/result/@Model.Model.Id">
+            <img src="/badge/@(Model.Model.Id).svg" type="image/svg+xml" alt="QA Badge (@Model.CheckedAndOkTotalCount Passed, @Model.CheckedAndNotOkTotalCount Not Passed, @Model.NotCheckedTotalCount Not checked)" width="300" height="132" />
+        </a>
     </div>
 
     <div style="margin-bottom:16px;margin-left:16px;">

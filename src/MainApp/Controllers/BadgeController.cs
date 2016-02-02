@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNet.Mvc;
 using Io.GuessWhat.MainApp.Repositories;
 using Io.GuessWhat.MainApp.ViewModels;
-using System.Net;
-using Io.GuessWhat.Tools.Web;
+using Io.GuessWhat.MainApp.Services;
 
 namespace Io.GuessWhat.MainApp.Controllers
 {
@@ -12,9 +11,10 @@ namespace Io.GuessWhat.MainApp.Controllers
     [Route("badge")]
     public class BadgeController : Controller
     {
-        public BadgeController(IChecklistRepository checklistRepository)
+        public BadgeController(IChecklistRepository checklistRepository, ICloudConverterService cloudConverter)
         {
             mChecklistRepository = checklistRepository;
+            mCloudConverter = cloudConverter;
         }
 
         /**
@@ -23,9 +23,12 @@ namespace Io.GuessWhat.MainApp.Controllers
         [Route("{id}.png")]
         public IActionResult Index(string id)
         {
-            var svgRequest = WebRequest.CreateHttp("http://localhost:54730/badge/K1HsV7Jda0mTRYR-Y6BTOQ.svg");
-            svgRequest.Method = "GET";
-            return new SvgRenderer(svgRequest.GetResponse().GetResponseStream());
+            return new Tools.Web.CustomActionResult((ActionContext context) =>
+            {
+                return mCloudConverter.Convert(
+                    $"http://{context.HttpContext.Request.Host}/badge/{id}.svg",
+                    context.HttpContext.Response.Body);
+            });
         }
 
         /**
@@ -42,11 +45,12 @@ namespace Io.GuessWhat.MainApp.Controllers
             else
             {
                 var viewModel = ChecklistResultViewModel.FromResult(resultModel);
+                HttpContext.Response.ContentType = "image/svg+xml";
                 return PartialView(viewModel);
             }
         }
 
         private IChecklistRepository mChecklistRepository;
-
+        private ICloudConverterService mCloudConverter;
     }
 }

@@ -9,6 +9,7 @@
     "dnx451": { },
   },
   "dependencies": {
+    "Aliencube.CloudConvert.NET": "0.5.1.1",
     "Microsoft.AspNet.Mvc.Abstractions": "6.0.0-rc1-final",
     "Svg": "2.1.0"
   }
