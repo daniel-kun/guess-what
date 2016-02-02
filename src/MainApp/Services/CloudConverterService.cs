@@ -21,7 +21,7 @@ namespace Io.GuessWhat.MainApp.Services
             using (var mem = new MemoryStream())
             {
                 svgRequest.GetResponse().GetResponseStream().CopyTo(mem);
-                svgBase64 = HttpUtility.UrlEncode(System.Convert.ToBase64String(mem.ToArray()));
+                svgBase64 = WebUtility.UrlEncode(System.Convert.ToBase64String(mem.ToArray()));
             }
             if (svgBase64 != null)
             {
