@@ -24,6 +24,25 @@ namespace Io.GuessWhat.MainApp.Controllers
         }
 
         /**
+        Delivers a badge in .svg format
+        **/
+        [Route("{id}.svg")]
+        public IActionResult Svg(string id)
+        {
+            var resultModel = mChecklistRepository.LoadChecklistResultModel(id);
+            if (resultModel == null)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+                var viewModel = ChecklistResultViewModel.FromResult(resultModel);
+                HttpContext.Response.ContentType = "image/svg+xml";
+                return PartialView(viewModel);
+            }
+        }
+
+        /**
         @brief Delivers a badge in .png format for the result with the given id.
 
         The .png file is first looked up in the "badges" Azure Storage container and delivered
@@ -32,7 +51,7 @@ namespace Io.GuessWhat.MainApp.Controllers
         uploaded to an Azure Storage blob and then delivered in the response.
         **/
         [Route("{id}.png")]
-        public IActionResult Index(string id)
+        public IActionResult Png(string id)
         {
             return new Tools.Web.CustomActionResult((ActionContext context) =>
             {
@@ -88,25 +107,6 @@ namespace Io.GuessWhat.MainApp.Controllers
             else
             {
                 return host;
-            }
-        }
-
-        /**
-        Delivers a badge in .svg format
-        **/
-        [Route("{id}.svg")]
-        public IActionResult Svg(string id)
-        {
-            var resultModel = mChecklistRepository.LoadChecklistResultModel(id);
-            if (resultModel == null)
-            {
-                return HttpNotFound();
-            }
-            else
-            {
-                var viewModel = ChecklistResultViewModel.FromResult(resultModel);
-                HttpContext.Response.ContentType = "image/svg+xml";
-                return PartialView(viewModel);
             }
         }
 
