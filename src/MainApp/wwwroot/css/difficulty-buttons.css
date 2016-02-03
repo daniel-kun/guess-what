@@ -1,4 +1,9 @@
-﻿.btn-rating-na {
+﻿a:active,
+a:visited {
+  color: #ffffff;
+}
+
+.btn-rating-na {
     border: 1px solid transparent;
     color: #444;
     background-color: #ddd;

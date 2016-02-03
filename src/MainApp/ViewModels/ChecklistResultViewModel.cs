@@ -52,12 +52,42 @@ namespace Io.GuessWhat.MainApp.ViewModels
         }
 
         /**
+        Includes the host-name that this guess-what instance is running on.
+        Can be used to create urls (e.g. for the QA Badge) that are accessible
+        from the public.
+        **/
+        public string OriginatingHost
+        {
+            get;
+            set;
+        }
+
+        /**
         The original ChecklistResultModel, as stored in the repository.
         **/
         public ChecklistResultModel Model
         {
             get;
             set;
+        }
+
+        /**
+        The user as it is displayed in the results page.
+        If a UserId was provided, yields "by <UserId>", otherwise "(anonymous)".
+        **/
+        public string UserDisplay
+        {
+            get
+            {
+                if (Model.UserId == null || Model.UserId == string.Empty)
+                {
+                    return "(anonymous)";
+                }
+                else
+                {
+                    return Model.UserId;
+                }
+            }
         }
 
         /**

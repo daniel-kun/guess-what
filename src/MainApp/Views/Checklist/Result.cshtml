@@ -6,8 +6,13 @@
     await Html.RenderPartialAsync("_Disqus", new Io.GuessWhat.MainApp.ViewModels.DisqusViewModel($"c/result/{Model.Model.Id}", $"c/result/{Model.Model.Id}"));
 }
 
+@section js {
+    <script src="~/js/checklist-result.js"></script>
+}
+
 @section css {
     <link href="~/css/check-style.css" rel="stylesheet">
+    <link href="~/css/checklist-result.css" rel="stylesheet">
 }
 
 @section title {

@@ -11,11 +11,22 @@
         <a href="/c/result/@Model.Model.Id">
             <img src="/badge/@(Model.Model.Id).svg" type="image/svg+xml" alt="QA Badge (@Model.CheckedAndOkTotalCount Passed, @Model.CheckedAndNotOkTotalCount Not Passed, @Model.NotCheckedTotalCount Not checked)" width="300" height="132" />
         </a>
+        <div>
+            <div class="badge-action-bar">
+                Copy results for <a href="#" id="jira-badgecode-copy">JIRA</a>, <a href="#" id="github-badgecode-copy">GitHub</a> or as a <a href="#" id="url-badgecode-copy">link</a>.
+            </div>
+            <input type="text" class="badgecode hidden" id="github-badgecode" readonly
+                   value="[![@Model.CheckedAndOkTotalCount Passed, @Model.CheckedAndNotOkTotalCount Not Passed, @Model.NotCheckedTotalCount Not Checked](http://@(Model.OriginatingHost)/badge/@(Model.Model.Id).png)](http://@(Model.OriginatingHost)/c/result/@(Model.Model.Id))"/>
+            <input type="text" class="badgecode hidden" id="jira-badgecode" readonly
+                   value="[!http://@(Model.OriginatingHost)/badge/@(Model.Model.Id).png!|http://@(Model.OriginatingHost)/c/result/@(Model.Model.Id)]" />
+            <input type="text" class="badgecode hidden" id="url-badgecode" readonly
+                   value="http://@(Model.OriginatingHost)/c/result/@(Model.Model.Id)" />
+        </div>
     </div>
 
     <div style="margin-bottom:16px;margin-left:16px;">
         <span class="label label-default" style="text-shadow:none;">Results</span>
-        <span class="label label-success" style="text-shadow:none;">by @Model.Model.UserId</span>
+        <span class="label label-success" style="text-shadow:none;">@Model.UserDisplay</span>
         <span class="label label-primary" style="text-shadow:none;">at @Model.Model.CreationTime.ToString("g")</span>
     </div>
     <div>

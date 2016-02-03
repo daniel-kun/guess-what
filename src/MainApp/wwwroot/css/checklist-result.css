@@ -1,0 +1,14 @@
+﻿div.badge-action-bar {
+    margin-top: 15px;
+    margin-bottom: 3px;
+}
+
+input[type="text"].badgecode {
+    width:300px;
+    background-color:#f0f0f0;
+    border: 1px solid #BCBCBC;
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-bottom: 4px;
+}
+

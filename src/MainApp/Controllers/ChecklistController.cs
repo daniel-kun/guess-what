@@ -43,6 +43,7 @@ namespace Io.GuessWhat.MainApp.Controllers
             } else
             {
                 var viewModel = ChecklistResultViewModel.FromResult(checklistResult);
+                viewModel.OriginatingHost = HttpContext.Request.Host.Value;
                 return View(viewModel);
             }
         }
