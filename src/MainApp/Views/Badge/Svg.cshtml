@@ -1,5 +1,21 @@
 ﻿@{ 
     Layout = null;
+
+    string notOkFill = Model.CheckedAndNotOkTotalCount > 0 ? "fill:red;" : string.Empty;
+    string okFill = Model.CheckedAndNotOkTotalCount <= 0 && Model.CheckedAndOkTotalCount > 0 ? "fill:green;" : string.Empty;
+    string badgeColor;
+    if (Model.CheckedAndNotOkTotalCount > 0)
+    {
+        badgeColor = "#D85C5C";
+    }
+    else if (Model.CheckedAndOkTotalCount > 0)
+    {
+        badgeColor = "green";
+    }
+    else
+    {
+        badgeColor = "#525252";
+    }
 }
 @model Io.GuessWhat.MainApp.ViewModels.ChecklistResultViewModel
 
@@ -19,11 +35,11 @@
             width="497"
             height="217"
             />
-    <circle style="fill:none;stroke:#525252;stroke-width:10"
+    <circle style="fill:none;stroke:@(badgeColor);stroke-width:10"
             cx="100"
             cy="100"
             r="85" />
-    <text style="font-size:74pt;fill:#525252;"
+    <text style="font-size:74pt;fill:@(badgeColor);"
             x="25"
             y="135"
           >
@@ -35,26 +51,26 @@
         by guess-what.io
     </text>
 
-    <text style="font-size:28pt;fill:green;text-anchor:end;"
+    <text style="font-size:28pt;@(okFill);text-anchor:end;"
           x="250"
           y="65">
         @Model.CheckedAndOkTotalCount
     </text>
-    <text style="font-size:28pt;fill:green;text-anchor:start;"
+    <text style="font-size:28pt;@(okFill)text-anchor:start;"
           x="260"
           y="65">
         Passed
     </text>
 
-    <text style="font-size:28pt;fill:red;text-anchor:end;"
+    <text style="font-size:28pt;@(notOkFill)text-anchor:end;"
           x="250"
           y="121">
         @Model.CheckedAndNotOkTotalCount
     </text>
-    <text style="font-size:28pt;fill:red;text-anchor:start;"
+    <text style="font-size:28pt;@(notOkFill)text-anchor:start;"
           x="260"
           y="121">
-        Not Passed
+        Didn't pass
     </text>
 
     <text style="font-size:28pt;fill:#525252;text-anchor:end;"
