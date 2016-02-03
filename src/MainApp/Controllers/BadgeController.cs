@@ -3,6 +3,8 @@ using Io.GuessWhat.MainApp.Repositories;
 using Io.GuessWhat.MainApp.ViewModels;
 using Io.GuessWhat.MainApp.Services;
 using System.IO;
+using Microsoft.AspNet.Http;
+using System;
 
 namespace Io.GuessWhat.MainApp.Controllers
 {
@@ -48,8 +50,9 @@ namespace Io.GuessWhat.MainApp.Controllers
                     // directly write into a pre-created CloudBlob stream.
                     using (var mem = new MemoryStream())
                     {
+                        string host = ApplyHostNameWorkaround(context.HttpContext.Request.Host.Value);
                         var convertTask = mCloudConverter.Convert(
-                            $"http://{context.HttpContext.Request.Host}/badge/{id}.svg",
+                            $"http://{host}/badge/{id}.svg",
                             mem);
                         convertTask.Wait(10 * 1000); // wait a maximum of 10 seconds
                         mem.Position = 0;
@@ -59,6 +62,31 @@ namespace Io.GuessWhat.MainApp.Controllers
                     }
                 }
             });
+        }
+
+        /**
+        This is a workaround for Web Apps running on Azure.
+        
+        It seems that within the Azure Web App, the custom host name for this app is not
+        resolved to the correct IP, hence a WebRequest to that custom host will end up at a different
+        or no HTTP server at all.
+
+        Since guess-what.io is the custom host name, it can not be used to download the SVG badge
+        because of this issue.
+
+        Hence, when host is guess-what.io, the alternative host name guess-what.azurewebsites.net
+        is returned. If host is anything else, it will be returned unaltered.
+        **/
+        private static string ApplyHostNameWorkaround(string host)
+        {
+            if (host.ToUpper() == "guess-what.io".ToUpper())
+            {
+                return "guess-what.azurewebsites.net";
+            }
+            else
+            {
+                return host;
+            }
         }
 
         /**
