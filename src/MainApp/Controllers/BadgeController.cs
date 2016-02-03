@@ -41,6 +41,7 @@ namespace Io.GuessWhat.MainApp.Controllers
                 var blobCopyTask = mBlobStorageService.CopyBlobContentToStream(blobContainer, blobFileName, context.HttpContext.Response.Body);
                 if (blobCopyTask != null)
                 {
+                    HttpContext.Response.ContentType = "image/png";
                     return blobCopyTask;
                 }
                 else
@@ -58,6 +59,7 @@ namespace Io.GuessWhat.MainApp.Controllers
                         mem.Position = 0;
                         mBlobStorageService.UploadBlobFromStream(blobContainer, blobFileName, mem);
                         mem.Position = 0;
+                        HttpContext.Response.ContentType = "image/png";
                         return mem.CopyToAsync(context.HttpContext.Response.Body);
                     }
                 }
