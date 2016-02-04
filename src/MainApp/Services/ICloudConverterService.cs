@@ -8,6 +8,6 @@ namespace Io.GuessWhat.MainApp.Services
     **/
     public interface ICloudConverterService
     {
-        Task Convert(string svgSourceUrl, Stream output);
+        Task Convert(string svgSourceUrl, string fileName, Stream output);
     }
 }

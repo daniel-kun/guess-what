@@ -73,6 +73,7 @@ namespace Io.GuessWhat.MainApp.Controllers
                         string host = ApplyHostNameWorkaround(context.HttpContext.Request.Host.Value);
                         var convertTask = mCloudConverter.Convert(
                             $"http://{host}/badge/{id}.svg",
+                            id,
                             mem);
                         convertTask.Wait(10 * 1000); // wait a maximum of 10 seconds
                         mem.Position = 0;

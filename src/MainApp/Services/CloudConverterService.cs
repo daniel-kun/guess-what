@@ -13,7 +13,7 @@ namespace Io.GuessWhat.MainApp.Services
             mSettings = settings.Value;
         }
 
-        public Task Convert(string svgSourceUrl, Stream output)
+        public Task Convert(string svgSourceUrl, string fileName, Stream output)
         {
             var svgRequest = WebRequest.CreateHttp(svgSourceUrl);
             string svgBase64 = null;
@@ -26,8 +26,9 @@ namespace Io.GuessWhat.MainApp.Services
             {
                 var convertRequest = WebRequest.CreateHttp(
                     String.Format(
-                        @"https://api.cloudconvert.com/convert?apikey={0}&input=base64&filename=foo.svg&download=inline&inputformat=svg&outputformat=png&file={1}",
+                        @"https://api.cloudconvert.com/convert?apikey={0}&input=base64&filename={1}.svg&download=inline&inputformat=svg&outputformat=png&file={2}",
                         mSettings.CloudConvertApiKey,
+                        fileName,
                         svgBase64));
                 return convertRequest.GetResponse().GetResponseStream().CopyToAsync(output);
             } else
