@@ -12,7 +12,7 @@ namespace Io.GuessWhat.MainApp.ViewModels
         /**
         Maximum text length for the Items property.
         **/
-        public static readonly int ItemsMaxLength = 4000;
+        public static readonly int ItemsMaxLength = 40000;
 
         /// @see ChecklistModel.Title
         public string Title
