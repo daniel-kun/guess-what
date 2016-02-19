@@ -13,14 +13,17 @@
         </a>
         <div>
             <div class="badge-action-bar">
-                Copy results for <a href="#" id="jira-badgecode-copy">JIRA</a>, <a href="#" id="github-badgecode-copy">GitHub</a> or as a <a href="#" id="url-badgecode-copy">link</a>.
+                Copy results for <a href="#" id="jira-badgecode-copy">JIRA</a>, <a href="#" id="github-badgecode-copy">GitHub</a>, <a href="#" id="redmine-badgecode-copy">Redmine</a> or as a <a href="#" id="url-badgecode-copy">link</a>.
             </div>
             <input type="text" class="badgecode hidden" id="github-badgecode" readonly
                    value="[![@Model.CheckedAndOkTotalCount Passed, @Model.CheckedAndNotOkTotalCount Not Passed, @Model.NotCheckedTotalCount Not Checked](http://@(Model.OriginatingHost)/badge/@(Model.Model.Id).png)](http://@(Model.OriginatingHost)/c/result/@(Model.Model.Id))"/>
             <input type="text" class="badgecode hidden" id="jira-badgecode" readonly
                    value="[!http://@(Model.OriginatingHost)/badge/@(Model.Model.Id).png!|http://@(Model.OriginatingHost)/c/result/@(Model.Model.Id)]" />
+            <input type="text" class="badgecode hidden" id="redmine-badgecode" readonly
+                   value="!http://@(Model.OriginatingHost)/badge/@(Model.Model.Id).png!:http://@(Model.OriginatingHost)/c/result/@(Model.Model.Id)" />
             <input type="text" class="badgecode hidden" id="url-badgecode" readonly
                    value="http://@(Model.OriginatingHost)/c/result/@(Model.Model.Id)" />
+            <span class="label label-warning hidden" id="badgecode-copy-notice">copied to clipboard</span>
         </div>
     </div>
 
