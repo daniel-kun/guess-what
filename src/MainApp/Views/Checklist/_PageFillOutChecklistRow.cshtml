@@ -22,7 +22,7 @@
         </td>
     </tr>
     foreach(var childItem in Model.Item.Items) {
-        await Html.RenderPartialAsync("_PageFillOutChecklistRow", new Io.GuessWhat.MainApp.ViewModels.ChecklistViewItem() { Item = childItem, IndentationLevel = currentIndentation + 1, ParentId = Model.Item.Id });
+        await Html.RenderPartialAsync("_PageFillOutChecklistRow", new Io.GuessWhat.MainApp.ViewModels.ChecklistViewItem() { Item = childItem, IndentationLevel = Model.IndentationLevel + 1, ParentId = Model.Item.Id });
     }
 }
 else
