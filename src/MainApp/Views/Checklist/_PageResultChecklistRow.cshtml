@@ -14,10 +14,10 @@
             <span style="color:green;font-weight:bold;">Yes</span>
             break;
         case Io.GuessWhat.MainApp.Models.ChecklistResult.CheckedAndNotOk:
-            <span style="color:red;font-weight:bold">No</span>
+            <span style="color:red;">(error)</span>
             break;
         case Io.GuessWhat.MainApp.Models.ChecklistResult.NotChecked:
-            <span style="color:red;">(error)</span>
+            <span style="color:darkgray;font-weight:bold">No</span>
             break;
     }
     </td>
@@ -25,12 +25,13 @@
         <span style="font-weight:bold;margin-left:@(currentIndentation)px;">@Model.TemplateItem.Title</span>
     </td>
     </tr>
-    @foreach(var item in Model.Items)
-    {
-        await Html.RenderPartialAsync("_PageResultChecklistRow", item);
+    @if (Model.ResultItem.Result == Io.GuessWhat.MainApp.Models.ChecklistResult.CheckedAndOk) {
+        foreach (var item in Model.Items)
+        {
+            await Html.RenderPartialAsync("_PageResultChecklistRow", item);
+        }
     }
-}
-else {
+} else {
     <tr>
     <td class="text-right" style="width:120px;">
     @if (Model.ResultItem != null)

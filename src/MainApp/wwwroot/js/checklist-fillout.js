@@ -1,10 +1,10 @@
 ﻿/**
 Extracts and returns the id of a ChecklistTemplate, ChecklistItem or similar from
-an element's id.
+an element's id, that usually has a prefix.
 Example:
-getEntityIdFromElementId("checked_", "checked_SOMERANDOMGUID") -> "SOMERANDOMGUID"
+getPrefixedIdFromElementId("checked_", "checked_SOMERANDOMGUID") -> "SOMERANDOMGUID"
 **/
-function getEntityIdFromElementId(prefix, elementId) {
+function getPrefixedIdFromElementId(prefix, elementId) {
     if (elementId.slice(0, prefix.length) == prefix) {
         return elementId.slice(prefix.length);
     } else {
@@ -59,57 +59,100 @@ function colorClassFromCheckboxType(checkboxType)
 }
 
 /**
-Toggle "checked" state for a's that have the checkbox class
+Returns and object { id: <template item id>, checkboxType: <0, 1 or 2> } where id is the
+template item's id and checkboxType is 0 when element is an "OK" checkbox, "1" when it is a
+"Not OK" checkbox and 2 when it is a "Not Checked" checkbox. 
+**/
+function getEntityIdAndCheckBoxTypeFromElement(element) {
+    var elementId = element.prop("id");
+    var checklistItemId = getPrefixedIdFromElementId("check_ok_", elementId);
+    var checkboxType; // 0 = OK, 1 = Not OK, 2 = Not Checked
+    if (checklistItemId != "") {
+        // It was the "check_ok" checkbox that was clicked - remove the other checkmarks
+        return { id: checklistItemId, checkboxType: 0 };
+    } else {
+        checklistItemId = getPrefixedIdFromElementId("check_not_ok_", elementId);
+        if (checklistItemId != "") {
+            // It was the "check_not_ok" checkbox that was clicked - remove the other checkmarks
+            return { id: checklistItemId, checkboxType: 1 };
+        } else {
+            // It must have been the "not_checked" checkbox that was clicked - remove the other checkmarks
+            checklistItemId = getPrefixedIdFromElementId("not_checked_", elementId);
+            return { id: checklistItemId, checkboxType: 2 };
+        }
+    }
+    throw { errorCode: 1, message: "Could not identify checkbox type of element " + element }
+}
+
+/**
+Returns true when the row with the template item id checklistItemId should be expanded (i.e. "OK" is checked)
+or false when it shall be collapsed.
+**/
+function shouldRowExpand(checklistItemId)
+{
+    return $("#check_ok_" + checklistItemId).hasClass("checkbox-checked");
+}
+
+/**
+Expands or collapsed the children of checklistItemId.
+@param checklistItemId The template item id of the row which children's collapsed state should be updated.
+@param isParentCollapsed True when the parent is collapsed and hence all children shall be collapsed
+disregarding the checklistItemId's and the childrens check state. False when the parent is not collapsed
+and the checklistItemId's children and their childrin shall be expanded or collapsed according to
+their parent's check state.
+**/
+function updateExpandState(checklistItemId, isParentCollapsed)
+{
+    if (isParentCollapsed || !shouldRowExpand(checklistItemId)) {
+        $("tr.checklistrow-parent-" + checklistItemId).each(function () {
+            $(this).addClass("checklistrow-collapsed");
+            var childItemId = getPrefixedIdFromElementId("check_", $(this).prop("id"));
+            updateExpandState(childItemId, true);
+        });
+    } else {
+        $("tr.checklistrow-parent-" + checklistItemId).each(function () {
+            $(this).removeClass("checklistrow-collapsed");
+            var childItemId = getPrefixedIdFromElementId("check_", $(this).prop("id"));
+            updateExpandState(childItemId, false);
+        });
+    }
+}
+
+/**
+Toggle "checked" state for a's that have the checkbox class, after the a has been clicked.
 **/
 $(function () {
     $("a.checkbox").each(function () {
         $(this).click(function (e) {
             e.preventDefault();
-            var checklistItemId = getEntityIdFromElementId("check_ok_", $(this).prop("id"));
-            var checkboxType; // 0 = OK, 1 = Not OK, 2 = Not Checked
-            if (checklistItemId != "") {
-                // It was the "check_ok" checkbox that was clicked - remove the other checkmarks
-                checkboxType = 0;
-                uncheckCheckmark($("#check_not_ok_" + checklistItemId), colorClassFromCheckboxType(1));
-                uncheckCheckmark($("#not_checked_" + checklistItemId), colorClassFromCheckboxType(2));
-            } else {
-                checklistItemId = getEntityIdFromElementId("check_not_ok_", $(this).prop("id"));
-                if (checklistItemId != "") {
-                    // It was the "check_not_ok" checkbox that was clicked - remove the other checkmarks
-                    checkboxType = 1;
+            var entityIdAndCheckBoxType = getEntityIdAndCheckBoxTypeFromElement($(this));
+            var checklistItemId = entityIdAndCheckBoxType.id;
+            var checkboxType = entityIdAndCheckBoxType.checkboxType; // 0 = OK, 1 = Not OK, 2 = Not Checked
+            switch (checkboxType) {
+                case 0:
+                    uncheckCheckmark($("#check_not_ok_" + checklistItemId), colorClassFromCheckboxType(1));
+                    uncheckCheckmark($("#not_checked_" + checklistItemId), colorClassFromCheckboxType(2));
+                    break;
+                case 1:
                     uncheckCheckmark($("#check_ok_" + checklistItemId), colorClassFromCheckboxType(0));
                     uncheckCheckmark($("#not_checked_" + checklistItemId), colorClassFromCheckboxType(2));
-                } else {
-                    // It must have been the "not_checked" checkbox that was clicked - remove the other checkmarks
-                    checklistItemId = getEntityIdFromElementId("not_checked_", $(this).prop("id"));
-                    checkboxType = 2;
+                    break;
+                default:
                     uncheckCheckmark($("#check_ok_" + checklistItemId), colorClassFromCheckboxType(0));
                     uncheckCheckmark($("#check_not_ok_" + checklistItemId), colorClassFromCheckboxType(1));
-                }
+                    break;
             }
             if (checklistItemId != "") {
                 $("#check_ok_"      + checklistItemId).removeClass("checkbox-unvisited");
                 $("#check_not_ok_"  + checklistItemId).removeClass("checkbox-unvisited");
                 $("#not_checked_"   + checklistItemId).removeClass("checkbox-unvisited");
             }
-            var wasChecked = $(this).hasClass("checkbox-checked");
-            if (wasChecked) {
+            if ($(this).hasClass("checkbox-checked")) {
                 uncheckCheckmark($(this), colorClassFromCheckboxType(checkboxType));
             } else {
                 checkCheckmark($(this), colorClassFromCheckboxType(checkboxType));
             }
-            // If this is a parent row, collapse / expand the child rows:
-            if ($(this).hasClass("checklistrow-parent")) {
-                if (checkboxType == 0 && ! wasChecked) {
-                    $("tr.checklistrow-parent-" + checklistItemId).each(function () {
-                        $(this).removeClass("checklistrow-collapsed");
-                    });
-                } else {
-                    $("tr.checklistrow-parent-" + checklistItemId).each(function () {
-                        $(this).addClass("checklistrow-collapsed");
-                    });
-                }
-            }
+            updateExpandState(checklistItemId, false);
         });
     });
 });
@@ -131,7 +174,7 @@ function fillRequests(resultItems)
         if (!$(this).hasClass("checklistrow-collapsed")) {
             var tableRowId = $(this)[0].id;
             var prefix = "check_";
-            var checklistTemplateItemId = getEntityIdFromElementId("check_", tableRowId);
+            var checklistTemplateItemId = getPrefixedIdFromElementId("check_", tableRowId);
             if (checklistTemplateItemId != "") {
                 var result = "";
                 if ($("#check_ok_" + checklistTemplateItemId).hasClass("checkbox-checked")) {

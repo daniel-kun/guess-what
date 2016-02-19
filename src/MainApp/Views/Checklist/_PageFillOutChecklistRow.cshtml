@@ -1,12 +1,13 @@
 ﻿@model Io.GuessWhat.MainApp.ViewModels.ChecklistViewItem
 @{
     int currentIndentation = Model.IndentationLevel * 15;
-    string checklistRowClass = currentIndentation == 0 ? "checklistrow-expanded" : "checklistrow-collapsed";
+    string checklistRowCollapsedClass = currentIndentation == 0 ? "checklistrow-expanded" : "checklistrow-collapsed";
+    string checklistRowParentClass = @Model.ParentId == null || @Model.ParentId.Length == 0 ? string.Empty : $"checklistrow-parent-{Model.ParentId}";
 }
 @if (Model.Item.Items != null && Model.Item.Items.Count > 0)
 {
     <!-- This is a parent row: -->
-    <tr class="marker-checkcell" id="check_@Model.Item.Id">
+    <tr class="marker-checkcell @checklistRowCollapsedClass @checklistRowParentClass" id="check_@Model.Item.Id">
         <td style="vertical-align:middle;" colspan="2">
             <span style="vertical-align:middle;color:#333;margin-left:@(currentIndentation)px;font-weight:bold;">@Model.Item.Title</span>
         </td>
@@ -28,7 +29,7 @@
 else
 {
     <!-- This is a child row: -->
-    <tr class="marker-checkcell @checklistRowClass checklistrow-parent-@Model.ParentId" id="check_@Model.Item.Id">
+    <tr class="marker-checkcell @checklistRowCollapsedClass @checklistRowParentClass" id="check_@Model.Item.Id">
         <td style="vertical-align:middle;">
             <span style="vertical-align:middle;color:#333;margin-left:@(currentIndentation)px;">@Model.Item.Title</span>
         </td>
