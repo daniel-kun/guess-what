@@ -22,7 +22,7 @@
     }
     </td>
     <td>
-        <span class="markdown" style="font-weight:bold;margin-left:@(currentIndentation)px;">@Html.Raw(Model.TitleAsHtml)</span>
+        <div class="markdown" style="font-weight:bold;margin-left:@(currentIndentation)px;">@Html.Raw(Model.TitleAsHtml)</div>
     </td>
     </tr>
     @if (Model.ResultItem.Result == Io.GuessWhat.MainApp.Models.ChecklistResult.CheckedAndOk) {
@@ -53,7 +53,7 @@
     }
     </td>
     <td>
-        <span class="markdown" style="margin-left:@(currentIndentation)px;">@Html.Raw(Model.TitleAsHtml)</span>
+        <div class="markdown" style="margin-left:@(currentIndentation)px;">@Html.Raw(Model.TitleAsHtml)</div>
     </td>
     </tr>
 }
