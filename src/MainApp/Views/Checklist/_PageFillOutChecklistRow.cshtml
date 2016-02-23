@@ -9,7 +9,7 @@
     <!-- This is a parent row: -->
     <tr class="marker-checkcell @checklistRowCollapsedClass @checklistRowParentClass" id="check_@Model.Item.Id">
         <td style="vertical-align:middle;" colspan="2">
-            <span style="vertical-align:middle;color:#333;margin-left:@(currentIndentation)px;font-weight:bold;">@Model.Item.Title</span>
+            <span class="markdown" style="vertical-align:middle;color:#333;margin-left:@(currentIndentation)px;font-weight:bold;">@Html.Raw(Model.TitleAsHtml)</span>
         </td>
         <td class="checkcell" style="width:90px;">
             @{
@@ -31,7 +31,7 @@ else
     <!-- This is a child row: -->
     <tr class="marker-checkcell @checklistRowCollapsedClass @checklistRowParentClass" id="check_@Model.Item.Id">
         <td style="vertical-align:middle;">
-            <span style="vertical-align:middle;color:#333;margin-left:@(currentIndentation)px;">@Model.Item.Title</span>
+            <span class="markdown" style="vertical-align:middle;color:#333;margin-left:@(currentIndentation)px;">@Html.Raw(Model.TitleAsHtml)</span>
         </td>
         <td class="checkcell" style="width:60px;">
             @{

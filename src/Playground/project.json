@@ -19,6 +19,7 @@
   },
 
   "dependencies": {
+    "CommonMark.NET": "0.11.0",
     "MainApp": "1.0.0-*",
     "MongoDB.Bson": "2.2.0",
     "MongoDB.Driver": "2.2.0",

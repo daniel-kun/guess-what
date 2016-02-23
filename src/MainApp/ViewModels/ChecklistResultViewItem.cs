@@ -41,6 +41,19 @@ namespace Io.GuessWhat.MainApp.ViewModels
         }
 
         /**
+        Returns the TemplateItem's title, that can contain markdown, formatted as HTML, ready to be
+        rendered with Html.Raw in a view.
+        TODO: This code is duplicated in ChecklistViewItem.TitleAsHtml
+        **/
+        public string TitleAsHtml
+        {
+            get
+            {
+                return CommonMark.CommonMarkConverter.Convert(TemplateItem.Title);
+            }
+        }
+
+        /**
         The level of indentation. This is 0 for top-level ChecklistResultItems, 1 for
         the children of top-level ChecklistResultItems, 2 for the children of children, and so on.
         **/

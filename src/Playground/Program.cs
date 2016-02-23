@@ -12,13 +12,8 @@ namespace Io.GuessWhat.Playground
     {
         public static int Main(string[] args)
         {
-            var account = Microsoft.WindowsAzure.Storage.CloudStorageAccount.Parse(
-                "DefaultEndpointsProtocol=https;AccountName=guesswhatbadges;AccountKey=KPAq/jZtjX3g4E7BAZVdip6lwKEmwlf083DNg0yVSGaYrst9TismGctP+iq34QIwy6CsfoBhH34hzEZANBdcGQ==;BlobEndpoint=https://guesswhatbadges.blob.core.windows.net/;TableEndpoint=https://guesswhatbadges.table.core.windows.net/;QueueEndpoint=https://guesswhatbadges.queue.core.windows.net/;FileEndpoint=https://guesswhatbadges.file.core.windows.net/");
-            var blobClient = account.CreateCloudBlobClient();
-            var badgesContainer = blobClient.GetContainerReference("badges");
-            var fooPngBlob = badgesContainer.GetBlockBlobReference("foo.png");
-            fooPngBlob.UploadFromFile(@"C:\Temp\foo.png", FileMode.Open);
-            Console.WriteLine(fooPngBlob.Uri.ToString());
+            var html = CommonMark.CommonMarkConverter.Convert("*Foobar* **Bold!** [Google](http://www.google.com)");
+            Console.WriteLine(html);
             Console.ReadLine();
             return 0;
         }

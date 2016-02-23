@@ -75,3 +75,7 @@ tr.checklistrow-collapsed {
 
 tr.checklistrow-expanded {
 }
+
+span.markdown > p {
+    margin: 0;
+}

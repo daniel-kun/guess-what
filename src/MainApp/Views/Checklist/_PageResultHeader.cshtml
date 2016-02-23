@@ -33,8 +33,6 @@
         <span class="label label-primary" style="text-shadow:none;">at @Model.Model.CreationTime.ToString("g")</span>
     </div>
     <div>
-        <span style="color:#333333;padding-left: 15px;">
-            @Model.Model.Template.Description
-        </span>
+        @Html.Raw(CommonMark.CommonMarkConverter.Convert(Model.Model.Template.Description))
     </div>
 </div>
