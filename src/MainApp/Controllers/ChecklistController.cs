@@ -3,15 +3,17 @@ using Io.GuessWhat.MainApp.Repositories;
 using Io.GuessWhat.MainApp.Models;
 using System;
 using Io.GuessWhat.MainApp.ViewModels;
+using Io.GuessWhat.MainApp.Services;
 
 namespace Io.GuessWhat.MainApp.Controllers
 {
     [Route("c")]
     public class ChecklistController : Controller
     {
-        public ChecklistController (IChecklistRepository checklistRepository)
+        public ChecklistController (IChecklistRepository checklistRepository, ISpamDetectionService spamDetectionService)
         {
             mChecklistRepository = checklistRepository;
+            mSpamDetectionService = spamDetectionService;
         }
 
         [HttpGet]
@@ -85,11 +87,22 @@ Checklist Item #3
         public IActionResult New(ChecklistViewModel viewModel)
         {
             var model = ChecklistModel.FromViewModel(viewModel);
-            mChecklistRepository.SaveChecklistModel(model);
-            return Redirect($"/c/{model.Id}");
+            if (!mSpamDetectionService.IsSpamDescription(model.Description))
+            {
+                // No Spam
+                mChecklistRepository.SaveChecklistModel(model);
+                return Redirect($"/c/{model.Id}");
+            }
+            else
+            {
+                // This is SPAM! Don't save the result and redirect
+                // to some random result so that the spam-poster thinks
+                // it was successful.
+                return Redirect($"/c/UFlFEI2RY0CbyPhPvmoqAQ");
+            }
         }
 
         private IChecklistRepository mChecklistRepository;
-
+        private ISpamDetectionService mSpamDetectionService;
     }
 }

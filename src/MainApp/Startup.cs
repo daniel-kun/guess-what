@@ -25,6 +25,9 @@ namespace Io.GuessWhat.MainApp
             // Configure Azure Blob Storage service:
             services.AddSingleton<Services.IAzureBlobStorageService, Services.AzureBlobStorageService>();
 
+            // Configure Spam Detection service:
+            services.AddSingleton<Services.ISpamDetectionService, Services.SpamDetectionService>();
+
             services.AddMvc();
             services.AddApplicationInsightsTelemetry(Configuration);
         }
