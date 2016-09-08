@@ -87,7 +87,7 @@ Checklist Item #3
         public IActionResult New(ChecklistViewModel viewModel)
         {
             var model = ChecklistModel.FromViewModel(viewModel);
-            if (!mSpamDetectionService.IsSpamDescription(model.Description))
+            if (!mSpamDetectionService.IsSpamDescription(model.Description) && string.IsNullOrEmpty(viewModel.LeaveMeAlone))
             {
                 // No Spam
                 mChecklistRepository.SaveChecklistModel(model);

@@ -28,6 +28,15 @@ namespace Io.GuessWhat.MainApp.ViewModels
             set;
         }
 
+        /**
+        This is a honeypot that can not be filled by humans, but only by spam bots:
+        **/
+        public string LeaveMeAlone
+        {
+            get;
+            set;
+        }
+
         /*
         Stores a multi-line text representation of @see ChecklistModel.Items.
         See ChecklistController.CreateChecklistItemsFromText for the rules how this Items

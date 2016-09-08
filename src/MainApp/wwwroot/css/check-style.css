@@ -79,3 +79,7 @@ tr.checklistrow-expanded {
 span.markdown > p {
     margin: 0;
 }
+
+input.secret {
+    display: none;
+}
